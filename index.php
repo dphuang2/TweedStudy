@@ -17,7 +17,7 @@ session_start();
         <!-- Twitter Feed -->
         <div class="col-xs-8" id="feed">
   				<?php
-                  // Importing all functions 
+                  // Importing all functions
                       include 'src/saveToSQL.php'; // Save current user's tweets to SQL database
                       include 'src/getData.php'; // Fetch data and put it into cache
                       include 'src/printEachTweet.php'; // Formatting for each tweet
@@ -35,58 +35,77 @@ session_start();
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])=='') {
                           $_SESSION['data_in_db'] = false;
                       }
-                      
-                      function controlPanel() {     
+
+                      function controlPanel() {
                       }
-                      
+
                   // Authorization
                       include 'src/authorization.php';
-                      
+
                       echo "<br>";
-                      
+
                   //SaveToSQL if data_in_db is false
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
                           $_SESSION['data_in_db'] = true;
-                          saveToSQL($connection, $user);
+
+												// Initialize $max_id variable
+													$next_max_id = null;
+
+													echo "The if statement is true <br>";
+												// While there are still tweets, run saveToSQL
+													while(true){
+														echo "The while statement is true <br>";
+
+														$next_max_id_temp = $next_max_id;
+														$next_max_id = saveToSQL($connection, $user, $next_max_id_temp);
+
+														$next_max_id_str = (string) $next_max_id;
+														echo "The next_max_id is " . $next_max_id_str . "<br>";
+
+														if($next_max_id == $next_max_id_temp || $next_max_id == null){
+															break;
+														}
+
+													}
+
+												// saveToSQL($connection, $user, $last_max_id);
+
                       }
 
-                  // Location for trends
+									// Location for trends
                       $user_ip = getenv('REMOTE_ADDR');
                       $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
                       $country = $geo["geoplugin_countryName"];
                       $city = $geo["geoplugin_city"];
-                      
+
                       $place = $connection->get("geo/search", array("query",$city));
-                      
+
                       //                    if ($city == "") {
                       if (!is_numeric($place)) {
-                          $place = 23424977;
+                          $place = strval(23424977);
                       }
-                      
+
                       $trends = $connection->get("trends/place", array("id" => $place));
-                      
+
                       $trends = json_decode(json_encode($trends),true);
-                      
-                      //                    print_r($trends["trends"]);
-                      
+
                       $trendsArray = array();
-                      
-                      foreach ($trends["trends"] as $trend) {
-                          //$trendsArray[$trend["tweet_volume"]]=$trend["name"]; //or "query"
+
+                      foreach ($trends[0]["trends"] as $trend) {
                           $trendsArray[]=$trend["name"];
                       }
-                      
+
                       // $filter = $_GET['filter'];
-                      
-                      
+
+
                       //                    if($_SERVER["REQUEST_METHOD"] == "GET"){ //If a server request has been made, update filter word.
                       //                        //Switch to change from filtering by sentiment or specific word.
                       //
                       //                    }
                       //
-                      
-                      
-                      
+
+
+
                       //									if($happyValueArray[$key] > 0){
                       //									if($happyValueArray[$key] < 0){
                       //                                if($tweet['user']['verified']){
@@ -103,17 +122,18 @@ session_start();
                       //                            case "Infrequent":
                       //                                if($posterFrequency[$key] < 10000){
 
-                  // Print tweets 
+                  // Print tweets
                       printTweets_SQL($user);
-                      
+
+
   				?>
 
   			</div>
         <!-- Control Panel -->
-  			<div class="col-xs-4 totop"> 
+  			<div class="col-xs-4 totop">
           <button>Hide/Show</button>
-          <div id="newpost">			
-                
+          <div id="newpost">
+
                 <?php
       					echo "Logged in as ".$user->screen_name;
       					echo "<img src='".$user->profile_image_url."' alt='error'>";
@@ -173,14 +193,14 @@ session_start();
 //            {
 //                if($_SESSION['sentiment_positive'].value==false){
 //                    $_SESSION['sentiment_positive'].value=true;}
-//                
+//
 //                else {
 //                    $_SESSION['sentiment_positive'].value=false;}
 //            };
 
   //                function buttonChange() {
   ////                    var buttonVal
-  //                
+  //
   //                }
 
       $("button").on('click', function( event ) {
@@ -211,9 +231,9 @@ session_start();
                      // and will replace it with (hopefully correctly formatted html) from responseText
                      // so ideally responseText will already be formatted right (ie.
                      // the output of printTweet)
-                     
+
                      $.ajax({
-                            
+
                             type: "POST",
                             url: "src/pass_value.php",
                             data: { dataString: dataString },
@@ -227,10 +247,10 @@ session_start();
 
                             }
                             });
-                     
+
                      return false;
-                     
-                     
+
+
   //                  # PUT THE AJAX SESSION VARIABLE UPDATE HERE!
   //                               if ( elem.attr( "id" ).match("sentiment_positive")) {
   //                               #testString = "$test = ($_SESSION['" + elem.attr("id") + "'].value) ? 'true' : 'false'; echo $test;";
@@ -238,7 +258,7 @@ session_start();
   //                               } else {
   //                                       alert("something not working");
   //                               }
-                  
+
                      // alert("<?php $test = ($_SESSION['sentiment_positive'].value) ? 'true' : 'false'; echo $test ?>");
                });
 
@@ -247,7 +267,7 @@ session_start();
   ////                                             <?php
   ////                                             if($_SESSION['sentiment_positive'].value==false){
   ////                                                 $_SESSION['sentiment_positive'].value=true;}
-  ////                             
+  ////
   ////                                             else {
   ////                                             $_SESSION['sentiment_positive'].value=false;} ?>
   //                                         var elem = $( this );

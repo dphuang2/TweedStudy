@@ -1,6 +1,6 @@
 
 <?php
-    function saveToSQL($connection,$user) {
+    function saveToSQL($connection,$user,$max_id) {
         $servername = "engr-cpanel-mysql.engr.illinois.edu";
         $username = "twitterf_user";
         $password = "IIA@kT$7maLt";
@@ -25,9 +25,14 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-    // Pagination here using cursor string
+    // GET from timeline and set $next_max_id
 
-        $json = $connection->get("statuses/home_timeline", array("count" => 800, "include_entities" => true));
+      // If this is the first GET, don't put $max_id as parameter
+        if($max_id == null){
+          $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true));
+        }else{
+          $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true, "max_id" => $max_id));
+        }
 
     // prepare and bind
         $stmt = $conn->prepare("INSERT INTO data (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -61,6 +66,9 @@
             $response = json_decode($jsonTweets,true);
         // Evaluate each response
             foreach($response as $key => $tweet){
+
+            // Set $next_max_id and return it
+                $next_max_id = $tweet['id'];
 
             // Initalize user parameters
                 $userUrl = $tweet['user']['url'];
@@ -162,6 +170,8 @@
 
 
             }
+
+            return $next_max_id;
 
             $stmt->close();
 

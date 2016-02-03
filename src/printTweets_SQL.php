@@ -1,18 +1,18 @@
 <?php
 	function printTweets_SQL($user){
-	    
+
 	//SQL Authorization
 	    $servername = "engr-cpanel-mysql.engr.illinois.edu";
 	    $username = "twitterf_user";
 	    $password = "IIA@kT$7maLt";
 	    $dbname = "twitterf_tweet_store";
-	    
+
 	    $db = new mysqli($servername, $username, $password, $dbname);
-	    
+
 	    if($db->connect_errno > 0){
 	        die('Unable to connect to database [' . $db->connect_error . ']');
 	    }
-	    
+
 	    $user = json_decode(json_encode($user),true);
 	    $userid = $user["id"];
 	    $username = $user["name"];
@@ -25,8 +25,8 @@
        $unverified_bool = $_SESSION['unverified'];
        $sentimentPos_bool = $_SESSION['sentiment_positive'];
        $sentimentNeg_bool = $_SESSION['sentiment_negative'];
-	    
-	    
+
+
 	    // (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags)
 
 	//Create array of booleans and their corresponding statement
@@ -50,23 +50,23 @@
                $sql_filter .= $statement[1];
            }
        }
-	
+
 	    echo 'USERID IS ' . $userid . "<br>";
 	//Compose statement
 	    $sql_syntax = "SELECT * FROM `data` WHERE user_id = {$userid} ";
-	    
-	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date LIMIT 600";
-	
+
+	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date DESC LIMIT 600";
+
 		echo $sql;
 	//Print each tweet
 	    if(!$result = $db->query($sql)){
 	        die('There was an error running the query [' . $db->error . ']');
 	    }
-	    
+
 	    while($row = $result->fetch_assoc()){
 	        printEachTweet($row);
 	    }
-	    
+
 	    $db->close();
 	}
 ?>

@@ -6,7 +6,7 @@
 	include 'printEachTweet.php';
 	include 'printTweets_SQL.php';
 	include 'saveToSQL.php';
-	
+
 //SaveToSQL if data_in_db is false
 	if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
 	    $_SESSION['data_in_db'] = true;
