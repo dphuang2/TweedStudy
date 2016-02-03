@@ -42,7 +42,7 @@ session_start();
                   // Authorization
                       include 'src/authorization.php';
 
-                      echo "<br> test";
+                      echo "<br>";
 
                   //SaveToSQL if data_in_db is false
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
