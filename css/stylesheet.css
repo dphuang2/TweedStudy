@@ -1,0 +1,19 @@
+.totop {
+position:fixed;
+right: 0px;
+}
+
+.tweet:hover{
+	background-color:#eeeeea;
+}
+
+hr { margin: 0px; }
+
+.astext {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+}
+
+.classWithPad { margin:10px; padding:10px; }
