@@ -28,11 +28,11 @@
 
 
     $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_access_token'], $_SESSION['oauth_access_token_secret']);
-
+// Create $user variable from connection and store $user["id"] as session variable
     $user = $connection->get("account/verify_credentials");
-
-// Set user as session variable
-    $_SESSION["user"] = $user;
+    $user_id = json_decode(json_encode($user),true);
+    $user_id = $user_id["id"];
+    $_SESSION["user_id"] = $user_id;
 
     //                    echo $_SESSION['oauth_access_token'];
     //                    echo "<br>";

@@ -1,14 +1,13 @@
 
 <?php
-    function saveToSQL($connection,$user,$max_id,$cursor) {
+    function saveToSQL($connection,$max_id,$cursor) {
         $servername = "engr-cpanel-mysql.engr.illinois.edu";
         $username = "twitterf_user";
         $password = "IIA@kT$7maLt";
         $dbname = "twitterf_tweet_store";
 
-    // Initalize user variable
-        $user = json_decode(json_encode($user),true);
-        $userid = $user["id"];
+    // Initalize userid variable with session "user_id"
+        $userid = $_SESSION["user_id"];
 
     /** Array of Happy and Sad words using external .txt file. **/
         $happyWords = explode(PHP_EOL, file_get_contents("happyWords.txt"));
@@ -38,9 +37,9 @@
         }
     // GET friends/list
         if($cursor == null){
-          $json_friends = $connection->get("friends/list", array("user_id" => $userid))
+          $json_friends = $connection->get("friends/list", array("user_id" => $userid));
         }else{
-          $json_friends = $connection->get("friends/list", array("user_id" => $userid, "cursor" => $cursor))
+          $json_friends = $connection->get("friends/list", array("user_id" => $userid, "cursor" => $cursor));
         }
 
     // prepare and bind
@@ -55,7 +54,6 @@
 
     // Check if you can't bind parameters
         $rc = $stmt_data->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
-
         if ( false===$rc ) {
             // again execute() is useless if you can't bind the parameters. Bail out somehow.
             die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));

@@ -1,5 +1,5 @@
 <?php
-	function printTweets_SQL($user){
+	function printTweets_SQL(){
 
 	//SQL Authorization
 	    $servername = "engr-cpanel-mysql.engr.illinois.edu";
@@ -13,9 +13,8 @@
 	        die('Unable to connect to database [' . $db->connect_error . ']');
 	    }
 
-	    $user = json_decode(json_encode($user),true);
-	    $userid = $user["id"];
-	    $username = $user["name"];
+			$user_id = $_SESSION["user_id"];
+
 	//Retrieve session booleans
        $popular_bool = $_SESSION['tweet_popular'];
        $unpopular_bool = $_SESSION['tweet_unpopular'];
@@ -50,10 +49,10 @@
                $sql_filter .= $statement[1];
            }
        }
-
-	    echo 'USERID IS ' . $userid . "<br>";
+			 
+	    echo 'USERID IS ' . $user_id . "<br>";
 	//Compose statement
-	    $sql_syntax = "SELECT * FROM `data` WHERE user_id = {$userid} ";
+	    $sql_syntax = "SELECT * FROM `data` WHERE user_id = {$user_id} ";
 
 	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date DESC LIMIT 600";
 

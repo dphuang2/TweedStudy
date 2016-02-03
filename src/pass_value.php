@@ -1,17 +1,20 @@
 <?php
 	session_start();
 
-	include 'authorization.php';
+// include 'authorization.php';
+
+// Import all functions
 	include 'echoStatement.php';
 	include 'printEachTweet.php';
 	include 'printTweets_SQL.php';
 	include 'saveToSQL.php';
 
 //SaveToSQL if data_in_db is false
-	if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
-	    $_SESSION['data_in_db'] = true;
-	    saveToSQL($connection, $user);
-	}
+	// if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
+	//     $_SESSION['data_in_db'] = true;
+	//     saveToSQL($connection, $user);
+	// }
+
 	$dataString = $_POST['dataString'];
 
 	if($_SESSION[$dataString]){
@@ -28,5 +31,6 @@
 	// echo "\n \n";
 	// echoStatement();
 	// printTweets_SQL($_SESSION["user"]);
-	printTweets_SQL($user);
+	
+	printTweets_SQL();
 ?>
