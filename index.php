@@ -48,8 +48,9 @@ session_start();
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
                           $_SESSION['data_in_db'] = true;
 
-												// Initialize $max_id variable
+												// Initialize $max_id and $cursor variable
 													$next_max_id = null;
+													$cursor = null;
 
 													echo "The if statement is true <br>";
 												// While there are still tweets, run saveToSQL
@@ -57,7 +58,7 @@ session_start();
 														echo "The while statement is true <br>";
 
 														$next_max_id_temp = $next_max_id;
-														$next_max_id = saveToSQL($connection, $user, $next_max_id_temp);
+														$next_max_id = saveToSQL($connection, $user, $next_max_id_temp, $cursor)["next_max_id"];
 
 														$next_max_id_str = (string) $next_max_id;
 														echo "The next_max_id is " . $next_max_id_str . "<br>";
