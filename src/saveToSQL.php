@@ -1,14 +1,11 @@
 
 <?php
-    function saveToSQL($connection,$user,$max_id,$cursor) {
+    function saveToSQL($connection,$user,$max_id) {
         $servername = "engr-cpanel-mysql.engr.illinois.edu";
         $username = "twitterf_user";
         $password = "IIA@kT$7maLt";
         $dbname = "twitterf_tweet_store";
 
-    // Initalize user variable
-        $user = json_decode(json_encode($user),true);
-        $userid = $user["id"];
 
     /** Array of Happy and Sad words using external .txt file. **/
         $happyWords = explode(PHP_EOL, file_get_contents("happyWords.txt"));
@@ -36,27 +33,27 @@
         }else{
           $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true, "max_id" => $max_id));
         }
-    // GET friends/list
-        if()
-        $json_friends = $connection->get("friends/list", array("user_id" => $userid))
 
     // prepare and bind
-        $stmt_data = $conn->prepare("INSERT INTO data (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO data (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        if ( false===$stmt_data ) {
+        if ( false===$stmt ) {
             die('prepare() failed: ' . htmlspecialchars($mysqli->error));
         }
 
     // Define parameters
-        $stmt_data->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+        $stmt->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
 
     // Check if you can't bind parameters
-        $rc = $stmt_data->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+        $rc = $stmt->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
 
         if ( false===$rc ) {
             // again execute() is useless if you can't bind the parameters. Bail out somehow.
-            die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
+            die('bind_param() failed: ' . htmlspecialchars($stmt->error));
         }
+    // Initalize user variable
+        $user = json_decode(json_encode($user),true);
+        $userid = $user["id"];
 
         if ( $json ) {
 
@@ -154,9 +151,9 @@
                     // echo $tweetWord.$happyValue;
                 }
 
-                // $rc = $stmt_data->execute();
+                // $rc = $stmt->execute();
                 // if ( false===$rc ) {
-                //   die('execute() failed: ' . htmlspecialchars($stmt_data->error));
+                //   die('execute() failed: ' . htmlspecialchars($stmt->error));
                 // }
 
                 // if($conn){
@@ -168,16 +165,15 @@
 
 
             // Bind each $tweet with the paramters
-                $stmt_data->execute();
+                $stmt->execute();
 
 
 
             }
 
-            // return $next_max_id;
-            return array("cursor" => $cursor, "next_max_id" => $next_max_id);
+            return $next_max_id;
 
-            $stmt_data->close();
+            $stmt->close();
 
 
 
