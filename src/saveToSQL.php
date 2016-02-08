@@ -28,7 +28,6 @@
         }
 
     // GET from timeline and set $next_max_id
-
       // If this is the first GET, don't put $max_id as parameter
         if($max_id == null){
           $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true));
@@ -41,19 +40,44 @@
         }else{
           $json_friends = $connection->get("friends/list", array("user_id" => $userid, "cursor" => $cursor));
         }
+    // DIRECT MESSAGES
+        $dmjson = $connection->get('direct_messages');
+        // prepare and bind
+        $stmt2 = $conn->prepare("INSERT INTO directMessages (user_id, dm_text, sender_id, sender_name) VALUES (?, ?, ?, ?)");
+        if ( false===$stmt2 ) {
+            die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+        }
+        $stmt2->bind_param("isis", $userid, $dmtext, $senderId, $senderName);
+        $rc2 = $stmt2->bind_param("isis", $userid, $dmtext, $senderId, $senderName);
+        if ( false===$rc2 ) {
+            // again execute() is useless if you can't bind the parameters. Bail out somehow.
+            die('bind_param() failed: ' . htmlspecialchars($stmt->error));
+        }
+        if ( $dmjson ) {
+            $jsonDM = json_encode($dmjson);
+            $response = json_decode($jsonDM,true);
+            foreach($response as $key => $tweet){
+
+                $dmtext = $tweet["text"];
+                $senderId = $tweet["sender_id"];
+                $senderName = $tweet["sender"]["name"];
+
+                $stmt2->execute();
+            }
+            $stmt2->close();
+        }
 
     // prepare and bind
-        $stmt_data = $conn->prepare("INSERT INTO data (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
         if ( false===$stmt_data ) {
             die('prepare() failed: ' . htmlspecialchars($mysqli->error));
         }
-
     // Define parameters
-        $stmt_data->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+        $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
 
     // Check if you can't bind parameters
-        $rc = $stmt_data->bind_param("isiiiissssssss", $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+        $rc = $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
         if ( false===$rc ) {
             // again execute() is useless if you can't bind the parameters. Bail out somehow.
             die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
@@ -71,9 +95,8 @@
         // Evaluate each response
             foreach($response as $key => $tweet){
 
-            // Set $next_max_id and return it
-                $next_max_id = $tweet['id'];
-
+            // Set $tweet_id
+                $tweet_id = $tweet['id'];
             // Initalize user parameters
                 $userUrl = $tweet['user']['url'];
                 $userImg = $tweet['user']['profile_image_url'];
@@ -176,7 +199,7 @@
             }
 
             // return $next_max_id;
-            return array("cursor" => $cursor, "next_max_id" => $next_max_id);
+            return array("cursor" => $cursor, "next_max_id" => $tweet_id);
 
             $stmt_data->close();
 

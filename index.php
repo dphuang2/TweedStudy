@@ -19,6 +19,7 @@ session_start();
   				<?php
                   // Importing all functions
                       include 'src/saveToSQL.php'; // Save current user's tweets to SQL database
+                      include 'src/saveTrendsToSQL.php'; // Save trends for current user to DB
                       include 'src/getData.php'; // Fetch data and put it into cache
                       include 'src/printEachTweet.php'; // Formatting for each tweet
                       include 'src/printTweets_SQL.php'; // Printing all tweets
@@ -52,7 +53,7 @@ session_start();
 													$next_max_id = null;
 													$cursor = null;
 
-													echo "The if statement is true <br>";
+													echo "The if statement is true, now paging through tweets. <br>";
 												// While there are still tweets, run saveToSQL
 													while(true){
 														echo "The while statement is true <br>";
@@ -69,32 +70,12 @@ session_start();
 
 													}
 
+                          saveTrendsToSQL($connection);
+
 												// saveToSQL($connection, $user, $last_max_id);
 
                       }
 
-									// Location for trends
-                      $user_ip = getenv('REMOTE_ADDR');
-                      $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
-                      $country = $geo["geoplugin_countryName"];
-                      $city = $geo["geoplugin_city"];
-
-                      $place = $connection->get("geo/search", array("query",$city));
-
-                      //                    if ($city == "") {
-                      if (!is_numeric($place)) {
-                          $place = strval(23424977);
-                      }
-
-                      $trends = $connection->get("trends/place", array("id" => $place));
-
-                      $trends = json_decode(json_encode($trends),true);
-
-                      $trendsArray = array();
-
-                      foreach ($trends[0]["trends"] as $trend) {
-                          $trendsArray[]=$trend["name"];
-                      }
 
                       // $filter = $_GET['filter'];
 
@@ -157,6 +138,31 @@ session_start();
                 <hr/>
                 <p>Some trending topics:</p>
                 <?php
+                    $servername = "engr-cpanel-mysql.engr.illinois.edu";
+                    $username = "twitterf_user";
+                    $password = "IIA@kT$7maLt";
+                    $dbname = "twitterf_tweet_store";
+
+                    $userid = $_SESSION["user_id"];
+                    // Create connection
+                    $db = new mysqli($servername, $username, $password, $dbname);
+
+                    // Check connection
+                    if ($db->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    // prepare and bind
+                    $sql = "SELECT * FROM trends WHERE user_id={$userid}";
+                    if(!$result = $db->query($sql)){
+                        die('There was an error running the query [' . $db->error . ']');
+                    }
+
+                    $trendsArray = array();
+                    while($row = $result->fetch_assoc()){
+                        $trendsArray[]=$row['hashtag'];
+                    }
+
                     $subArray = array_rand($trendsArray, min(7, count($trendsArray)));
                     foreach ($subArray as $ind) {
                         $trend = $trendsArray[$ind];

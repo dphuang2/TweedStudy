@@ -32,7 +32,7 @@
     $user = $connection->get("account/verify_credentials");
     $user_id = json_decode(json_encode($user),true);
     $user_id = $user_id["id"];
-    $_SESSION["user_id"] = $user_id;
+    $_SESSION["user_id"] = $user_id; // Session variable that hold $user_id
 
     //                    echo $_SESSION['oauth_access_token'];
     //                    echo "<br>";
