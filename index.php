@@ -59,7 +59,9 @@ session_start();
 														echo "The while statement is true <br>";
 
 														$next_max_id_temp = $next_max_id;
-														$next_max_id = saveToSQL($connection, $next_max_id_temp, $cursor)["next_max_id"];
+														$cursor_temp = $cursor;
+														$return_array = saveToSQL($connection, $next_max_id_temp, $cursor);
+														$next_max_id = $return_array["next_max_id"];
 
 														$next_max_id_str = (string) $next_max_id;
 														echo "The next_max_id is " . $next_max_id_str . "<br>";
