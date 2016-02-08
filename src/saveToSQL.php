@@ -27,11 +27,11 @@
         }
 
     // Friends
-      include 'friendsToSQL.php';
+      include 'toSQL/friendsToSQL.php';
     // Direct Messages
-      include 'directMessagesToSQL.php';
+      include 'toSQL/directMessagesToSQL.php';
     // Tweets
-      include 'tweetsToSQL.php';
+      include 'toSQL/tweetsToSQL.php';
 
 
         $conn->close();

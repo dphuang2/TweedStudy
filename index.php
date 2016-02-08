@@ -49,7 +49,7 @@ session_start();
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
                           $_SESSION['data_in_db'] = true;
 
-												// Initialize $max_id and $cursor variable
+												// Initialize $next_max_id and $cursor variable
 													$next_max_id = null;
 													$cursor = null;
 
@@ -57,16 +57,21 @@ session_start();
 												// While there are still tweets, run saveToSQL
 													while(true){
 														echo "The while statement is true <br>";
-
+													// Preserve previously recieved cursor
 														$next_max_id_temp = $next_max_id;
 														$cursor_temp = $cursor;
-														$return_array = saveToSQL($connection, $next_max_id_temp, $cursor);
+													// Run saveToSQL and store return array into $return_array
+														$return_array = saveToSQL($connection, $next_max_id_temp, $cursor_temp);
+													// Store values in $return_array into next cursor variable
 														$next_max_id = $return_array["next_max_id"];
+														$cursor = $return_array["cursor"];
 
 														$next_max_id_str = (string) $next_max_id;
 														echo "The next_max_id is " . $next_max_id_str . "<br>";
+														$cursor_str = (string) $cursor;
+														echo "The cursor is " . $cursor_str . "<br>";
 
-														if($next_max_id == $next_max_id_temp || $next_max_id == null){
+														if(($next_max_id == $next_max_id_temp && $cursor == $cursor_temp)|| ($cursor == null && $next_max_id == null)){
 															break;
 														}
 

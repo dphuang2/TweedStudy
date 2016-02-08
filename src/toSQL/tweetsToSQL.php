@@ -7,7 +7,7 @@
       $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true, "max_id" => $max_id));
     }
 
-// prepare and bind
+// Prepare and bind
     $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
     if ( false===$stmt_data ) {
@@ -81,7 +81,6 @@
 
 
             $posterFrequency = round($status_count/$amt_time);
-            #$userid = 1;
             $text = $tweet['text'];
             $popularity = $tweet['retweet_count'];
             if ($tweet['user']['verified']) {
@@ -132,7 +131,9 @@
 
 
         // Bind each $tweet with the paramters
-            $stmt_data->execute();
+        if ($stmt_data->execute() === false) {
+          die('execute() failed: ' . htmlspecialchars($stmt_data->error));
+        }
 
         }
 
