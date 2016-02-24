@@ -1,7 +1,7 @@
 <?php
 session_start();
 //print_r($_SESSION);
-    
+
 $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
 ?>
 <!DOCTYPE html>
@@ -73,7 +73,7 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
 
             <div class="buttons">
                 <button class="clear">Clear</button>
-                <button class="kristen">Submit</button>
+                <button class="kristen">Submit and go to next step</button>
             </div>
             </form>
             </div>
@@ -83,12 +83,7 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
 				<div class="col-xs-4 totop">
 
 <?php echo $_GET["q1"]; echo "<br>"; echo $_GET["q2"]; echo "<br>";
-    
-    
-    
 
-    
-    
     ?>
 
 
@@ -98,92 +93,22 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
     		</div>
     	</div>
 			<script>
-				jQuery(window).scroll(function() {
-		   			jQuery('.totop').stop().animate({ right: '0px' });
-				});
-
-//                $("button").click(function() {
-//                    $("#newpost").toggle();
-//                });
-
-//            $("#btn").click(function())
-//            {
-//                if($_SESSION['sentiment_positive'].value==false){
-//                    $_SESSION['sentiment_positive'].value=true;}
-//
-//                else {
-//                    $_SESSION['sentiment_positive'].value=false;}
-//            };
-//            $("div#changeButton").on('click', 'button.astext', function() {
-//                         console.log('is this working');
-//                         alert("is this even working?");
-//                         });
-
-
             $("button.kristen").on('click', function( event ) {
-            
-                           //This is for Internet Explorer
-                           var target = (event.target) ? event.target : event.srcElement;
-                           var elem = $( this );
-                           var dataString = "currentVal=" + elem.attr("id");
-                           
-                           alert("test");
-                                   
                            $.ajax({
-                                type: "POST",
                                 url: "saveResponses.php",
-                                data: dataString,
-                                dataType: 'json',
+                                dataType: 'text',
                                 cache: false,
                                 success: function(response) {
-                                
-                                alert(response.message);
-                                
-                                }
+																	console.log("success");
+																	// alert(response);
+																	window.location.href = response;
+																},
+																error: function(response){
+																	alert("failure");
+																}
                                 });
-                                   
-                                   });
-                           
-                           //need to create pass_value.php
-                           //should update session variables
-                           // dataStrng here should be in json format
-                           // just update the one element ID
-                           // maybe within or maybe in update_tweets.php (below)
-                           // should create long string of SQL query and
-                           // update the tweet list div
-                           // to update the div you want this line::
-                           // document.getElementById("txtHint").innerHTML=xmlhttp.responseText;  Pretty sure this is the AJAX
-                           // this will update whatever is inside of the the div with ID equal to "txtHint"
-                           // and will replace it with (hopefully correctly formatted html) from responseText
-                           // so ideally responseText will already be formatted right (ie.
-                           // the output of printTweet)
-//                           $.ajax({
-//                                  
-//                                  type: "POST",
-//                                  url: "pass_value.php",
-//                                  data: dataString,
-//                                  dataType: 'json',
-//                                  cache: false,
-//                                  success: function(response) {
-//                                  
-//                                  alert(response.message);
-//                                  
-//                                  }
-//                                  });
-//            
-//                           }
 
 
+                              });
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-

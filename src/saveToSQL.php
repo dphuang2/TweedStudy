@@ -1,5 +1,5 @@
 <?php
-    function saveToSQL($connection,$max_id,$cursor) {
+    function saveToSQL($connection,$max_id) {
         $servername = "engr-cpanel-mysql.engr.illinois.edu";
         $username = "twitterf_user";
         $password = "IIA@kT$7maLt";
@@ -26,10 +26,10 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-    // Friends
-      include 'toSQL/friendsToSQL.php';
-    // Direct Messages
-      include 'toSQL/directMessagesToSQL.php';
+    // // Friends
+    //   include 'toSQL/friendsToSQL.php';
+    // // Direct Messages
+    //   include 'toSQL/directMessagesToSQL.php';
     // Tweets
       include 'toSQL/tweetsToSQL.php';
 
@@ -39,7 +39,8 @@
         // return $next_max_id and $cusor in array.
         // $next_max_id is for paging through tweets
         // $cursor is for paging through friends
-        return array("cursor" => $cursor, "next_max_id" => $tweet_id);
+        // return array("cursor" => $cursor, "next_max_id" => $tweet_id);
+        return $tweet_id;
 
     }
 ?>

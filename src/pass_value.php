@@ -4,7 +4,7 @@
 // include 'authorization.php';
 
 // Import all functions
-	include 'echoStatement.php';
+// include 'echoStatement.php';
 	include 'printEachTweet.php';
 	include 'printTweets_SQL.php';
 	include 'saveToSQL.php';
@@ -15,22 +15,48 @@
 	//     saveToSQL($connection, $user);
 	// }
 
+
+    $pairs = array('tweet_popular' =>'tweet_unpopular',
+                  'tweet_unpopular' => 'tweet_popular',
+                  'poster_frequent' => 'poster_infrequent',
+                  'poster_infrequent' => 'poster_frequent',
+                  'verified' => 'unverified',
+                  'unverified' => 'verified',
+                  'sentiment_positive' => 'sentiment_negative',
+                  'sentiment_negative' => 'sentiment_positive',
+                  'close_friends' => 'distant_friends',
+                  'distant_friends' => 'close_friends'
+    );
+
 	$dataString = $_POST['dataString'];
 
-	if($_SESSION[$dataString]){
-		$_SESSION[$dataString] = false;
-		$response = 'false';
+    if ($dataString == 'alloff'){
+        foreach($_SESSION['button'] as $key => $value){
+            $_SESSION['button'][$key] = false;
+        }
+        // $response = 'false';
+    }
+    elseif($_SESSION['button'][$dataString]){
+		$_SESSION['button'][$dataString] = false;
+		// $response = 'false';
 	}
 	else{
-		$_SESSION[$dataString] = true;
-		$response = 'true';
+		$_SESSION['button'][$dataString] = true;
+		// $response = 'true';
+        if ( array_key_exists($dataString,$pairs)) {
+            $pair_name = $pairs[$dataString];
+            if ($_SESSION['button'][$pair_name]) {
+                $_SESSION['button'][$pair_name] = false;
+            }
+        }
 	}
+
 
 	// echo '$_SESSION[' . $dataString . '] is ' . $response;
 
 	// echo "\n \n";
 	// echoStatement();
 	// printTweets_SQL($_SESSION["user"]);
-	
+
 	printTweets_SQL();
 ?>

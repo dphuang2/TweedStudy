@@ -17,3 +17,7 @@ hr { margin: 0px; }
 }
 
 .classWithPad { margin:10px; padding:10px; }
+
+#newpost a button {
+	color: black;
+}

@@ -6,16 +6,47 @@
 	    $now->getTimestamp();
 
 	    $create_date = DateTime::createFromFormat('D M d H:i:s O Y', $tweet['tweet_create_date']);
-	    //$create_date = $new_date->format('Y-m-d H:i:s');
-	    $amt_time = $now->diff($create_date);
+        
+        
+        $amt_time = $now->diff($create_date);
 
-	    if ($amt_time < 3600) {
-	        $print_time = $create_date->format('i') . "m";
-	    } elseif ($amt_time < 86400) {
-	        $print_time = $create_date->format('H') . "h";
-	    } else {
-	        $print_time = $create_date->format('M d');
-	    }
+        if($amt_time->d>0){
+            $print_time = $create_date->format('M d');
+        }
+        elseif($amt_time->h>0){
+            $print_time = $amt_time->h . "h";
+        }
+        elseif($amt_time->i>0){
+            $print_time = $amt_time->i . "m";
+        }
+        else{
+            $print_time = $amt_time->s . 's';
+        }
+        
+        
+        
+
+//			$now2 = $now->format('Y-m-d H:i:s');
+//			$create_date2 = $create_date->format('Y-m-d H:i:s');
+//			$difference = strtotime($create_date2)-strtotime($now2);
+//			echo "difference";
+//			var_dump($difference);
+//			$amt_time_sec = $difference;
+	    // $create_date = $new_date->format('Y-m-d H:i:s');
+// 	    $amt_time = $now->diff($create_date);
+// 			// var_dump($amt_time);
+// 			// $amt_time_sec = $amt_time->format('%U');
+//			var_dump($amt_time_sec);
+//			if($amt_time_sec < 60){
+//				$print_time = $amt_time->format('s') . 's';
+//			}
+//	    elseif ($amt_time_sec < 3600) {
+//	        $print_time = $amt_time->format('i') . "m";
+//	    } elseif ($amt_time_sec < 86400) {
+//	        $print_time = $amt_time->format('H') . "h";
+//	    } else {
+//	        $print_time = $amt_time->format('M d');
+//	    }
 
 	    echo '<div class="tweet">';
 			echo "<br>";

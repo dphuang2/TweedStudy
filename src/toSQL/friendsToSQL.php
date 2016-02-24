@@ -1,9 +1,9 @@
 <?php
   // Friends List
     if($cursor == null){
-      $json_friends = $connection->get("friends/list", array("user_id" => $userid, "count" => 200));
+      $json_friends = $connection->get("friends/list", array("user_id" => $userid, "count" => 10));
     }else{
-      $json_friends = $connection->get("friends/list", array("user_id" => $userid, "count" => 200, "cursor" => $cursor));
+      $json_friends = $connection->get("friends/list", array("user_id" => $userid, "count" => 10, "cursor" => $cursor));
     }
 
   // Prepare and bind_param
@@ -42,7 +42,7 @@
         } else {
             $verified = 0;
         }
-        $friends_count = $friend['friend_count'];
+        $friends_count = $friend['friends_count'];
 
         if ($stmt_friends->execute() === false) {
             die('execute() failed: ' . htmlspecialchars($stmt_friends->error));
