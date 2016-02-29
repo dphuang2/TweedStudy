@@ -23,8 +23,9 @@ session_start();
                       include 'src/getData.php'; // Fetch data and put it into cache
                       include 'src/printEachTweet.php'; // Formatting for each tweet
                       include 'src/printTweets_SQL.php'; // Printing all tweets
-											include 'src/saveFriendsToSQL.php';
-											include 'src/savedirectMessagesToSQL.php';
+                      include 'src/saveFriendsToSQL.php'; // Save friends
+                      include 'src/computeFriendRank.php'; // As a second step, compute friend rank (need max friend num to do so)
+                      include 'src/savedirectMessagesToSQL.php'; //Save direct messages
                   // Resetting all session booleans
                       $_SESSION['button']['tweet_popular'] = false;
                       $_SESSION['button']['tweet_unpopular'] = false;
@@ -74,25 +75,29 @@ session_start();
 														}
 													}
 
-														echo "Paging through tweets is done, now paging through friends. <br>";
-														$_SESSION["rank_counter"] = 0;
-													while(true){
-														echo "The friends while statement is true <br>";
-														$cursor_temp = $cursor;
-														$cursor = saveFriendsToSQL($connection, $cursor_temp);
-														$cursor_str = (string) $cursor;
-														echo "The cursor is " . $cursor_str . "<br>";
-														if($cursor == $cursor_temp || $cursor == null){
-															$_SESSION["rank_counter"]--;
-															break;
-														}
-													}
-													unset($_SESSION["rank_counter"]);
 
 													echo "Saving trends now <br>";
-                          saveTrendsToSQL($connection);
+                                                    saveTrendsToSQL($connection);
 													echo "Saving DMs now <br>";
 													savedirectMessagesToSQL($connection);
+                          
+                                                  echo "Direct messages saved, now paging through friends. <br>";
+                                                  $_SESSION["rank_counter"] = 0;
+                                                  while(true){
+                                                      echo "The friends while statement is true <br>";
+                                                      $cursor_temp = $cursor;
+                                                      $cursor = saveFriendsToSQL($connection, $cursor_temp);
+                                                      $cursor_str = (string) $cursor;
+                                                      echo "The cursor is " . $cursor_str . "<br>";
+                                                      if($cursor == $cursor_temp || $cursor == null){
+                                                          $_SESSION["rank_counter"]--;
+                                                          break;
+                                                      }
+                                                  }
+                                                  unset($_SESSION["rank_counter"]);
+                          
+                                                      echo "Computing and saving computed friend rank";
+                                                      computeFriendRank();
 
 
 												// saveToSQL($connection, $user, $last_max_id);
