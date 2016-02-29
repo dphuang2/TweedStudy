@@ -80,7 +80,7 @@ session_start();
                           saveTrendsToSQL($connection);
                           echo "Saving DMs now <br>";
                           savedirectMessagesToSQL($connection);
-                          
+
                           echo "Direct messages saved, now paging through friends. <br>";
                           $_SESSION["rank_counter"] = 0;
                           while(true){
@@ -95,7 +95,7 @@ session_start();
                               }
                           }
                           unset($_SESSION["rank_counter"]);
-                          
+
                           echo "Computing and saving computed friend rank";
                           computeFriendRank();
 
@@ -151,6 +151,7 @@ session_start();
 						echo "Logged in as <b>".$user->screen_name;
 						echo "</b> <img src='".$user->profile_image_url."' alt='error'>";
 						?>
+						<a href="logout.php"><button id="logout">Logout</button></a>
 								<hr> <br>
 								<button id="nextstep" class="btn"> Go to next feed </button>
 
@@ -246,7 +247,7 @@ session_start();
                      var target = (event.target) ? event.target : event.srcElement;
                      var elem = $( this );
                      var dataString = elem.attr("id");
-										 if(dataString == "nextstep"){
+										 if(dataString == "nextstep" || dataString == "toggle" || dataString == "survey" || dataString == "logout"){
 											 return;
 										 }
                      count = +target.dataset.count;

@@ -145,7 +145,7 @@ session_start();
 						echo "Logged in as <b>".$user->screen_name;
 						echo "</b> <img src='".$user->profile_image_url."' alt='error'>";
 						?>
-
+						<a href="logout.php"><button id="logout">Logout</button></a>
 								<h3> Control Panel </h3>
 
                 <p>Change the Content You See</p>
@@ -248,7 +248,7 @@ session_start();
                      var target = (event.target) ? event.target : event.srcElement;
                      var elem = $( this );
                      var dataString = elem.attr("id");
-										 if(dataString == "toggle" || dataString == "survey"){
+										 if(dataString == "toggle" || dataString == "survey" || dataString == "logout"){
 											 return;
 										 }
 

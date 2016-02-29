@@ -96,7 +96,6 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
             $("button.kristen").on('click', function( event ) {
                            $.ajax({
                                 url: "saveResponses.php",
-                                dataType: 'text',
                                 cache: false,
                                 success: function(response) {
 																	console.log("success");
@@ -104,7 +103,7 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
 																	window.location.href = response;
 																},
 																error: function(response){
-																	alert("failure");
+																	alert("ajax failure");
 																}
                                 });
 

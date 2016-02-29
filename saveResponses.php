@@ -39,6 +39,8 @@ session_start();
 
 
     $conn->close();
+
+
     // "success"
 
     // print_r($_SESSION["index"]);
