@@ -1,6 +1,6 @@
 <?php
-// GET from timeline and set $next_max_id
 
+// GET from timeline and set $next_max_id
     if($max_id == null){ // If this is the first GET, don't put $max_id as parameter
       $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true));
     }else{
@@ -8,20 +8,26 @@
     }
 
 // Prepare and bind
-    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
+    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count, retweet_user_screen_name, retweet_user_name, retweet_user_profile_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
     if ( false===$stmt_data ) {
         die('prepare() failed: ' . htmlspecialchars($mysqli->error));
     }
 // Define parameters
-    $stmt_data->bind_param("iisiiiiissssssssii", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount);
+    $stmt_data->bind_param("iisiiiiissssssssiisss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img);
 
 // Check if you can't bind parameters
-    $rc = $stmt_data->bind_param("iisiiiiissssssssii", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount);
+    $rc = $stmt_data->bind_param("iisiiiiissssssssiisss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img);
     if ( false===$rc ) {
         // again execute() is useless if you can't bind the parameters. Bail out somehow.
         die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
     }
+
+    function endsWith($haystack, $needle) {
+        // search forward starting from end minus needle length characters
+        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
+    }
+
 
     if ( $json ) {
 
@@ -37,15 +43,22 @@
         // Set retweet and favorite counts
             $retweetCount = $tweet["retweet_count"];
             $favoriteCount = $tweet["favorite_count"];
-        //Set retweeted boolean
+        //Set retweeted boolean as well as insert text depending on retweet or not
             if(is_null($tweet["retweeted_status"])){
                 $retweet = 0;
+                $text = $tweet['text'];
             } else {
+                $retweet_user_screen_name = $tweet["retweeted_status"]["user"]["screen_name"];
+                $retweet_user_name = $tweet["retweeted_status"]["user"]["name"];
+                $retweet_user_profile_img = $tweet["retweeted_status"]["user"]["profile_image_url"];
                 $retweet = 1;
-            }
+                $text = $tweet['retweeted_status']['text'];
 
-        //   var_dump($tweet);
-        //   echo "<br> <br>";
+                // var_dump($tweet["retweeted_status"]);
+                // echo "<br> <br>";
+            }
+            // $text = $tweet['text'];
+
 
         // Set $tweet_id
             $tweet_id = $tweet['id'];
@@ -93,7 +106,6 @@
 
 
             $posterFrequency = round($status_count/$amt_time);
-            $text = $tweet['text'];
             $popularity = $tweet['retweet_count'];
             if ($tweet['user']['verified']) {
                 $verified = 1;
@@ -108,22 +120,39 @@
             $tweetArray = array_filter($tweetArray); //Remove all empty elements
             $tweetArray = array_values($tweetArray); //Re-key array numerically
 
-
             foreach($tweetArray as $tweetWord){ // For each word in the tweet
                 foreach($happyWords as $happyWord){ // Check with happyWords to
-                    $pos = stripos($tweetWord, $happyWord);
-                    if($pos === 0){
-                        $happyValue++;
-                        break;
+                    if(endsWith($happyWord, "*")){
+                        $happyWordTruncated = trim($happyWord, "*");
+                        // echo "Evaluating wild: $tweetWord, $happyWordTruncated, $happyWord, $happyValue" . "<br>";
+                        $pos = stripos($tweetWord, $happyWordTruncated);
+                        if($pos === 0){
+                            $happyValue++;
+                            break;
+                        }
+                    } else {
+                        // echo "Evaluating regularly: $tweetWord, $happyWord, $happyValue" . "<br>";
+                        if($tweetWord == $happyWord){
+                            $happyValue++;
+                            break;
+                        }
                     }
                 }
             }
             foreach($tweetArray as $tweetIndex => $tweetWord){
                 foreach($sadWords as $sadIndex => $sadWord){
-                    $pos = stripos($tweetWord, $sadWord);
-                    if($pos === 0){
-                        $happyValue--;
-                        break;
+                    if(endsWith($sadWord, "*")){
+                        $sadWordTruncated = trim($sadWord, "*");
+                        $pos = stripos($tweetWord, $sadWordTruncated);
+                        if($pos === 0){
+                            $happyValue--;
+                            break;
+                        }
+                    } else {
+                        if($tweetWord == $sadWord){
+                            $happyValue--;
+                            break;
+                        }
                     }
                 }
                 // echo $tweetWord.$happyValue;

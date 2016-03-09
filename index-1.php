@@ -158,7 +158,7 @@ session_start();
 				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
                 See only retweets </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
-                See no retweets </button>
+                See no retweets </button> <br>
                 <hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
                 See more frequent posters </button> <br>
@@ -173,8 +173,8 @@ session_start();
                 <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
                 See more celebrities </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
-                See more real people </button> <br>
-
+                See more real people </button>
+				<hr/>
 
                 <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
@@ -218,7 +218,7 @@ session_start();
                     $subArray = array_rand($trendsArray, min(7, count($trendsArray)));
                     foreach ($subArray as $ind) {
                         $trend = $trendsArray[$ind];
-                        echo "&nbsp&nbsp&nbsp&nbsp<button onclick='boldButton(this.id)' class='astext' id='{$trend}' >{$trend}</button> <br>";
+                        echo "&nbsp&nbsp&nbsp&nbsp<button onclick='boldButton(this.id)' class='astext trend' id='{$trend}' >{$trend}</button> <br>";
                     }
                     ?>
                 <br>

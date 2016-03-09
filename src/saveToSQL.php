@@ -10,9 +10,11 @@
 
     /** Array of Happy and Sad words using external .txt file. **/
         $happyWords = explode(PHP_EOL, file_get_contents("happyWords.txt"));
-        $happyWords = preg_replace("/[^a-zA-Z 0-9]+/", "", $happyWords); // remove punctuations
+        // $happyWords = preg_replace("/[^a-zA-Z 0-9]+/", "", $happyWords); // remove punctuations
+        $happyWords = preg_replace('/\s+/', '', $happyWords); // Remove spaces
         $sadWords = explode(PHP_EOL, file_get_contents("sadWords.txt"));
-        $sadWords = preg_replace("/[^a-zA-Z 0-9]+/", "", $sadWords);
+        // $sadWords = preg_replace("/[^a-zA-Z 0-9]+/", "", $sadWords);
+        $sadWords = preg_replace('/\s+/', '', $sadWords); // Remove spaces
         $happyWords = array_filter($happyWords); //Remove all empty elements
         $happyWords = array_values($happyWords); //Re-key array numerically
         $sadWords = array_filter($sadWords); //Remove all empty elements

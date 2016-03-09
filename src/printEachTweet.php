@@ -59,12 +59,28 @@
 	    echo '<div class="tweet">';
 			echo "<br>";
 	    echo '<div class="container-fluid">';
+	if($tweet['retweet'] == 1){
+		echo '<div class="row-fluid">';
+		echo '<div class="col-xs-1">';
+		echo '</div>';
+		echo '<div class="col-xs-10">';
+		echo "<a href={$tweet['user_url']}><b>{$tweet['user_name']}</b></a> Retweeted";
+		echo '</div> </div> <br>';
+	}
 	    echo '<div class="row-fluid">';
 	    echo '<div class="col-xs-1">';
+	if($tweet['retweet'] == 0){
 	    echo "<a href={$tweet['user_url']}><img src={$tweet['user_profile_img_url']} height='42' width='42'></a>";
+	} else{
+		echo "<img src={$tweet['retweet_user_profile_img']} height='42' width='42'>";
+	}
 	    echo '</div>';
 	    echo '<div class="col-xs-10">';
-	    echo "<a href={$tweet['user_url']}><b>{$tweet['user_name']}</b></a> @{$tweet['user_screen_name']} • {$print_time}<br>{$tweet['tweet_text']}<br>";
+	if($tweet['retweet'] == 0){
+	    echo "<a href={$tweet['user_url']}><b>{$tweet['user_name']}</b></a> <span style='color: #808080;'> @{$tweet['user_screen_name']}</span> • {$print_time}<br>{$tweet['tweet_text']}<br>";
+	} else {
+		echo "<b>{$tweet['retweet_user_name']}</b> <span style='color: #808080;'> @{$tweet['retweet_user_screen_name']}</span> • {$print_time}<br>{$tweet['tweet_text']}<br>";
+	}
 
 	    $images = unserialize($tweet['tweet_images']);
 

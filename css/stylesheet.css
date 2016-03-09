@@ -21,3 +21,7 @@ hr { margin: 0px; }
 #newpost a button {
 	color: black;
 }
+
+hr {
+	margin: 5px 0;
+}

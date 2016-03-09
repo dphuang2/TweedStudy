@@ -15,6 +15,15 @@ function boldButton (id){
   var button = document.getElementById(id);
   var buttonPair = document.getElementById(pairs[id]);
 
+  var isTrend = false;
+
+  console.log(pairs);
+  console.log(id);
+
+  if(isTrend){
+      $(".trend").css("font-weight", "normal");
+      button.style.fontWeight = "bold";
+  }
 
   if (button.style.fontWeight !== "bold"){
     button.style.fontWeight = "bold";
