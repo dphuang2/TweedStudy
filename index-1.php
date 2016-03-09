@@ -27,16 +27,18 @@ session_start();
                       include 'src/computeFriendRank.php'; // As a second step, compute friend rank (need max friend num to do so)
                       include 'src/savedirectMessagesToSQL.php'; //Save direct messages
                   // Resetting all session booleans
-                      $_SESSION['button']['tweet_popular'] = false;
-                      $_SESSION['button']['tweet_unpopular'] = false;
-                      $_SESSION['button']['poster_frequent'] = false;
-                      $_SESSION['button']['poster_infrequent'] = false;
-                      $_SESSION['button']['verified'] = false;
-                      $_SESSION['button']['unverified'] = false;
-                      $_SESSION['button']['sentiment_positive'] = false;
-                      $_SESSION['button']['sentiment_negative'] = false;
-                      $_SESSION['button']['close_friends'] = false;
-                      $_SESSION['button']['distant_friends'] = false;
+						$_SESSION['button']['only_retweets'] = false;
+						$_SESSION['button']['no_retweets'] = false;
+						$_SESSION['button']['tweet_popular'] = false;
+						$_SESSION['button']['tweet_unpopular'] = false;
+						$_SESSION['button']['poster_frequent'] = false;
+						$_SESSION['button']['poster_infrequent'] = false;
+						$_SESSION['button']['verified'] = false;
+						$_SESSION['button']['unverified'] = false;
+						$_SESSION['button']['sentiment_positive'] = false;
+						$_SESSION['button']['sentiment_negative'] = false;
+						$_SESSION['button']['close_friends'] = false;
+						$_SESSION['button']['distant_friends'] = false;
 
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])=='') {
                           $_SESSION['data_in_db'] = false;
@@ -151,9 +153,29 @@ session_start();
       					?>
 								<a href="logout.php"><button id="logout">Logout</button></a>
 
-								<h3> Control Panel </h3>
+								<h3> Houndstooth </h3>
 
-                <p>Change the Content You See</p>
+				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
+                See only retweets </button> <br>
+                <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
+                See no retweets </button>
+                <hr/>
+                <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
+                See more frequent posters </button> <br>
+                <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
+                See more infrequent posters </button>
+                <hr/>
+                <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
+                See more of your close friends </button> <br>
+                <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
+                See more distant friends</button>
+                <hr/>
+                <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
+                See more celebrities </button> <br>
+                <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
+                See more real people </button> <br>
+
+
                 <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
                 See more positive tweets </button> </div>
@@ -200,25 +222,15 @@ session_start();
                     }
                     ?>
                 <br>
-                <p>Change the People You See</p>
-                <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
-                See more frequent posters </button> <br>
-                <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
-                See more infrequent posters </button>
-                <hr/>
-                <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
-								See more of your close friends </button> <br>
-                <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
-                See more distant friends</button>
-                <hr/>
-                <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
-                See more celebrities </button> <br>
-                <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
-                See more real people </button> <br>
+                <hr>
                 <button onclick='boldButton(this.id)' class="astext" id="alloff">
                 Turn off all filters </button> <br>
-								<hr> <br>
-								<a href="survey.php"><button id="survey" class="btn"> Go to survey </button></a>
+								<hr>
+
+                <button onclick='boldButton(this.id)' class="astext" id="refresh">
+                Refresh for new tweets since you logged in </button> <br>
+                <br>
+                <a href="survey.php"><button id="survey" class="btn"> Go to survey </button></a>
 
           </div>
   			</div>

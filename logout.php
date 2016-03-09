@@ -1,5 +1,5 @@
 <?php
-session_destroy();
+session_unset();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,8 +10,8 @@ session_destroy();
         <body style="text-align: center;">
         <h1>You have been logged out</h1>
         <p>
-            For you to fully log out of your twitter account you need to be redirected to our authorization page and logout of your account
-            and logout at the top right of the page. Thank you!
+            For you to fully log out from your twitter account, you need to be redirected to our
+            authorization page and logout of your account at the top right of the page. Thank you!
         </p>
 
         <?php

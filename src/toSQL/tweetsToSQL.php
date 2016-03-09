@@ -8,16 +8,16 @@
     }
 
 // Prepare and bind
-    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
+    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
     if ( false===$stmt_data ) {
         die('prepare() failed: ' . htmlspecialchars($mysqli->error));
     }
 // Define parameters
-    $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+    $stmt_data->bind_param("iisiiiiissssssssii", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount);
 
 // Check if you can't bind parameters
-    $rc = $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+    $rc = $stmt_data->bind_param("iisiiiiissssssssii", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount);
     if ( false===$rc ) {
         // again execute() is useless if you can't bind the parameters. Bail out somehow.
         die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
@@ -34,6 +34,18 @@
         $response = json_decode($jsonTweets,true);
     // Evaluate each response
         foreach($response as $key => $tweet){
+        // Set retweet and favorite counts
+            $retweetCount = $tweet["retweet_count"];
+            $favoriteCount = $tweet["favorite_count"];
+        //Set retweeted boolean
+            if(is_null($tweet["retweeted_status"])){
+                $retweet = 0;
+            } else {
+                $retweet = 1;
+            }
+
+        //   var_dump($tweet);
+        //   echo "<br> <br>";
 
         // Set $tweet_id
             $tweet_id = $tweet['id'];

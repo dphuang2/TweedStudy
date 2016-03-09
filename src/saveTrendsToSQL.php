@@ -17,7 +17,7 @@
         
         //                    if ($city == "") {
         if (!is_numeric($place)) {
-            $place = strval(23424977);
+            $place = strval(2379574); // currently chicago, can't do champaign, 23424977 = US
         }
         
         $trends = $connection->get("trends/place", array("id" => $place));

@@ -2,3 +2,31 @@
 [12-Feb-2016 11:22:55 America/Chicago] PHP Parse error:  syntax error, unexpected '[' in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 41
 [12-Feb-2016 11:23:07 America/Chicago] PHP Parse error:  syntax error, unexpected '[' in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 41
 [12-Feb-2016 11:23:15 America/Chicago] PHP Parse error:  syntax error, unexpected '[' in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 41
+[03-Mar-2016 12:01:02 America/Chicago] PHP Fatal error:  Call to a member function get() on a non-object in /home/twitterfeed/public_html/TweedStudy/src/tweetsToSQL.php on line 5
+[03-Mar-2016 12:06:50 America/Chicago] PHP Warning:  include(src/authorization.php): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 40
+[03-Mar-2016 12:06:50 America/Chicago] PHP Warning:  include(): Failed opening 'src/authorization.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 40
+[03-Mar-2016 12:06:50 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:06:50 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:06:50 America/Chicago] PHP Fatal error:  Call to a member function get() on a non-object in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 5
+[03-Mar-2016 12:07:17 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:17 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:07:18 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:18 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:07:18 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:18 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:07:19 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:19 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:07:20 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:20 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:07:20 America/Chicago] PHP Warning:  file_get_contents(happyWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 12
+[03-Mar-2016 12:07:20 America/Chicago] PHP Warning:  file_get_contents(sadWords.txt): failed to open stream: No such file or directory in /home/twitterfeed/public_html/TweedStudy/src/saveToSQL.php on line 14
+[03-Mar-2016 12:09:20 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 80
+[03-Mar-2016 12:09:20 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 83
+[06-Mar-2016 20:57:52 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 87
+[06-Mar-2016 20:57:52 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90
+[06-Mar-2016 20:57:52 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 87
+[06-Mar-2016 20:57:52 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90
+[06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 87
+[06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90
+[06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 87
+[06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90

@@ -1,5 +1,7 @@
 function boldButton (id){
   var pairs = [];
+  pairs["only_retweets"] = "no_retweets";
+  pairs["no_retweets"] = "only_retweets";
   pairs["tweet_popular"] = "tweet_unpopular";
   pairs["tweet_unpopular"] = "tweet_popular";
   pairs["poster_frequent"] = "poster_infrequent";
@@ -12,6 +14,7 @@ function boldButton (id){
   pairs["distant_friends"] = "close_friends";
   var button = document.getElementById(id);
   var buttonPair = document.getElementById(pairs[id]);
+
 
   if (button.style.fontWeight !== "bold"){
     button.style.fontWeight = "bold";

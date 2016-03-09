@@ -16,6 +16,8 @@
 			$user_id = $_SESSION["user_id"];
 
 	//Retrieve session booleans
+			$only_retweets_bool = $_SESSION['button']['only_retweets'];
+			$no_retweets_bool = $_SESSION['button']['no_retweets'];
 			$popular_bool = $_SESSION['button']['tweet_popular'];
 			$unpopular_bool = $_SESSION['button']['tweet_unpopular'];
 			$frequent_bool = $_SESSION['button']['poster_frequent'];
@@ -26,7 +28,7 @@
 			$sentimentNeg_bool = $_SESSION['button']['sentiment_negative'];
 			$closeFriends_bool = $_SESSION['button']['close_friends'];
 			$distantFriends_bool = $_SESSION['button']['distant_friends'];
-			$sessionArray = ['tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
+			$sessionArray = ['only_retweets', 'no_retweets', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
         foreach ($_SESSION['button'] as $key=>$val) {
             if (! in_array( $key, $sessionArray )) {
                 $trend_bool = $val;
@@ -45,8 +47,10 @@
        $sql_filter_statements = array(
 //									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` > (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
 //									"distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` < (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
-                                      "closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > 0 "),
-                                      "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
+									"only_retweets" => array($only_retweets_bool, "AND retweet = 1 "),
+									"no_retweets" => array($no_retweets_bool, "AND retweet = 0 "),
+									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > 0 "),
+                                    "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
 									"popular_bool" => array($popular_bool, "AND tweet_popularity > 10 "),
 									"unpopular_bool" => array($unpopular_bool, "AND tweet_popularity < 10 "),
 									"frequent_bool" => array($frequent_bool, "AND poster_frequency > 1000 "),
@@ -55,7 +59,7 @@
 									"unverified_bool" => array($unverified_bool, "AND verified = 0 "),
 									"sentimentPos_bool" => array($sentimentPos_bool, "AND sentiment > 0 "),
 									"sentimentNeg_bool" => array($sentimentNeg_bool, "AND sentiment < 0 "),
-                  "trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
+                  					"trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
            );
 	// Initalize filter statement
        $sql_filter = "";
