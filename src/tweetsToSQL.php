@@ -7,17 +7,17 @@
       $json = $connection->get("statuses/home_timeline", array("count" => 200, "include_entities" => true, "max_id" => $max_id));
     }
 
-// prepare and bind
-    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
+// Prepare and bind
+    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count, retweet_user_screen_name, retweet_user_name, retweet_user_profile_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
     if ( false===$stmt_data ) {
         die('prepare() failed: ' . htmlspecialchars($mysqli->error));
     }
 // Define parameters
-    $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+    $stmt_data->bind_param("iisiiiiissssssssiisss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img);
 
 // Check if you can't bind parameters
-    $rc = $stmt_data->bind_param("iisiiiissssssss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName);
+    $rc = $stmt_data->bind_param("iisiiiiissssssssiisss", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img);
     if ( false===$rc ) {
         // again execute() is useless if you can't bind the parameters. Bail out somehow.
         die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
@@ -34,8 +34,25 @@
         $response = json_decode($jsonTweets,true);
     // Evaluate each response
         foreach($response as $key => $tweet){
-            
-            var_dump($tweet);
+        // Set retweet and favorite counts
+            $retweetCount = $tweet["retweet_count"];
+            $favoriteCount = $tweet["favorite_count"];
+        //Set retweeted boolean as well as insert text depending on retweet or not
+            if(is_null($tweet["retweeted_status"])){
+                $retweet = 0;
+                $text = $tweet['text'];
+            } else {
+                $retweet_user_screen_name = $tweet["retweeted_status"]["user"]["screen_name"];
+                $retweet_user_name = $tweet["retweeted_status"]["user"]["name"];
+                $retweet_user_profile_img = $tweet["retweeted_status"]["user"]["profile_image_url"];
+                $retweet = 1;
+                $text = $tweet['retweeted_status']['text'];
+
+                // var_dump($tweet["retweeted_status"]);
+                // echo "<br> <br>";
+            }
+            // $text = $tweet['text'];
+
 
         // Set $tweet_id
             $tweet_id = $tweet['id'];
@@ -78,13 +95,11 @@
             $status_count = $tweet['user']['statuses_count'];
             $user_time = $tweet['user']['created_at'];
             $create_date = DateTime::createFromFormat('D M d H:i:s O Y', $user_time);
-//            $create_date = $create_date->format('Y-m-d H:i:s');
+            //$create_date = $new_date->format('Y-m-d H:i:s');
             $amt_time = $now->diff($create_date);
-            $amt_time = $amt_time->format('%U');
+
 
             $posterFrequency = round($status_count/$amt_time);
-            #$userid = 1;
-            $text = $tweet['text'];
             $popularity = $tweet['retweet_count'];
             if ($tweet['user']['verified']) {
                 $verified = 1;
@@ -134,7 +149,9 @@
 
 
         // Bind each $tweet with the paramters
-            $stmt_data->execute();
+        if ($stmt_data->execute() === false) {
+          die('execute() failed: ' . htmlspecialchars($stmt_data->error));
+        }
 
         }
 
