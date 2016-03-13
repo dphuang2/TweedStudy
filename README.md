@@ -1,1 +1,1 @@
-[Imgur](http://i.imgur.com/9MhWqOd.gifv)
+<a href="http://imgur.com/MpbPbYa"><img src="http://i.imgur.com/MpbPbYa.gifv" title="source: imgur.com" /></a>
