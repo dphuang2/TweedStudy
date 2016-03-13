@@ -47,16 +47,16 @@
        $sql_filter_statements = array(
 //									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` > (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
 //									"distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` < (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
-									"only_retweets" => array($only_retweets_bool, "AND retweet = 1 "),
-									"no_retweets" => array($no_retweets_bool, "AND retweet = 0 "),
 									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > 0 "),
                                     "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
+									"only_retweets" => array($only_retweets_bool, "AND retweet = 1 "),
+									"no_retweets" => array($no_retweets_bool, "AND retweet = 0 "),
 									"popular_bool" => array($popular_bool, "AND tweet_popularity > 10 "),
 									"unpopular_bool" => array($unpopular_bool, "AND tweet_popularity < 10 "),
 									"frequent_bool" => array($frequent_bool, "AND poster_frequency > 1000 "),
 									"infrequent_bool" => array($infrequent_bool, "AND poster_frequency < 1000 "),
-									"verified_bool" => array($verified_bool, "AND verified = 1 "),
-									"unverified_bool" => array($unverified_bool, "AND verified = 0 "),
+									"verified_bool" => array($verified_bool, "AND `data`.`verified` = 1 "),
+									"unverified_bool" => array($unverified_bool, "AND `data`.`verified` = 0 "),
 									"sentimentPos_bool" => array($sentimentPos_bool, "AND sentiment > 0 "),
 									"sentimentNeg_bool" => array($sentimentNeg_bool, "AND sentiment < 0 "),
                   					"trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
@@ -71,7 +71,7 @@
            }
        }
 
-	    echo 'USERID IS ' . $user_id . "<br>";
+	    // echo 'USERID IS ' . $user_id . "<br>";
 	//Compose statement
 		if($closeFriends_bool || $distantFriends_bool){
 			$sql_syntax = "SELECT * FROM `data` ";
@@ -82,7 +82,7 @@
 
 	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date DESC LIMIT 600";
 
-		echo $sql;
+		//echo $sql;
 	//Print each tweet
 	    if(!$result = $db->query($sql)){
 	        die('There was an error running the query [' . $db->error . ']');
@@ -146,8 +146,8 @@
                                        "unpopular_bool" => array($unpopular_bool, "AND tweet_popularity < 10 "),
                                        "frequent_bool" => array($frequent_bool, "AND poster_frequency > 1000 "),
                                        "infrequent_bool" => array($infrequent_bool, "AND poster_frequency < 1000 "),
-                                       "verified_bool" => array($verified_bool, "AND verified = 1 "),
-                                       "unverified_bool" => array($unverified_bool, "AND verified = 0 "),
+                                       "verified_bool" => array($verified_bool, "AND `data`.`verified` = 1 "),
+                                       "unverified_bool" => array($unverified_bool, "AND `data`.`verified` = 0 "),
                                        "sentimentPos_bool" => array($sentimentPos_bool, "AND sentiment > 0 "),
                                        "sentimentNeg_bool" => array($sentimentNeg_bool, "AND sentiment < 0 "),
                                        "trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
