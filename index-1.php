@@ -153,7 +153,7 @@ session_start();
       					?>
 								<a href="logout.php"><button id="logout">Logout</button></a>
 
-								<h3> Houndstooth </h3>
+								<h3> Control Panel </h3>
 
 				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
                 See only retweets </button> <br>
