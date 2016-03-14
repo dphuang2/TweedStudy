@@ -71,7 +71,7 @@
            }
        }
 
-	    // echo 'USERID IS ' . $user_id . "<br>";
+	    echo 'USERID IS ' . $user_id . "<br>";
 	//Compose statement
 		if($closeFriends_bool || $distantFriends_bool){
 			$sql_syntax = "SELECT * FROM `data` ";
@@ -82,7 +82,7 @@
 
 	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date DESC LIMIT 600";
 
-		//echo $sql;
+		echo $sql;
 	//Print each tweet
 	    if(!$result = $db->query($sql)){
 	        die('There was an error running the query [' . $db->error . ']');

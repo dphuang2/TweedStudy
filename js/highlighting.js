@@ -15,21 +15,40 @@ function boldButton (id){
   var button = document.getElementById(id);
   var buttonPair = document.getElementById(pairs[id]);
 
-  var isTrend = false;
 
-  console.log(pairs);
-  console.log(id);
-
-  if(isTrend){
-      $(".trend").css("font-weight", "normal");
-      button.style.fontWeight = "bold";
+  var isTrend;
+  for(var filter in pairs){
+      if(id == filter){
+          isTrend = false;
+          break;
+      } else{
+          isTrend = true;
+      }
   }
 
-  if (button.style.fontWeight !== "bold"){
-    button.style.fontWeight = "bold";
-    buttonPair.style.fontWeight = "normal";
-  }
-  else{
-    button.style.fontWeight = "normal";
-  }
+
+    if(isTrend){
+        console.log("isTrend is true");
+
+        if(button.style.fontWeight != "bold"){
+              console.log("fontWeight was normal");
+            $(".trend").css("font-weight", "normal");
+            button.style.fontWeight = "bold";
+        } else {
+                console.log("fontWeight was bold");
+              button.style.fontWeight = "normal";
+        }
+
+    } else {
+        console.log("isTrend is false");
+
+      if (button.style.fontWeight != "bold"){
+        button.style.fontWeight = "bold";
+        buttonPair.style.fontWeight = "normal";
+      }
+      else{
+        button.style.fontWeight = "normal";
+      }
+
+    }
 }
