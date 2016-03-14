@@ -15,6 +15,8 @@
 
 			$user_id = $_SESSION["user_id"];
 
+			var_dump($_SESSION['button']);
+
 	//Retrieve session booleans
 			$only_retweets_bool = $_SESSION['button']['only_retweets'];
 			$no_retweets_bool = $_SESSION['button']['no_retweets'];

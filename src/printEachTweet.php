@@ -68,11 +68,11 @@
 		echo '</div> </div> <br>';
 	}
 	    echo '<div class="row-fluid">';
-	    echo '<div class="col-xs-1">';
+	    echo '<div class="col-xs-1 nopadding">';
 	if($tweet['retweet'] == 0){
-	    echo "<a href={$tweet['user_url']}><img src={$tweet['user_profile_img_url']} height='42' width='42'></a>";
+	    echo "<a href={$tweet['user_url']}><img class='profileimg' src={$tweet['user_profile_img_url']} ></a>";
 	} else{
-		echo "<a href={$tweet['retweet_user_url']}><img src={$tweet['retweet_user_profile_img']} height='42' width='42'></a>";
+		echo "<a href={$tweet['retweet_user_url']}><img class='profileimg' src={$tweet['retweet_user_profile_img']} ></a>";
 	}
 	    echo '</div>';
 	    echo '<div class="col-xs-10">';

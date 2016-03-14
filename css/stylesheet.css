@@ -25,3 +25,15 @@ hr { margin: 0px; }
 hr {
 	margin: 5px 0;
 }
+
+.profileimg{
+	height: auto;
+	width: 100%;
+	max-width: 42px;
+	max-height: 42px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}

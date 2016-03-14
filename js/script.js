@@ -29,7 +29,7 @@ window.onload = function () {
                                      if(dataString == "toggle" || dataString == "survey" || dataString == "logout"){
                                          return;
                                      }
-
+                  console.log(dataString);
 //                      count = +target.dataset.count;
 //
 //                      var pairs = {};
