@@ -26,7 +26,6 @@ function boldButton (id){
       }
   }
 
-
     if(isTrend){
         console.log("isTrend is true");
 
@@ -38,9 +37,14 @@ function boldButton (id){
                 console.log("fontWeight was bold");
               button.style.fontWeight = "normal";
         }
+        if(id == "alloff"){
+            console.log("alloff was pressed");
+            $(".astext").css("font-weight", "normal");
+        }
 
     } else {
         console.log("isTrend is false");
+
 
       if (button.style.fontWeight != "bold"){
         button.style.fontWeight = "bold";
