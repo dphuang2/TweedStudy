@@ -69,14 +69,23 @@
 		// $response = 'false';
 	}
 	else{
-		$_SESSION['button'][$dataString] = true;
 		// $response = 'true';
         if ( array_key_exists($dataString,$pairs)) {
             $pair_name = $pairs[$dataString];
             if ($_SESSION['button'][$pair_name]) {
                 $_SESSION['button'][$pair_name] = false;
             }
-        }
+        } else {
+					// run through all other things in sessiopn[]button
+					foreach($_SESSION['button'] as $filterkey => $filter)	{
+						if(!array_key_exists($filterkey,$pairs)){
+					$_SESSION['button'][$filterkey] = false;
+				}
+				}
+			}
+
+			$_SESSION['button'][$dataString] = true;
+
 	}
 
 
