@@ -105,7 +105,11 @@ $_SESSION['last_referrer_url'] = $_SERVER['HTTP_REFERER'];
 																error: function(response){
 																	alert("ajax failure");
 																}
-                                });
+                                  }).fail(function ( jqXHR, textStatus, errorThrown ) {
+                                          console.log(jqXHR);
+                                          console.log(textStatus);
+                                          console.log(errorThrown);
+                                          });
 
 
                               });

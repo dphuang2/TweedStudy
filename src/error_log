@@ -30,3 +30,38 @@
 [06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90
 [06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  DateTime::diff() expects parameter 1 to be DateTime, boolean given in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 87
 [06-Mar-2016 20:57:53 America/Chicago] PHP Warning:  Division by zero in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 90
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81

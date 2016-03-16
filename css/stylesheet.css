@@ -37,3 +37,11 @@ hr {
    padding: 0 !important;
    margin: 0 !important;
 }
+
+.hashtag{
+	/*color: rgb(0,132,180);*/
+	font-weight: bold;
+}
+/*.hashtag:hover{
+	text-decoration: underline;
+}*/

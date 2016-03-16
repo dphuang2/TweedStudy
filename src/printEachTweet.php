@@ -53,7 +53,9 @@
 
 		// Regex to replace urls with hyperlinks
 		$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+		$hashtag = '/([#])\w+/';
 		$tweet['tweet_text'] = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $tweet['tweet_text']);
+		$tweet['tweet_text'] = preg_replace("/([#])\w+/", "<span class='hashtag'>$0</span>", $tweet['tweet_text']);
 		// echo $tweet['tweet_text'];
 
 	    echo '<div class="tweet">';
