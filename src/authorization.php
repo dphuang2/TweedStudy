@@ -2,7 +2,8 @@
     // Authorization
     ini_set('display_errors', 1);
     //					require_once('TwitterAPIExchange.php');
-    require 'TwitterOAuth/autoload.php';
+    $path_parts = pathinfo('authorization.php');
+    require $path_parts['dirname']."/TwitterOAuth/autoload.php";
     use Abraham\TwitterOAuth\TwitterOAuth;
 
     define('CONSUMER_KEY', 'HDhjz43hHgbl6B7fEVy3wHApk');
@@ -30,9 +31,10 @@
     $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_access_token'], $_SESSION['oauth_access_token_secret']);
 // Create $user variable from connection and store $user["id"] as session variable
     $user = $connection->get("account/verify_credentials");
-    $user_id = json_decode(json_encode($user),true);
-    $user_id = $user_id["id"];
+    $user = json_decode(json_encode($user),true);
+    $user_id = $user["id"];
     $_SESSION["user_id"] = $user_id; // Session variable that hold $user_id
+    $_SESSION["user"] = $user; // Session variable that holds the user array.
 
     //                    echo $_SESSION['oauth_access_token'];
     //                    echo "<br>";
