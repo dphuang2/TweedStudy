@@ -31,13 +31,20 @@
 			$closeFriends_bool = $_SESSION['button']['close_friends'];
 			$distantFriends_bool = $_SESSION['button']['distant_friends'];
 			$sessionArray = ['only_retweets', 'no_retweets', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
+			echo "<br>";
         foreach ($_SESSION['button'] as $key=>$val) {
             if (! in_array( $key, $sessionArray )) {
                 $trend_bool = $val;
                 $trend_name = $key;
+								var_dump($trend_bool); echo "{$trend_name} <br>";
+								if($trend_bool){
+									echo "break";
+									break;
+								}
             }
 
         }
+
 
 
 	    // (user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags)

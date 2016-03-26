@@ -42,8 +42,13 @@
         var_dump($init_row);
         var_dump($init_row['max(rank)']);
         
-        $sql = "SELECT rank, friends.user_id,friend_id,followers_count,friends_count,verified, min_date,avg_sent,avg_int,sum_word FROM `friends` LEFT JOIN (SELECT user_id,sender_id,min(create_date) as min_date,avg(intimacy) as avg_int, avg(sentiment) as avg_sent, sum(word_count) as sum_word FROM `directMessages`) as tab2 ON `friends`.`friend_id`=tab2.`sender_id` AND `friends`.`user_id`=tab2.`user_id` WHERE `friends`.user_id = {$userid}";
+//        $sql = "SELECT rank, friends.user_id,friend_id,followers_count,friends_count,verified, max_date,avg_sent,avg_int,sum_word FROM `friends` LEFT JOIN (SELECT user_id,sender_id,min(create_date) as min_date,avg(intimacy) as avg_int, avg(sentiment) as avg_sent, sum(word_count) as sum_word FROM `directMessages`) as tab2 ON `friends`.`friend_id`=tab2.`sender_id` AND `friends`.`user_id`=tab2.`user_id` WHERE `friends`.user_id = {$userid}";
         
+         $sql = "SELECT rank, friends.user_id,friends.friend_id,followers_count,friends_count,verified, max_date,max_date2,avg_sent,avg_sent2,avg_int,sum_word,sum_word2 FROM `friends` LEFT JOIN (SELECT user_id,sender_id,max(create_date) as max_date,avg(intimacy) as avg_int, avg(sentiment) as avg_sent, sum(word_count) as sum_word FROM `directMessages`) as tab2 ON `friends`.`friend_id`=tab2.`sender_id` AND `friends`.`user_id`=tab2.`user_id` LEFT JOIN (SELECT user_id,friend_id, avg(sentiment) as avg_sent2, sum(word_count) as sum_word2, max(create_date) as max_date2 FROM `mentions`) as tab3 ON `friends`.`friend_id`=tab3.`friend_id` AND `friends`.`user_id`=tab3.`user_id` WHERE `friends`.user_id = {$userid}";
+        
+        
+        
+//        260761339
 //        SELECT * FROM `friends` LEFT JOIN `directMessages`
 //        ON `friends`.`friend_id`=`directMessages`.`sender_id` WHERE `friends`.user_id = 260761339
         
@@ -117,6 +122,12 @@
                 $computedRank = $computedRank-1;
             }
             
+            if ((float)$friendInfo['avg_sent2'] > 0){
+                $computedRank = $computedRank+1;
+            } elseif ((float)$friendInfo['avg_sent'] < 0) {
+                $computedRank = $computedRank-1;
+            }
+            
             if ((float)$friendInfo['avg_int'] > 0){
                 $computedRank = $computedRank+1;
             } elseif ((float)$friendInfo['avg_int'] < 0) {
@@ -133,6 +144,27 @@
                 $computedRank = $computedRank+1;
             }
             
+            if ((float)$friendInfo['sum_word2'] > 1000) {
+                $computedRank = $computedRank+10;
+            } elseif ((float)$friendInfo['sum_word2'] > 100) {
+                $computedRank = $computedRank+5;
+            } elseif ((float)$friendInfo['sum_word2'] > 10) {
+                $computedRank = $computedRank+2;
+            } elseif ((float)$friendInfo['sum_word2'] > 0) {
+                $computedRank = $computedRank+1;
+            }
+            
+            $mostrecent = max($friendInfo['max_date'],$friendInfo['max_date2']);
+            
+            if (strtotime($mostrecent) - strtotime('-6 hour')  > 0 ) {
+                $computedRank = $computedRank+10;
+            } elseif (strtotime($mostrecent) - strtotime('-1 day')  > 0 ) {
+                $computedRank = $computedRank+5;
+            } elseif (strtotime($mostrecent) - strtotime('-7 day')  > 0 ) {
+                $computedRank = $computedRank+2;
+            } elseif (strtotime($mostrecent) - strtotime('-31 day')  > 0 ) {
+                $computedRank = $computedRank+1;
+            }
             
             // Should do something with min_date --> haven't done it yet
             
@@ -160,7 +192,8 @@
         
         $db->close();
     }
-
+    
+    
     
 //    function processAndInsert($friendInfo,$max_rank,$db,$userid,$stmt_friends) {
 //

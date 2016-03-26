@@ -26,6 +26,7 @@ session_start();
                       include 'src/saveFriendsToSQL.php'; // Save friends
                       include 'src/computeFriendRank.php'; // As a second step, compute friend rank (need max friend num to do so)
                       include 'src/savedirectMessagesToSQL.php'; //Save direct messages
+                      include 'src/mentionsToSQL.php'; // Save current user's mentions
                     // Resetting all session booleans
                   // Resetting all session booleans
                       $_SESSION['button']['tweet_popular'] = false;
@@ -81,6 +82,8 @@ session_start();
                           saveTrendsToSQL($connection);
                           echo "Saving DMs now <br>";
                           savedirectMessagesToSQL($connection);
+                          echo "Saving mentions now <br>";
+                          mentionsToSQL($connection);
 
                           echo "Direct messages saved, now paging through friends. <br>";
                           $_SESSION["rank_counter"] = 0;
