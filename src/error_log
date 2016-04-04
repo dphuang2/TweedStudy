@@ -65,3 +65,5 @@
 [14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
 [14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
 [14-Mar-2016 13:57:02 America/Chicago] PHP Warning:  array_key_exists(): The first argument should be either a string or an integer in /home/twitterfeed/public_html/TweedStudy/src/pass_value.php on line 81
+[18-Mar-2016 15:30:00 America/Chicago] PHP Fatal error:  Cannot redeclare endsWith() (previously declared in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php:26) in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 29
+[18-Mar-2016 15:30:13 America/Chicago] PHP Fatal error:  Cannot redeclare endsWith() (previously declared in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php:26) in /home/twitterfeed/public_html/TweedStudy/src/toSQL/tweetsToSQL.php on line 29

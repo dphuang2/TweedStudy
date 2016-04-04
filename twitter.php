@@ -50,7 +50,13 @@
     
     echo "<p><b>COMPENSATION</b>: We will pay participants $10/hour for the duration of their interview. The interview process should take approximately 45 minutes.</p>";
 
-    echo "<p><b>CONFIDENTIALITY</b>: Your interview will be recorded, but the original data will not be shared with anyone outside of our group at the University of Illinois. We will also maintain a single key linking your interview number with your email address (which will be stored in a locked safe in the PI’s office). We may contact you after the initial interview with follow up questions, but you are not obligated to participate and will be similarly compensated for any follow up contributions.</p>";
+    echo "<p><b>CONFIDENTIALITY</b>: Your study-related information will be kept confidential, however there are some exceptions. In general, we will not tell anyone any information about you. However, laws and university rules might require us to disclose information about you.  For example, if required by laws or University Policy, study information which identifies you may be seen or copied by the following people or groups:</p>";
+    
+    echo "<p style='text-indent:50px'>The university committee and office that reviews and approves research studies, the Institutional Review Board (IRB) and Office for Protection of Research Subjects;</p>";
+    
+     echo "<p style='text-indent:50px'>University and state auditors, and Departments of the university responsible for oversight of research;</p>";
+    
+     echo "<p>Your interview will be recorded, but to the extent allowed by law the original data will not be shared with anyone outside of our group at the University of Illinois. We will also maintain a single key linking your interview number with your email address (which will be stored in a locked safe in the PI’s office). We may contact you after the initial interview with follow up questions, but you are not obligated to participate and will be similarly compensated for any follow up contributions.</p>";
     
     echo "<p>Any reports and presentations about the findings from this study will not include your name or any other information that could identify you.</p>";
     

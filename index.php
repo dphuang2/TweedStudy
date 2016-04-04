@@ -56,27 +56,32 @@ session_start();
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
                           $_SESSION['data_in_db'] = true;
 
+						  function endsWith($haystack, $needle) {
+							  // search forward starting from end minus needle length characters
+							  return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
+						  }
+
 												// Initialize $next_max_id and $cursor variable
 													$next_max_id = null;
 													$cursor = null;
 
 													echo "The if statement is true, now paging through tweets. <br>";
 												// While there are still tweets, run saveToSQL
-													saveToSQL($connection, $next_max_id_temp);
-													// while(true){
-													// 	echo "The tweet while statement is true <br>";
-													// // Preserve previously recieved cursor
-													// 	$next_max_id_temp = $next_max_id;
-													// // Run saveToSQL and store return array into $return_array
-													// 	$next_max_id = saveToSQL($connection, $next_max_id_temp);
-													//
-													// 	$next_max_id_str = (string) $next_max_id;
-													// 	echo "The next_max_id is " . $next_max_id_str . "<br>";
-													//
-													// 	if($next_max_id == $next_max_id_temp || $next_max_id == null){
-													// 		break;
-													// 	}
-													// }
+													// saveToSQL($connection, $next_max_id_temp);
+													while(true){
+														echo "The tweet while statement is true <br>";
+													// Preserve previously recieved cursor
+														$next_max_id_temp = $next_max_id;
+													// Run saveToSQL and store return array into $return_array
+														$next_max_id = saveToSQL($connection, $next_max_id_temp);
+
+														$next_max_id_str = (string) $next_max_id;
+														echo "The next_max_id is " . $next_max_id_str . "<br>";
+
+														if($next_max_id == $next_max_id_temp || $next_max_id == null){
+															break;
+														}
+													}
 
                           echo "Saving trends now <br>";
                           saveTrendsToSQL($connection);

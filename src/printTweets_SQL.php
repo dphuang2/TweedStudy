@@ -89,7 +89,7 @@
 			$sql_syntax = "SELECT * FROM `data` WHERE user_id = {$user_id} ";
 		}
 
-	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_create_date DESC LIMIT 600";
+	    $sql = $sql_syntax . $sql_filter . "ORDER BY tweet_id DESC LIMIT 600";
 
 		echo $sql;
 	//Print each tweet
