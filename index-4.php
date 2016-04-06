@@ -78,9 +78,9 @@ function controlPanel()
 
 // Authorization
 
-include 'src/authorization.php';
+// include 'src/authorization.php';
 
-echo "<br />";
+echo "<br>";
 
 // SaveToSQL if data_in_db is false
 
@@ -91,12 +91,12 @@ if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db']) == false) {
 
 	$next_max_id = null;
 	$cursor = null;
-	echo "The if statement is true, now paging through tweets. <br />";
+	echo "The if statement is true, now paging through tweets. <br>";
 
 	// While there are still tweets, run saveToSQL
 
 	while (true) {
-		echo "The tweet while statement is true <br />";
+		echo "The tweet while statement is true <br>";
 
 		// Preserve previously recieved cursor
 
@@ -106,24 +106,24 @@ if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db']) == false) {
 
 		$next_max_id = saveToSQL($connection, $next_max_id_temp);
 		$next_max_id_str = (string)$next_max_id;
-		echo "The next_max_id is " . $next_max_id_str . "<br />";
+		echo "The next_max_id is " . $next_max_id_str . "<br>";
 		if ($next_max_id == $next_max_id_temp || $next_max_id == null) {
 			break;
 		}
 	}
 
-	echo "Saving trends now <br />";
+	echo "Saving trends now <br>";
 	saveTrendsToSQL($connection);
-	echo "Saving DMs now <br />";
+	echo "Saving DMs now <br>";
 	savedirectMessagesToSQL($connection);
-	echo "Direct messages saved, now paging through friends. <br />";
+	echo "Direct messages saved, now paging through friends. <br>";
 	$_SESSION["rank_counter"] = 0;
 	while (true) {
-		echo "The friends while statement is true <br />";
+		echo "The friends while statement is true <br>";
 		$cursor_temp = $cursor;
 		$cursor = saveFriendsToSQL($connection, $cursor_temp);
 		$cursor_str = (string)$cursor;
-		echo "The cursor is " . $cursor_str . "<br />";
+		echo "The cursor is " . $cursor_str . "<br>";
 		if ($cursor == $cursor_temp || $cursor == null) {
 			$_SESSION["rank_counter"]--;
 			break;
@@ -181,40 +181,45 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 								<a href="logout.php"><button class="btn" id="logout">Logout</button></a>
 
 								<h3> Control Panel </h3>
-
-				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
-                See only retweets </button> <br />
+            <div class="container-fluid">
+          		<div class="row-fluid">
+                <h4> See...</h4>
+              <div class="col-xs-6">
+				        <button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
+                Only retweets </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
-                See no retweets </button> <br />
-                <hr/>
+                No retweets </button> <br>
+                <br>
                 <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
-                See more frequent posters </button> <br />
+                More frequent posters </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
-                See more infrequent posters </button>
-                <hr/>
-                <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
-                See more of your close friends </button> <br />
+                More infrequent posters </button> <br>
+                <br>
+                <button  onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
+                More close friends </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
-                See more distant friends</button>
-                <hr/>
+                More distant friends</button> <br>
+                <br>
                 <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
-                See more celebrities </button> <br />
+                More celebrities </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
-                See more real people </button>
-				<hr/>
+                More real people </button> <br>
+				<br>
 
                 <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
-                See more positive tweets </button> </div>
+                More positive tweets </button> </div>
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_negative" data-count="0">
-                See more negative tweets </button>
-                <hr/>
+                More negative tweets </button> <br>
+                <br>
 
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_popular" data-count="0">
-                See more popular tweets </button> <br />
+                More popular tweets </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_unpopular" data-count="0">
-                See more tweets that haven't gotten attention </button>
-                <hr/>
+                More tweets that haven't gotten attention </button> <br>
+                <br>
+              </div>
+              <div class="col-xs-6">
                 <p>Some trending topics:</p>
                 <?php
 $servername = "engr-cpanel-mysql.engr.illinois.edu";
@@ -251,20 +256,23 @@ $subArray = array_rand($trendsArray, min(7, count($trendsArray)));
 
 foreach($subArray as $ind) {
 	$trend = $trendsArray[$ind];
-	echo "&nbsp&nbsp&nbsp&nbsp<button onclick='boldButton(this.id)' class='astext trend' id='{$trend}' >{$trend}</button> <br />";
+	echo "&nbsp&nbsp&nbsp&nbsp<button onclick='boldButton(this.id)' class='astext trend' id='{$trend}' >{$trend}</button> <br>";
 }
 
 ?>
-                <br />
+                <br>
                 <hr>
                 <button onclick='boldButton(this.id)' class="astext" id="alloff">
-                Turn off all filters </button> <br />
+                Turn off all filters </button> <br>
 								<hr>
 
                 <button onclick='boldButton(this.id)' class="astext" id="refresh">
-                Refresh for new tweets since you logged in </button> <br />
-                <br />
+                Refresh for new tweets since you logged in </button> <br>
+                <br>
                 <a href="survey.php"><button id="survey" class="btn"> Go to survey </button></a>
+              </div>
+              </div>
+            </div>
 
           </div>
   			</div>

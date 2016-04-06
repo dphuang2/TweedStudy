@@ -56,10 +56,6 @@ session_start();
                       if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db'])== false) {
                           $_SESSION['data_in_db'] = true;
 
-						  function endsWith($haystack, $needle) {
-							  // search forward starting from end minus needle length characters
-							  return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
-						  }
 
 												// Initialize $next_max_id and $cursor variable
 													$next_max_id = null;

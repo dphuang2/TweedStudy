@@ -1,4 +1,5 @@
 function boldButton (id){
+
   var pairs = [];
   pairs["only_retweets"] = "no_retweets";
   pairs["no_retweets"] = "only_retweets";
@@ -15,6 +16,11 @@ function boldButton (id){
   var button = document.getElementById(id);
   var buttonPair = document.getElementById(pairs[id]);
 
+  if(id == "refresh"){
+    button.style.fontWeight = "bold";
+    setTimeout(function() {button.style.fontWeight = "normal";},300);
+    return;
+  }
 
   var isTrend;
   for(var filter in pairs){

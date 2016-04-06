@@ -1,7 +1,6 @@
 <?php
 	session_start();
 
-// include 'authorization.php';
 
 // Import all functions
 // include 'echoStatement.php';
@@ -40,6 +39,7 @@
         // $response = 'false';
     }
     elseif($dataString == 'refresh'){
+				echo dirname("pass_value.php")."/pass_value.php";
         include 'authorization.php';
         include 'saveToSQL.php';
 //        include 'tweetsToSQL.php';

@@ -2,9 +2,21 @@
     // Authorization
     ini_set('display_errors', 1);
     //					require_once('TwitterAPIExchange.php');
+
     $path_parts = pathinfo('authorization.php');
+    echo $path_parts['dirname']."<br>";
     require $path_parts['dirname']."/TwitterOAuth/autoload.php";
+  
+
+    echo dirname("authorization.php");
+
+    // define('__ROOT__', dirname(dirname("authorization.php")));
+    // require_once(__ROOT__.'/TwitterOAuth/autoload.php');
+    //
+    // require("../../TwitterOAuth/autoload.php");
     use Abraham\TwitterOAuth\TwitterOAuth;
+
+    echo "Require successful with directory: ".$path_parts['dirname']."/TwitterOAuth/autoload.php <br>";
 
     define('CONSUMER_KEY', 'HDhjz43hHgbl6B7fEVy3wHApk');
     define('CONSUMER_SECRET', '9xaTyEdOWSs8O9JCdHUjnYpZCoTj1pn75y7FmAS4o8EzH83LPu');
