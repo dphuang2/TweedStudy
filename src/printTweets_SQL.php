@@ -30,7 +30,9 @@
 			$sentimentNeg_bool = $_SESSION['button']['sentiment_negative'];
 			$closeFriends_bool = $_SESSION['button']['close_friends'];
 			$distantFriends_bool = $_SESSION['button']['distant_friends'];
-			$sessionArray = ['only_retweets', 'no_retweets', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
+			$slider = $_SESSION['button']['slider'];
+			$sliderValue = $_SESSION['button']['sliderValue'];
+			$sessionArray = ['slider', 'sliderValue', 'only_retweets', 'no_retweets', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
 			echo "<br>";
         foreach ($_SESSION['button'] as $key=>$val) {
             if (! in_array( $key, $sessionArray )) {
@@ -44,6 +46,9 @@
             }
 
         }
+
+		echo $slider."<br>";
+		echo $sliderValue."<br>";
 
 
 
@@ -70,6 +75,15 @@
 									"sentimentNeg_bool" => array($sentimentNeg_bool, "AND sentiment < 0 "),
                   					"trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
            );
+		if($slider){
+			if($sliderValue > 0){
+				$sql_filter_statements["closeFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > ".$sliderValue." ";
+			}
+			if($sliderValue < 0){
+				$sql_filter_statements["distantFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < ".$sliderValue." ";
+			}
+		}
+
 	// Initalize filter statement
        $sql_filter = "";
 

@@ -63,21 +63,21 @@ session_start();
 
 													echo "The if statement is true, now paging through tweets. <br>";
 												// While there are still tweets, run saveToSQL
-													// saveToSQL($connection, $next_max_id_temp);
-													while(true){
-														echo "The tweet while statement is true <br>";
-													// Preserve previously recieved cursor
-														$next_max_id_temp = $next_max_id;
-													// Run saveToSQL and store return array into $return_array
-														$next_max_id = saveToSQL($connection, $next_max_id_temp);
-
-														$next_max_id_str = (string) $next_max_id;
-														echo "The next_max_id is " . $next_max_id_str . "<br>";
-
-														if($next_max_id == $next_max_id_temp || $next_max_id == null){
-															break;
-														}
-													}
+													saveToSQL($connection, $next_max_id_temp);
+													// while(true){
+													// 	echo "The tweet while statement is true <br>";
+													// // Preserve previously recieved cursor
+													// 	$next_max_id_temp = $next_max_id;
+													// // Run saveToSQL and store return array into $return_array
+													// 	$next_max_id = saveToSQL($connection, $next_max_id_temp);
+													//
+													// 	$next_max_id_str = (string) $next_max_id;
+													// 	echo "The next_max_id is " . $next_max_id_str . "<br>";
+													//
+													// 	if($next_max_id == $next_max_id_temp || $next_max_id == null){
+													// 		break;
+													// 	}
+													// }
 
                           echo "Saving trends now <br>";
                           saveTrendsToSQL($connection);

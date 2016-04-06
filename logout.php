@@ -15,7 +15,7 @@ session_unset();
         </p>
 
         <?php
-        require_once 'TwitterOAuth/autoload.php';
+        require_once 'src/TwitterOAuth/autoload.php';
         use Abraham\TwitterOAuth\TwitterOAuth;
         define('CONSUMER_KEY', 'HDhjz43hHgbl6B7fEVy3wHApk');
         define('CONSUMER_SECRET', '9xaTyEdOWSs8O9JCdHUjnYpZCoTj1pn75y7FmAS4o8EzH83LPu');

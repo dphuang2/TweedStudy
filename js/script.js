@@ -4,7 +4,6 @@
           jQuery('.totop').stop().animate({ right: '0px' });
       });
 
-
 //            $("#btn").click(function())
 //            {
 //                if($_SESSION['sentiment_positive'].value==false){
@@ -20,6 +19,43 @@
 //                }
 
 window.onload = function () {
+    $("#slider").on('change', function( event ) {
+
+        var button = document.getElementById("close_friends");
+        var button2 = document.getElementById("distant_friends");
+        button.style.fontWeight = "normal";
+        button2.style.fontWeight = "normal";
+
+
+         //This is for Internet Explorer
+         var target = (event.target) ? event.target : event.srcElement;
+         var elem = $( this );
+         var dataString = elem.attr("id");
+                             if(dataString == "toggle" || dataString == "survey" || dataString == "logout"){
+                                 return;
+                             }
+        var value = $("#slider").val();
+        console.log("test");
+        console.log(dataString);
+        console.log(value);
+         $.ajax({
+
+                type: "POST",
+                url: "../TweedStudy/src/pass_value.php",
+                data: { dataString: dataString, value:value },
+                dataType: 'text',
+                cache: false,
+                success: function(response) {
+                console.log("Ajax call success");
+                //alert(response);
+                $("#feed").html(response);
+                //document.getElementById("feed").innerHTML=xmlhttlp.response;
+
+                }
+                });
+
+         return false;
+    });
   $("button").on('click', function( event ) {
 
                  //This is for Internet Explorer

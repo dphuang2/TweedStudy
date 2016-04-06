@@ -6,14 +6,16 @@
     $path_parts = pathinfo('authorization.php');
     echo $path_parts['dirname']."<br>";
     require $path_parts['dirname']."/TwitterOAuth/autoload.php";
-  
-
-    echo dirname("authorization.php");
+    //
+    //
+    // echo dirname("authorization.php");
 
     // define('__ROOT__', dirname(dirname("authorization.php")));
     // require_once(__ROOT__.'/TwitterOAuth/autoload.php');
     //
     // require("../../TwitterOAuth/autoload.php");
+    // require "/TwitterOAuth/autoload.php";
+    // require "vendor/autoload.php";
     use Abraham\TwitterOAuth\TwitterOAuth;
 
     echo "Require successful with directory: ".$path_parts['dirname']."/TwitterOAuth/autoload.php <br>";

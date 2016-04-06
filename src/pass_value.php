@@ -31,8 +31,29 @@
     );
 
 	$dataString = $_POST['dataString'];
+	$value = $_POST['value'];
 
-    if ($dataString == 'alloff'){
+	if($dataString == 'slider'){
+		echo $dataString."<br>";
+		echo $value."<br>";
+		$_SESSION['button'][$dataString."Value"] = $value;
+		if($value == 0){
+			$_SESSION['button'][$dataString] = false;
+			$_SESSION['button']['close_friends'] = false;
+			$_SESSION['button']['distant_friends'] = false;
+		} else {
+			$_SESSION['button'][$dataString] = true;
+			if($value > 0){
+				$_SESSION['button']['close_friends'] = true;
+				$_SESSION['button']['distant_friends'] = false;
+			}elseif($value < 0){
+				$_SESSION['button']['close_friends'] = false;
+				$_SESSION['button']['distant_friends'] = true;
+			}
+		}
+
+	}
+    elseif ($dataString == 'alloff'){
         foreach($_SESSION['button'] as $key => $value){
             $_SESSION['button'][$key] = false;
         }
