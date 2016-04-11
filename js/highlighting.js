@@ -13,6 +13,8 @@ function boldButton (id){
   pairs["sentiment_negative"] = "sentiment_positive";
   pairs["close_friends"] = "distant_friends";
   pairs["distant_friends"] = "close_friends";
+  pairs["only_videos"] = "no_videos";
+  pairs["no_videos"] = "only_videos";
   var button = document.getElementById(id);
   var buttonPair = document.getElementById(pairs[id]);
 

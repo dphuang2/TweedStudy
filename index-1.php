@@ -67,6 +67,8 @@ $_SESSION['button']['sentiment_positive'] = false;
 $_SESSION['button']['sentiment_negative'] = false;
 $_SESSION['button']['close_friends'] = false;
 $_SESSION['button']['distant_friends'] = false;
+$_SESSION['button']['only_videos'] = false;
+$_SESSION['button']['no_videos'] = false;
 
 if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db']) == '') {
 	$_SESSION['data_in_db'] = false;
@@ -173,49 +175,56 @@ $_SESSION[index][1] = true;
   			<div class="col-xs-4 totop">
           <button class="btn" id="toggle">Hide/Show</button>
           <div id="newpost">
-
+		  <div id="loginWrap">
                 <?php
-echo "Logged in as <b>" . $_SESSION["user"]["screen_name"];
+echo "<b>" . $_SESSION["user"]["screen_name"];
 echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>";
 ?>
 								<a href="logout.php"><button class="btn" id="logout">Logout</button></a>
-
+		</div>
 								<h3> Control Panel </h3>
-
-				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
-                See only retweets </button> <br />
-                <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
-                See no retweets </button> <br />
-                <hr/>
+				<h4> See... </h4>
+			<div id="people">
                 <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
-                See more frequent posters </button> <br />
+                Frequent posters </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
-                See more infrequent posters </button>
+                Infrequent posters </button>
                 <hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
-                See more of your close friends </button> <br />
+                Close friends </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
-                See more distant friends</button>
+                Distant friends</button>
                 <hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
-                See more celebrities </button> <br />
+                Celebrities </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
-                See more real people </button>
+                Real people </button>
 				<hr/>
-
+			</div>
+			<div id="content">
+				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
+                Only retweets </button> <br />
+                <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
+                No retweets </button> <br />
+                <hr/>
+				<button onclick='boldButton(this.id)' class="astext" id="only_videos" data-count="0">
+				Only videos </button> <br />
+				<button onclick='boldButton(this.id)' class="astext" id="no_videos" data-count="0">
+				No videos </button> <br />
+				<hr/>
                 <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
-                See more positive tweets </button> </div>
+                Positive tweets </button> </div>
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_negative" data-count="0">
-                See more negative tweets </button>
+                Negative tweets </button>
                 <hr/>
 
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_popular" data-count="0">
-                See more popular tweets </button> <br />
+                Popular tweets </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_unpopular" data-count="0">
-                See more tweets that haven't gotten attention </button>
+                Tweets that haven't gotten attention </button>
                 <hr/>
-                <p>Some trending topics:</p>
+                <p>Trending topics:</p>
                 <?php
 $servername = "engr-cpanel-mysql.engr.illinois.edu";
 $username = "twitterf_user";
@@ -257,6 +266,7 @@ foreach($subArray as $ind) {
 ?>
                 <br />
                 <hr>
+			</div>
                 <button onclick='boldButton(this.id)' class="astext" id="alloff">
                 Turn off all filters </button> <br />
 								<hr>

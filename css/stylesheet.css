@@ -20,6 +20,8 @@ hr { margin: 0px; }
 
 #newpost a button {
 	color: black;
+	font-weight: lighter;
+	padding: 3px 6px
 }
 
 hr {
@@ -45,3 +47,26 @@ hr {
 /*.hashtag:hover{
 	text-decoration: underline;
 }*/
+
+#loginWrap{
+	background-color:
+}
+
+#loginWrap button{
+	vertical-align: text-bottom;
+}
+#loginWrap img{
+	border-radius: 24px;
+	vertical-align: text-bottom;
+}
+
+#loginWrap{
+	background-color:	rgb(72,72,72) ;
+	color: white;
+}
+#people{
+	background-color: rgb(208,208,208) ;
+}
+#content{
+	background-color: 	rgb(192,192,192);
+}
