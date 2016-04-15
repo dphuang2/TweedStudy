@@ -69,6 +69,10 @@ $_SESSION['button']['close_friends'] = false;
 $_SESSION['button']['distant_friends'] = false;
 $_SESSION['button']['only_videos'] = false;
 $_SESSION['button']['no_videos'] = false;
+$_SESSION['button']['only_text'] = false;
+$_SESSION['button']['no_text'] = false;
+$_SESSION['button']['only_pics'] = false;
+$_SESSION['button']['no_pics'] = false;
 
 if ((!isset($_SESSION['data_in_db'])) || ($_SESSION['data_in_db']) == '') {
 	$_SESSION['data_in_db'] = false;
@@ -182,7 +186,7 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 ?>
 								<a href="logout.php"><button class="btn" id="logout">Logout</button></a>
 		</div>
-								<h3> Control Panel </h3>
+								<!-- <h3> Control Panel </h3> -->
 				<h4> See... </h4>
 			<div id="people">
                 <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
@@ -202,15 +206,33 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 				<hr/>
 			</div>
 			<div id="content">
-				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
-                Only retweets </button> <br />
-                <button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
-                No retweets </button> <br />
-                <hr/>
+	<div class="container-fluid type">
+		<div class="row-fluid">
+			<div class="col-xs-4 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_videos" data-count="0">
-				Only videos </button> <br />
+				Only videos </button> <br>
 				<button onclick='boldButton(this.id)' class="astext" id="no_videos" data-count="0">
-				No videos </button> <br />
+				No videos </button>
+			</div>
+			<div class="col-xs-4 typeColumn">
+				<button onclick='boldButton(this.id)' class="astext" id="only_text" data-count="0">
+                Only text </button> <br>
+				<button onclick='boldButton(this.id)' class="astext" id="no_text" data-count="0">
+				No text </button>
+			</div>
+			<div class="col-xs-4 typeColumn">
+				<button onclick='boldButton(this.id)' class="astext" id="only_pics" data-count="0">
+                Only pictures </button> <br>
+				<button onclick='boldButton(this.id)' class="astext" id="no_pics" data-count="0">
+                No pictures </button>
+			</div>
+		</div>
+	</div>
+                <hr/>
+				<button onclick='boldButton(this.id)' class="astext" id="only_retweets" data-count="0">
+				Only retweets </button> <br>
+				<button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
+				No retweets </button> <br>
 				<hr/>
                 <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
@@ -265,7 +287,6 @@ foreach($subArray as $ind) {
 
 ?>
                 <br />
-                <hr>
 			</div>
                 <button onclick='boldButton(this.id)' class="astext" id="alloff">
                 Turn off all filters </button> <br />

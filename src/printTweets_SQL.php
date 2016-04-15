@@ -18,6 +18,10 @@
 			var_dump($_SESSION['button']);
 
 	//Retrieve session booleans
+			$only_text_bool = $_SESSION['button']['only_text'];
+			$no_text_bool = $_SESSION['button']['no_text'];
+			$only_pics_bool = $_SESSION['button']['only_pics'];
+			$no_pics_bool = $_SESSION['button']['no_pics'];
 			$only_videos_bool = $_SESSION['button']['only_videos'];
 			$no_videos_bool = $_SESSION['button']['no_videos'];
 			$only_retweets_bool = $_SESSION['button']['only_retweets'];
@@ -34,7 +38,7 @@
 			$distantFriends_bool = $_SESSION['button']['distant_friends'];
 			$slider = $_SESSION['button']['slider'];
 			$sliderValue = $_SESSION['button']['sliderValue'];
-			$sessionArray = ['slider', 'sliderValue', 'only_retweets', 'no_retweets', 'only_videos', 'no_videos', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
+			$sessionArray = ['only_text', 'no_text','only_pics','no_pics', 'slider', 'sliderValue', 'only_retweets', 'no_retweets', 'only_videos', 'no_videos', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
 			echo "<br>";
         foreach ($_SESSION['button'] as $key=>$val) {
             if (! in_array( $key, $sessionArray )) {
@@ -67,6 +71,10 @@
                                     "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
 									"only_retweets" => array($only_retweets_bool, "AND retweet = 1 "),
 									"no_retweets" => array($no_retweets_bool, "AND retweet = 0 "),
+									"only_text" => array($only_text_bool, "AND video = 0 AND picture = 0 "),
+									"no_text" => array($no_text_bool, "AND tweet_text = '' "),
+									"only_pics" => array($only_pics_bool, "AND picture = 1 "),
+									"no_pics" => array($no_pics_bool, "AND picture = 0 "),
 									"only_videos" => array($only_videos_bool, "AND video = 1 "),
 									"no_videos" => array($no_videos_bool, "AND video = 0 "),
 									"popular_bool" => array($popular_bool, "AND tweet_popularity > 10 "),

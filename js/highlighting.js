@@ -1,6 +1,10 @@
 function boldButton (id){
 
   var pairs = [];
+  pairs["only_text"] = "no_text";
+  pairs["no_text"] = "only_text";
+  pairs["only_pics"] = "no_pics";
+  pairs["no_pics"] = "only_pics";
   pairs["only_retweets"] = "no_retweets";
   pairs["no_retweets"] = "only_retweets";
   pairs["tweet_popular"] = "tweet_unpopular";

@@ -16,6 +16,10 @@
 
 
     $pairs = array(
+				'only_text' =>'no_text',
+				'no_text' =>'only_text',
+				'only_pics' =>'no_pics',
+				'no_pics' =>'only_pics',
 				'only_retweets' =>'no_retweets',
 				'no_retweets' =>'only_retweets',
 				'tweet_popular' =>'tweet_unpopular',

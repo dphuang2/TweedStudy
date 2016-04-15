@@ -6,6 +6,9 @@ right: 0px;
 .tweet:hover{
 	background-color:#eeeeea;
 }
+.tweet video{
+	max-height: 640px
+}
 
 hr { margin: 0px; }
 
@@ -28,6 +31,15 @@ hr {
 	margin: 5px 0;
 }
 
+.type{
+	padding-left: 0px;
+}
+
+.type .typeColumn{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
 .profileimg{
 	height: auto;
 	width: 100%;
@@ -48,25 +60,34 @@ hr {
 	text-decoration: underline;
 }*/
 
-#loginWrap{
-	background-color:
-}
-
 #loginWrap button{
 	vertical-align: text-bottom;
 }
 #loginWrap img{
 	border-radius: 24px;
 	vertical-align: text-bottom;
+	border-color: white;
+	border-width: 3px;
+	border-style: solid;
 }
 
 #loginWrap{
 	background-color:	rgb(72,72,72) ;
 	color: white;
+	padding: 5px;
+	margin-top: 5px;
 }
 #people{
 	background-color: rgb(208,208,208) ;
+	padding: 5px;
 }
 #content{
 	background-color: 	rgb(192,192,192);
+	padding: 5px;
+}
+#meta{
+	vertical-align: text-bottom;
+}
+#meta svg{
+	vertical-align: bottom;
 }
