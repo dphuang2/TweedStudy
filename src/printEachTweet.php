@@ -2,6 +2,7 @@
 
 function printEachTweet($tweet)
 {
+
 	$now = new DateTime();
 	$now->format('D M d H:i:s O Y');
 	$now->getTimestamp();

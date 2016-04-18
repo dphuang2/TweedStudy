@@ -1,6 +1,8 @@
 function boldButton (id){
 
   var pairs = [];
+  pairs["only_links"] = "no_links";
+  pairs["no_links"] = "only_links";
   pairs["only_text"] = "no_text";
   pairs["no_text"] = "only_text";
   pairs["only_pics"] = "no_pics";

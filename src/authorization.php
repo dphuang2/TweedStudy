@@ -18,7 +18,7 @@
     // require "vendor/autoload.php";
     use Abraham\TwitterOAuth\TwitterOAuth;
 
-    echo "Require successful with directory: ".$path_parts['dirname']."/TwitterOAuth/autoload.php <br>";
+    //echo "Require successful with directory: ".$path_parts['dirname']."/TwitterOAuth/autoload.php <br>";
 
     define('CONSUMER_KEY', 'HDhjz43hHgbl6B7fEVy3wHApk');
     define('CONSUMER_SECRET', '9xaTyEdOWSs8O9JCdHUjnYpZCoTj1pn75y7FmAS4o8EzH83LPu');

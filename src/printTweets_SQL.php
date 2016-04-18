@@ -18,6 +18,8 @@
 			var_dump($_SESSION['button']);
 
 	//Retrieve session booleans
+			$only_links_bool = $_SESSION['button']['only_links'];
+			$no_links_bool = $_SESSION['button']['no_links'];
 			$only_text_bool = $_SESSION['button']['only_text'];
 			$no_text_bool = $_SESSION['button']['no_text'];
 			$only_pics_bool = $_SESSION['button']['only_pics'];
@@ -36,9 +38,13 @@
 			$sentimentNeg_bool = $_SESSION['button']['sentiment_negative'];
 			$closeFriends_bool = $_SESSION['button']['close_friends'];
 			$distantFriends_bool = $_SESSION['button']['distant_friends'];
-			$slider = $_SESSION['button']['slider'];
-			$sliderValue = $_SESSION['button']['sliderValue'];
-			$sessionArray = ['only_text', 'no_text','only_pics','no_pics', 'slider', 'sliderValue', 'only_retweets', 'no_retweets', 'only_videos', 'no_videos', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
+			$distanceSlider = $_SESSION['button']['distanceSlider'];
+			$distanceSliderValue = $_SESSION['button']['distanceSliderValue'];
+			$frequencySlider = $_SESSION['button']['frequencySlider'];
+			$frequencySliderValue = $_SESSION['button']['frequencySliderValue'];
+			$popularitySlider = $_SESSION['button']['popularitySlider'];
+			$popularitySliderValue = $_SESSION['button']['popularitySliderValue'];
+			$sessionArray = ['only_links', 'no_links', 'only_text', 'no_text','only_pics','no_pics', 'popularitySlider', 'popularitySliderValue',  'frequencySlider', 'frequencySliderValue', 'distanceSlider', 'distanceSliderValue', 'only_retweets', 'no_retweets', 'only_videos', 'no_videos', 'tweet_popular','tweet_unpopular','poster_frequent','poster_infrequent','verified','unverified','sentiment_positive','sentiment_negative','close_friends','distant_friends'];
 			echo "<br>";
         foreach ($_SESSION['button'] as $key=>$val) {
             if (! in_array( $key, $sessionArray )) {
@@ -53,8 +59,8 @@
 
         }
 
-		echo $slider."<br>";
-		echo $sliderValue."<br>";
+		echo $distanceSlider."<br>";
+		echo $distanceSliderValue."<br>";
 
 
 
@@ -68,7 +74,9 @@
 //									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` > (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
 //									"distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`rank` < (SELECT max(`rank`) FROM `friends` WHERE `user_id` = {$user_id})/2 "),
 									"closeFriends_bool" => array($closeFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > 0 "),
-                                    "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
+                  "distantFriends_bool" => array($distantFriends_bool, "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < 0 "),
+									"only_links" => array($only_links_bool, "AND link = 1 "),
+									"no_links" => array($no_links_bool, "AND link = 0 "),
 									"only_retweets" => array($only_retweets_bool, "AND retweet = 1 "),
 									"no_retweets" => array($no_retweets_bool, "AND retweet = 0 "),
 									"only_text" => array($only_text_bool, "AND video = 0 AND picture = 0 "),
@@ -87,12 +95,25 @@
 									"sentimentNeg_bool" => array($sentimentNeg_bool, "AND sentiment < 0 "),
                   					"trend_bool" => array($trend_bool, "AND tweet_text LIKE  '%{$trend_name}%' "),
            );
-		if($slider){
-			if($sliderValue > 0){
-				$sql_filter_statements["closeFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > ".$sliderValue." ";
+		if($distanceSlider){
+			if($distanceSliderValue > 0){
+				$sql_filter_statements["closeFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` > ".$distanceSliderValue." ";
 			}
-			if($sliderValue < 0){
-				$sql_filter_statements["distantFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < ".$sliderValue." ";
+			if($distanceSliderValue < 0){
+				$sql_filter_statements["distantFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < ".$distanceSliderValue." ";
+			}
+		}
+		if($frequencySlider){
+			if($frequencySliderValue > 0){
+				$sql_filter_statements["frequent_bool"][1] = "AND poster_frequency > ".$frequencySliderValue." ";
+			}
+			if($frequencySliderValue < 0){
+				$sql_filter_statements["infrequent_bool"][1] = "AND poster_frequency < ".$frequencySliderValue." ";
+			}
+		}
+		if($popularitySlider){
+			if($popularitySliderValue > 0){
+				$sql_filter_statements["popular_bool"][1] = "AND tweet_popularity > ".$popularitySliderValue." ";
 			}
 		}
 

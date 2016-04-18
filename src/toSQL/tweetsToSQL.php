@@ -8,16 +8,16 @@
     }
 
 // Prepare and bind
-    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, picture, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count, retweet_user_screen_name, retweet_user_name, retweet_user_profile_img, retweet_user_url, video, video_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
+    $stmt_data = $conn->prepare("INSERT INTO data (tweet_id, user_id, tweet_text, tweet_popularity, poster_frequency, verified, sentiment, retweet, picture, link, user_url, user_profile_img_url, user_screen_name, tweet_create_date, tweet_urls, tweet_images, tweet_hashtags, user_name, retweet_count, favorite_count, retweet_user_screen_name, retweet_user_name, retweet_user_profile_img, retweet_user_url, video, video_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE tweet_id=tweet_id");
 
     if ( false===$stmt_data ) {
         die('prepare() failed: ' . htmlspecialchars($mysqli->error));
     }
 // Define parameters
-    $stmt_data->bind_param("iisiiiiiissssssssiissssis", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $pic, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img, $retweet_user_url, $video, $video_url);
+    $stmt_data->bind_param("iisiiiiiiissssssssiissssis", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $pic, $link, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img, $retweet_user_url, $video, $video_url);
 
 // Check if you can't bind parameters
-    $rc = $stmt_data->bind_param("iisiiiiiissssssssiissssis", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $pic, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img, $retweet_user_url, $video, $video_url);
+    $rc = $stmt_data->bind_param("iisiiiiiiissssssssiissssis", $tweet_id, $userid, $text, $popularity, $posterFrequency, $verified, $happyValue, $retweet, $pic, $link, $userUrl, $userImg, $userSN, $tweetTime, $tweetUrl, $tweetImg, $tweetHash, $userName, $retweetCount, $favoriteCount, $retweet_user_screen_name, $retweet_user_name, $retweet_user_profile_img, $retweet_user_url, $video, $video_url);
     if ( false===$rc ) {
         // again execute() is useless if you can't bind the parameters. Bail out somehow.
         die('bind_param() failed: ' . htmlspecialchars($stmt_data->error));
@@ -106,6 +106,13 @@
             } else {
                 $pic = 0;
             }
+
+            if(empty($tweet["entities"]["urls"])){
+              $link = 0;
+            } else {
+              $link = 1;
+            }
+
             //                                $tweetImg = json_encode($tweet["entities"]["media"]);
             $tweetHash = json_encode($tweet["entities"]["hashtags"]);
 

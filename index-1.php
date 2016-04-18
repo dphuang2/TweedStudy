@@ -55,6 +55,8 @@ include 'src/savedirectMessagesToSQL.php';
  // Save direct messages
 // Resetting all session booleans
 
+$_SESSION['button']['only_links'] = false;
+$_SESSION['button']['no_links'] = false;
 $_SESSION['button']['only_retweets'] = false;
 $_SESSION['button']['no_retweets'] = false;
 $_SESSION['button']['tweet_popular'] = false;
@@ -187,18 +189,24 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 								<a href="logout.php"><button class="btn" id="logout">Logout</button></a>
 		</div>
 								<!-- <h3> Control Panel </h3> -->
-				<h4> See... </h4>
+				<!-- <h4> See... </h4> -->
 			<div id="people">
                 <button onclick='boldButton(this.id)' class="astext" id="poster_frequent" data-count="0">
                 Frequent posters </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
-                Infrequent posters </button>
+                Infrequent posters </button> <br>
+
+								<input id="frequencySlider" class="slider" type="range" min="-10000" max="10000" value="0" step="500">
+
                 <hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
                 Close friends </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
-                Distant friends</button>
-                <hr/>
+                Distant friends</button> <br>
+
+								<input id="distanceSlider" class="slider" type="range" min="-5" max="5" value="0" step="1">
+
+								<hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
                 Celebrities </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="unverified" data-count="0">
@@ -208,23 +216,29 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 			<div id="content">
 	<div class="container-fluid type">
 		<div class="row-fluid">
-			<div class="col-xs-4 typeColumn">
+			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_videos" data-count="0">
 				Only videos </button> <br>
 				<button onclick='boldButton(this.id)' class="astext" id="no_videos" data-count="0">
 				No videos </button>
 			</div>
-			<div class="col-xs-4 typeColumn">
+			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_text" data-count="0">
                 Only text </button> <br>
 				<button onclick='boldButton(this.id)' class="astext" id="no_text" data-count="0">
 				No text </button>
 			</div>
-			<div class="col-xs-4 typeColumn">
+			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_pics" data-count="0">
                 Only pictures </button> <br>
 				<button onclick='boldButton(this.id)' class="astext" id="no_pics" data-count="0">
                 No pictures </button>
+			</div>
+			<div class="col-xs-3 typeColumn">
+				<button onclick='boldButton(this.id)' class="astext" id="only_links" data-count="0">
+								Only links </button> <br>
+				<button onclick='boldButton(this.id)' class="astext" id="no_links" data-count="0">
+								No links </button>
 			</div>
 		</div>
 	</div>
@@ -234,9 +248,8 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 				<button onclick='boldButton(this.id)' class="astext" id="no_retweets" data-count="0">
 				No retweets </button> <br>
 				<hr/>
-                <div id="changeButton">
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_positive" data-count="0">
-                Positive tweets </button> </div>
+                Positive tweets </button> <br>
                 <button onclick='boldButton(this.id)' class="astext" id="sentiment_negative" data-count="0">
                 Negative tweets </button>
                 <hr/>
@@ -244,9 +257,12 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_popular" data-count="0">
                 Popular tweets </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_unpopular" data-count="0">
-                Tweets that haven't gotten attention </button>
-                <hr/>
-                <p>Trending topics:</p>
+                Tweets that haven't gotten attention </button> <br>
+
+								<input id="popularitySlider" class="slider" type="range" min="0" max="500" value="0" step="1">
+
+								<hr/>
+                Trending topics:<br>
                 <?php
 $servername = "engr-cpanel-mysql.engr.illinois.edu";
 $username = "twitterf_user";
@@ -286,7 +302,6 @@ foreach($subArray as $ind) {
 }
 
 ?>
-                <br />
 			</div>
                 <button onclick='boldButton(this.id)' class="astext" id="alloff">
                 Turn off all filters </button> <br />

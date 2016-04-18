@@ -16,6 +16,8 @@
 
 
     $pairs = array(
+				'only_links' =>'no_links',
+				'no_links' =>'only_links',
 				'only_text' =>'no_text',
 				'no_text' =>'only_text',
 				'only_pics' =>'no_pics',
@@ -37,22 +39,28 @@
 	$dataString = $_POST['dataString'];
 	$value = $_POST['value'];
 
-	if($dataString == 'slider'){
+	$sliderSets = array(
+		'distanceSlider' => array('close_friends', 'distant_friends'),
+		'frequencySlider' => array('poster_frequent', 'poster_infrequent'),
+		'popularitySlider' => array('tweet_popular', 'tweet_unpopular')
+	);
+
+	if(!is_null($value)){
 		echo $dataString."<br>";
 		echo $value."<br>";
 		$_SESSION['button'][$dataString."Value"] = $value;
 		if($value == 0){
-			$_SESSION['button'][$dataString] = false;
-			$_SESSION['button']['close_friends'] = false;
-			$_SESSION['button']['distant_friends'] = false;
+				$_SESSION['button'][$dataString] = false;
+				$_SESSION['button'][$sliderSets[$dataString][0]] = false;
+				$_SESSION['button'][$sliderSets[$dataString][1]] = false;
 		} else {
 			$_SESSION['button'][$dataString] = true;
 			if($value > 0){
-				$_SESSION['button']['close_friends'] = true;
-				$_SESSION['button']['distant_friends'] = false;
+					$_SESSION['button'][$sliderSets[$dataString][0]] = true;
+					$_SESSION['button'][$sliderSets[$dataString][1]] = false;
 			}elseif($value < 0){
-				$_SESSION['button']['close_friends'] = false;
-				$_SESSION['button']['distant_friends'] = true;
+					$_SESSION['button'][$sliderSets[$dataString][0]] = false;
+					$_SESSION['button'][$sliderSets[$dataString][1]] = true;
 			}
 		}
 

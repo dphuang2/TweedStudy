@@ -19,13 +19,7 @@
 //                }
 
 window.onload = function () {
-    $("#slider").on('change', function( event ) {
-
-        var button = document.getElementById("close_friends");
-        var button2 = document.getElementById("distant_friends");
-        button.style.fontWeight = "normal";
-        button2.style.fontWeight = "normal";
-
+    $(".slider").on('change', function( event ) {
 
          //This is for Internet Explorer
          var target = (event.target) ? event.target : event.srcElement;
@@ -34,10 +28,35 @@ window.onload = function () {
                              if(dataString == "toggle" || dataString == "survey" || dataString == "logout"){
                                  return;
                              }
-        var value = $("#slider").val();
+
+        var value = $("#"+dataString).val();
         console.log("test");
         console.log(dataString);
         console.log(value);
+        if(dataString == 'distanceSlider'){
+          var button = document.getElementById("close_friends");
+          var button2 = document.getElementById("distant_friends");
+        }
+        if(dataString == 'frequencySlider'){
+          var button = document.getElementById("poster_frequent");
+          var button2 = document.getElementById("poster_infrequent");
+        }
+        if(dataString == 'popularitySlider'){
+          var button = document.getElementById("tweet_popular");
+          var button2 = document.getElementById("tweet_unpopular");
+        }
+        if(value == 0){
+          button.style.fontWeight = "normal";
+          button2.style.fontWeight = "normal";
+        }
+        if(value < 0){
+          button.style.fontWeight = "normal";
+          button2.style.fontWeight = "bold";
+        }
+        if(value > 0){
+          button.style.fontWeight = "bold";
+          button2.style.fontWeight = "normal";
+        }
          $.ajax({
 
                 type: "POST",
