@@ -103,17 +103,21 @@
 				$sql_filter_statements["distantFriends_bool"][1] = "LEFT JOIN `friends` ON `data`.`user_screen_name` = `friends`.`screen_name` WHERE `friends`.`user_id` = {$user_id} AND `friends`.`computed_rank` < ".$distanceSliderValue." ";
 			}
 		}
+
 		if($frequencySlider){
-			if($frequencySliderValue > 0){
+			if($frequencySliderValue > $_POST['middle']){
 				$sql_filter_statements["frequent_bool"][1] = "AND poster_frequency > ".$frequencySliderValue." ";
-			}
-			if($frequencySliderValue < 0){
+			}elseif($frequencySliderValue < $_POST['middle']){
 				$sql_filter_statements["infrequent_bool"][1] = "AND poster_frequency < ".$frequencySliderValue." ";
 			}
 		}
+
 		if($popularitySlider){
-			if($popularitySliderValue > 0){
+			echo $popularitySliderValue.$_POST['middle']."<br>";
+			if($popularitySliderValue > $_POST['middle']){
 				$sql_filter_statements["popular_bool"][1] = "AND tweet_popularity > ".$popularitySliderValue." ";
+			}elseif($popularitySliderValue < $_POST['middle']){
+				$sql_filter_statements["unpopular_bool"][1] = "AND tweet_popularity < ".$popularitySliderValue." ";
 			}
 		}
 

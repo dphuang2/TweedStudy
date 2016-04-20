@@ -38,6 +38,7 @@
 
 	$dataString = $_POST['dataString'];
 	$value = $_POST['value'];
+	$middle = $_POST['middle'];
 
 	$sliderSets = array(
 		'distanceSlider' => array('close_friends', 'distant_friends'),
@@ -45,20 +46,20 @@
 		'popularitySlider' => array('tweet_popular', 'tweet_unpopular')
 	);
 
-	if(!is_null($value)){
+	if(!is_null($value)){ // checks if value is null to check if is a slider or not
 		echo $dataString."<br>";
 		echo $value."<br>";
 		$_SESSION['button'][$dataString."Value"] = $value;
-		if($value == 0){
+		if($value == $middle){
 				$_SESSION['button'][$dataString] = false;
 				$_SESSION['button'][$sliderSets[$dataString][0]] = false;
 				$_SESSION['button'][$sliderSets[$dataString][1]] = false;
 		} else {
 			$_SESSION['button'][$dataString] = true;
-			if($value > 0){
+			if($value > $middle){
 					$_SESSION['button'][$sliderSets[$dataString][0]] = true;
 					$_SESSION['button'][$sliderSets[$dataString][1]] = false;
-			}elseif($value < 0){
+			}elseif($value < $middle){
 					$_SESSION['button'][$sliderSets[$dataString][0]] = false;
 					$_SESSION['button'][$sliderSets[$dataString][1]] = true;
 			}

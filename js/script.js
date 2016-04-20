@@ -36,24 +36,28 @@ window.onload = function () {
         if(dataString == 'distanceSlider'){
           var button = document.getElementById("close_friends");
           var button2 = document.getElementById("distant_friends");
+          var middle = 0;
         }
         if(dataString == 'frequencySlider'){
           var button = document.getElementById("poster_frequent");
           var button2 = document.getElementById("poster_infrequent");
+          var middle = document.getElementById(dataString).max / 2;
         }
         if(dataString == 'popularitySlider'){
           var button = document.getElementById("tweet_popular");
           var button2 = document.getElementById("tweet_unpopular");
+          var middle = document.getElementById(dataString).max / 2;
+          console.log(middle);
         }
-        if(value == 0){
+        if(value == middle){
           button.style.fontWeight = "normal";
           button2.style.fontWeight = "normal";
         }
-        if(value < 0){
+        if(value < middle){
           button.style.fontWeight = "normal";
           button2.style.fontWeight = "bold";
         }
-        if(value > 0){
+        if(value > middle){
           button.style.fontWeight = "bold";
           button2.style.fontWeight = "normal";
         }
@@ -61,7 +65,7 @@ window.onload = function () {
 
                 type: "POST",
                 url: "../TweedStudy/src/pass_value.php",
-                data: { dataString: dataString, value:value },
+                data: { dataString: dataString, value:value, middle: middle},
                 dataType: 'text',
                 cache: false,
                 success: function(response) {

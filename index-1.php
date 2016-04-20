@@ -174,8 +174,23 @@ printTweets_SQL();
 // Set index-1 to visited
 
 $_SESSION[index][1] = true;
-?>
 
+$servername = "engr-cpanel-mysql.engr.illinois.edu";
+$username = "twitterf_user";
+$password = "IIA@kT$7maLt";
+$dbname = "twitterf_tweet_store";
+$userid = $_SESSION["user_id"];
+
+// Create connection
+
+$db = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+
+if ($db->connect_error) {
+die("Connection failed: " . $conn->connect_error);
+}
+?>
   			</div>
         <!-- Control Panel -->
   			<div class="col-xs-4 totop">
@@ -196,15 +211,42 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
                 <button onclick='boldButton(this.id)' class="astext" id="poster_infrequent" data-count="0">
                 Infrequent posters </button> <br>
 
-								<input id="frequencySlider" class="slider" type="range" min="-10000" max="10000" value="0" step="500">
+				<?php
+				$sql = "SELECT MAX(poster_frequency) AS MAX FROM data WHERE user_id={$userid}";
+
+				if (!$result = $db->query($sql)) {
+					die('There was an error running the query [' . $db->error . ']');
+				}
+				$max = $result->fetch_assoc();
+				$max = $max["MAX"];
+				?>
+
+				<input id="frequencySlider" class="slider" type="range" min="0" max="<?php echo $max; ?>" value="<?php echo $max/2; ?>" step="5">
 
                 <hr/>
+
                 <button onclick='boldButton(this.id)' class="astext" id="close_friends" data-count="0">
                 Close friends </button> <br />
                 <button onclick='boldButton(this.id)' class="astext" id="distant_friends" data-count="0">
                 Distant friends</button> <br>
 
-								<input id="distanceSlider" class="slider" type="range" min="-5" max="5" value="0" step="1">
+				<?php
+				$sql = "SELECT MAX(computed_rank) AS MAX FROM friends WHERE user_id={$userid}";
+				if (!$result = $db->query($sql)) {
+					die('There was an error running the query [' . $db->error . ']');
+				}
+				$max = $result->fetch_assoc();
+				$max = $max["MAX"] - 1;
+
+				$sql = "SELECT MIN(computed_rank) AS MIN FROM friends WHERE user_id={$userid}";
+				if (!$result = $db->query($sql)) {
+					die('There was an error running the query [' . $db->error . ']');
+				}
+				$min = $result->fetch_assoc();
+				$min = $min["MIN"] + 1;
+				?>
+
+				<input id="distanceSlider" class="slider" type="range" min="<?php echo $min; ?>" max="<?php echo $max; ?>" value="0" step="1">
 
 								<hr/>
                 <button onclick='boldButton(this.id)' class="astext" id="verified" data-count="0">
@@ -219,26 +261,26 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
 			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_videos" data-count="0">
 				Only videos </button> <br>
-				<button onclick='boldButton(this.id)' class="astext" id="no_videos" data-count="0">
-				No videos </button>
+				<!-- <button onclick='boldButton(this.id)' class="astext" id="no_videos" data-count="0">
+				No videos </button> -->
 			</div>
 			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_text" data-count="0">
                 Only text </button> <br>
-				<button onclick='boldButton(this.id)' class="astext" id="no_text" data-count="0">
-				No text </button>
+				<!-- <button onclick='boldButton(this.id)' class="astext" id="no_text" data-count="0">
+				No text </button> -->
 			</div>
 			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_pics" data-count="0">
                 Only pictures </button> <br>
-				<button onclick='boldButton(this.id)' class="astext" id="no_pics" data-count="0">
-                No pictures </button>
+				<!-- <button onclick='boldButton(this.id)' class="astext" id="no_pics" data-count="0">
+                No pictures </button> -->
 			</div>
 			<div class="col-xs-3 typeColumn">
 				<button onclick='boldButton(this.id)' class="astext" id="only_links" data-count="0">
 								Only links </button> <br>
-				<button onclick='boldButton(this.id)' class="astext" id="no_links" data-count="0">
-								No links </button>
+				<!-- <button onclick='boldButton(this.id)' class="astext" id="no_links" data-count="0">
+								No links </button> -->
 			</div>
 		</div>
 	</div>
@@ -259,26 +301,21 @@ echo "</b> <img src=" . $_SESSION['user']['profile_image_url'] . " alt='error'>"
                 <button onclick='boldButton(this.id)' class="astext" id="tweet_unpopular" data-count="0">
                 Tweets that haven't gotten attention </button> <br>
 
-								<input id="popularitySlider" class="slider" type="range" min="0" max="500" value="0" step="1">
+				<?php
+				$sql = "SELECT MAX(tweet_popularity) AS MAX FROM data WHERE user_id={$userid}";
+
+				if (!$result = $db->query($sql)) {
+					die('There was an error running the query [' . $db->error . ']');
+				}
+				$max = $result->fetch_assoc();
+				$max = $max["MAX"];
+				?>
+
+				<input id="popularitySlider" class="slider" type="range" min="0" max="<?php echo $max; ?>" value="<?php echo $max/2; ?>" step="10">
 
 								<hr/>
                 Trending topics:<br>
-                <?php
-$servername = "engr-cpanel-mysql.engr.illinois.edu";
-$username = "twitterf_user";
-$password = "IIA@kT$7maLt";
-$dbname = "twitterf_tweet_store";
-$userid = $_SESSION["user_id"];
-
-// Create connection
-
-$db = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-
-if ($db->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
-}
+<?php
 
 // prepare and bind
 
