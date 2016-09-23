@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :tweet
+  
   def self.find_or_create_from_auth_hash(auth)
     where(:twitter_id => auth[:uid]).first || create_from_omniauth(auth)
   end

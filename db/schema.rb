@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907044326) do
+ActiveRecord::Schema.define(version: 20160915162936) do
 
   create_table "tweets", force: :cascade do |t|
-    t.text     "string"
+    t.text     "text"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "retweet_user_screen_name"
+    t.string   "retweet_user_profile_img"
+    t.string   "retweet_user_url"
+    t.string   "user_profile_img"
+    t.string   "user_screen_name"
+    t.string   "media_url"
+    t.string   "hashtags"
+    t.integer  "retweet_count"
+    t.integer  "favorite_count"
+    t.float    "tweet_id"
+    t.string   "tweet_created_at"
+    t.integer  "popularity"
+    t.integer  "poster_frequency"
+    t.integer  "fake_popularity"
+    t.integer  "fake_poster_frequency"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 

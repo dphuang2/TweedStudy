@@ -8,11 +8,12 @@ class SessionsController < ApplicationController
       config.access_token_secret = auth_hash[:credentials][:secret]
     end
     session[:twitter_id] = auth_hash[:uid]
+    save_tweets @user, client
     redirect_to '/feed'
   end
 
   def destroy
-    session[:twitter_id] = nil
+    log_out if logged_in?
     redirect_to root_path
   end
 

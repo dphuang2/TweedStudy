@@ -1,6 +1,27 @@
-<%= @user.name %>
-<%= @user.nickname %>
-<%= @user.verified %>
-<%= @user.location %>
-<%= @user.screen_name %>
-<%= @user.twitter_id %>
+<div class="container">
+  <div class="col-md-9">
+    <% @user.tweet.all.order(tweet_id: :desc).limit(10).each do |t| %>
+      <p>
+        <%= t.text %> 
+        <img src="<%=t.user_profile_img%>">
+        <%= t.retweet_count %>
+        <%= t.favorite_count %>
+        <%= t.tweet_id %>
+        <%= t.tweet_created_at %>
+      </p>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <p> Control Panel </p>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </ul>
+  </div>
+</div>
+
