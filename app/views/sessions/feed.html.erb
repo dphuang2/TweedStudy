@@ -1,17 +1,10 @@
 <div class="container">
-  <div class="col-md-9">
-    <% @user.tweet.all.order(tweet_id: :desc).limit(10).each do |t| %>
-      <p>
-        <%= t.text %> 
-        <img src="<%=t.user_profile_img%>">
-        <%= t.retweet_count %>
-        <%= t.favorite_count %>
-        <%= t.tweet_id %>
-        <%= t.tweet_created_at %>
-      </p>
+  <div class="col-xs-9">
+    <% @user.tweet.order(tweet_id: :desc).limit(200).each do |t| %>
+        <%=render 'sessions/tweet', t: t%>
     <% end %>
   </div>
-  <div class="col-md-3">
+  <div class="col-xs-3">
     <p> Control Panel </p>
     <ul>
       <li>1</li>

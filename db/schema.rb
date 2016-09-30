@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915162936) do
+ActiveRecord::Schema.define(version: 20160930081959) do
 
   create_table "tweets", force: :cascade do |t|
     t.text     "text"
@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 20160915162936) do
     t.integer  "poster_frequency"
     t.integer  "fake_popularity"
     t.integer  "fake_poster_frequency"
+    t.string   "retweet_user_name"
+    t.string   "user_name"
+    t.string   "user_url"
+    t.string   "complete_json"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rails_autolink', '~> 1.1', '>= 1.1.6'
 # bootstrap
 gem 'bootstrap-sass'
 # Gems for twitter api interfacing
