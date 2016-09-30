@@ -19,6 +19,8 @@ module SessionsHelper
     tweets = get_all_tweets(user.screen_name, client)
     tweets.each do |tweet| # tweet refers to Tweet from Twitter
       user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
+        #debugger if tweet.media?
+        #debugger if tweet.retweeted_status.media?
         t.complete_json = tweet.to_json
         t.text = tweet.full_text
         if JSON.parse(tweet.to_json).has_key? "retweeted_status" 
@@ -31,10 +33,13 @@ module SessionsHelper
         t.user_screen_name = tweet.user.screen_name
         t.user_name = tweet.user.name
         t.user_url = "https://twitter.com/#{tweet.user.screen_name}"
-        t.media_url = JSON.parse(tweet.retweeted_status.to_json)["extended_entities"]["media"][0]["media_url"] if tweet.retweeted_status.media?
-        t.media_url = JSON.parse(tweet.retweeted_status.to_json)["extended_entities"]["media"][0]["video_info"]["variants"]["0"]["url"] if tweet.retweeted_status.media?
-        t.media_url = JSON.parse(tweet.to_json)["extended_entities"]["media"][0]["media_url"] if tweet.media?
-        t.media_url = JSON.parse(tweet.to_json)["extended_entities"]["media"][0]["media_url"]["video_info"]["variants"]["0"]["url"] if tweet.media?
+        if tweet.retweeted_status.media?
+          media = JSON.parse(tweet.retweeted_status.media.to_json)
+          t.media_url = !media[0]["video_info"].nil? ? media[0]["video_info"]["variants"][0]["url"] : media[0]["media_url"]
+        elsif tweet.media?
+          media = JSON.parse(tweet.media.to_json)
+          t.media_url = !media[0]["video_info"].nil? ? media[0]["video_info"]["variants"][0]["url"] : media[0]["media_url"]
+        end
         #t.hashtags
         t.retweet_count = tweet.retweet_count
         t.favorite_count = tweet.favorite_count
@@ -59,13 +64,9 @@ module SessionsHelper
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
       options[:max_id] = max_id unless max_id.nil?
-      options[:count] = 20
-      # client.home_timeline(options)
-      client.user_timeline(user, options)
+      client.home_timeline(options)
+      #client.user_timeline(user, options)
     end
-  end
-
-  def compute_popularity
   end
 
   def time_ago_from_string(string)
@@ -80,6 +81,9 @@ module SessionsHelper
 
   def format_tweet_text(text)
     return auto_link text, :html => { :target => '_blank'  }
+  end
+
+  def compute_popularity
   end
 
 end

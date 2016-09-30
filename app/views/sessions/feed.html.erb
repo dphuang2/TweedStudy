@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-xs-9">
-    <% @user.tweet.order(tweet_id: :desc).limit(200).each do |t| %>
+    <% @user.tweet.order(tweet_id: :desc).limit(100).each do |t| %>
         <%=render 'sessions/tweet', t: t%>
     <% end %>
   </div>
