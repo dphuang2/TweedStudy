@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930081959) do
+ActiveRecord::Schema.define(version: 20161020200758) do
+
+  create_table "friends", force: :cascade do |t|
+    t.string   "nickname"
+    t.string   "name"
+    t.string   "image_url"
+    t.string   "twitter_url"
+    t.integer  "statuses_count"
+    t.integer  "verified"
+    t.integer  "followers_count"
+    t.string   "location"
+    t.string   "screen_name"
+    t.string   "lang"
+    t.integer  "friends_count"
+    t.string   "description"
+    t.string   "twitter_creation_date"
+    t.string   "time_zone"
+    t.float    "twitter_id"
+    t.integer  "users_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["users_id"], name: "index_friends_on_users_id"
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.text     "text"
@@ -29,13 +51,13 @@ ActiveRecord::Schema.define(version: 20160930081959) do
     t.float    "tweet_id"
     t.string   "tweet_created_at"
     t.integer  "popularity"
-    t.integer  "poster_frequency"
     t.integer  "fake_popularity"
-    t.integer  "fake_poster_frequency"
     t.string   "retweet_user_name"
     t.string   "user_name"
     t.string   "user_url"
     t.string   "complete_json"
+    t.integer  "sentiment"
+    t.integer  "fake_sentiment"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 

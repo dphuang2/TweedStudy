@@ -15,6 +15,7 @@ module SessionsHelper
     @user = nil
   end
 
+  # Save tweets to database including the calculations of sentiments, and popularity
   def save_tweets(user, client)
     tweets = get_all_tweets(user.screen_name, client)
     tweets.each do |tweet| # tweet refers to Tweet from Twitter
@@ -23,6 +24,7 @@ module SessionsHelper
         #debugger if tweet.retweeted_status.media?
         t.complete_json = tweet.to_json
         t.text = tweet.full_text
+        #t.sentiment = compute_sentiment(tweet.full_text)
         if JSON.parse(tweet.to_json).has_key? "retweeted_status" 
           t.retweet_user_screen_name = tweet.retweeted_status.user.screen_name
           t.retweet_user_name = tweet.retweeted_status.user.name
@@ -46,9 +48,6 @@ module SessionsHelper
         t.tweet_id = tweet.id
         t.tweet_created_at = tweet.created_at
         #t.popularity
-        #t.poster_frequency
-        #t.fake_popularity
-        #t.fake_poster_frequency
       end
     end
   end
@@ -85,5 +84,9 @@ module SessionsHelper
 
   def compute_popularity
   end
+
+  #def compute_sentiment(text)
+      
+  #end
 
 end
