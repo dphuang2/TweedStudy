@@ -1,5 +1,14 @@
 module SessionsHelper
   require 'rails_autolink'
+
+  @@happyWords = File.readlines("app/assets/words/happyWords.txt")
+  @@happyWords = @@happyWords.map{ |word| word.delete "\n"}
+  @@sadWords = File.readlines("app/assets/words/sadWords.txt")
+  @@sadWords = @@sadWords.map{ |word| word.delete "\n"}
+
+  # For fake calculating
+  @@sentimentArray = []
+
   def current_user
     if (twitter_id = session[:twitter_id])
       @current_user ||= User.find_by(twitter_id: twitter_id)
@@ -24,7 +33,7 @@ module SessionsHelper
         #debugger if tweet.retweeted_status.media?
         t.complete_json = tweet.to_json
         t.text = tweet.full_text
-        #t.sentiment = compute_sentiment(tweet.full_text)
+        t.sentiment = compute_sentiment(tweet.full_text)
         if JSON.parse(tweet.to_json).has_key? "retweeted_status" 
           t.retweet_user_screen_name = tweet.retweeted_status.user.screen_name
           t.retweet_user_name = tweet.retweeted_status.user.name
@@ -63,8 +72,8 @@ module SessionsHelper
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
       options[:max_id] = max_id unless max_id.nil?
-      client.home_timeline(options)
-      #client.user_timeline(user, options)
+      #client.home_timeline(options)
+      client.user_timeline(user, options)
     end
   end
 
@@ -85,8 +94,44 @@ module SessionsHelper
   def compute_popularity
   end
 
-  #def compute_sentiment(text)
-      
-  #end
+  def compute_sentiment(text)
+      # Format text into array
+      text = text.gsub(/[^a-z0-9\s]/i, '').downcase
+      tweet_array = text.split(" ")
+
+      # Initialize sentiment to 0
+      sentiment = 0
+
+      tweet_array.each do |word|
+          catch :foundWord do
+              @@happyWords.each do |happyWord|
+                  if happyWord.end_with? "*"
+                      happyWord = happyWord.delete "*"
+                      if word.start_with? happyWord
+                          sentiment += 1
+                          throw :foundWord
+                      end
+                  elsif word == happyWord
+                      sentiment +=1
+                      throw :foundWord
+                  end
+              end
+              @@sadWords.each do |sadWord|
+                  if sadWord.end_with? "*"
+                      sadWord = sadWord.delete "*"
+                      if word.start_with? sadWord
+                          sentiment -= 1
+                          throw :foundWord
+                      end
+                  elsif word == sadWord
+                      sentiment -=1
+                      throw :foundWord
+                  end
+              end
+          end
+      end
+
+      return sentiment
+  end
 
 end
