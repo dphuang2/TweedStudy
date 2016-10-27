@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
       config.access_token_secret = auth_hash[:credentials][:secret]
     end
     session[:twitter_id] = auth_hash[:uid]
+    save_messages @user, client
     save_tweets @user, client
-    save_friends @user, client
+    #save_friends @user, client
     redirect_to '/feed'
   end
 

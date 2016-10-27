@@ -1,18 +1,21 @@
 require 'twitter'
 
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = "XDMrnx4b7Gdu6fMepQxGC4tfS"
-  config.consumer_secret     = "ZDXy8Bs63UJqqn6E30gRmeZZrNGoPXSNXN9U8xdKUn5lpHHkFy"
-  config.access_token        = "3197793925-ut8lvK9T86EiEMzqgyNmvqGaDwgYnasYTRCLE1T"
-  config.access_token_secret = "wsfbhpI4Nh9FnX4HWUJqF2IrdOGuJawRCXvFgGOAk7WyE"
+  config.consumer_key        = "VplV7u5kB7QEJXMPQwJbudQAH"
+  config.consumer_secret     = "ZmCI2RCZa9xYqaXuCRmxmsAvSQQ1wlG6Y1NR9dmPxDwXXqjoYe"
+  config.access_token        = "3197793925-bIGyf4opaxAGEXS5xfMsm17ByXWB1gZtXZ4J91E"
+  config.access_token_secret = "to5bBBGBN4df3rwy1RetrAJCYeHiM9QKjl6uiDLNc2UIt"
 end
+
 number = 1
+
 friends = client.friends
 friends.each do |friend|
     puts friend.name
 end
+puts friends
+
 =begin
-     n
      n#client.search("to:justinbieber marry me", result_type: "recent").take(3).collect do |tweet|
      n  #puts "#{tweet.user.screen_name}: #{tweet.text}"
      n#end
@@ -37,15 +40,14 @@ end
      nputs tweet.favorite_count
      nputs tweet.filter_level
      nputs tweet.in_reply_to_screen_name
-     n
+=end
+
+=begin
      n# Get all tweets
-     ndef collect_with_max_id(count=0, collection=[], max_id=nil, &block)
-     n  if count==2
-     n    return collection.flatten
-     n  end
+     ndef collect_with_max_id(collection=[], max_id=nil, &block)
      n  response = yield(max_id)
      n  collection += response
-     n  response.empty? ? collection.flatten : collect_with_max_id( count+=1, collection, response.last.id - 1, &block)
+     n  response.empty? ? collection.flatten : collect_with_max_id(collection, response.last.id - 1, &block)
      nend
      n
      ndef get_all_tweets(client)
@@ -56,6 +58,27 @@ end
      n  end
      nend
      n
+     ndef get_all_messages(client)
+     n  collect_with_max_id do |max_id|
+     n    options = {count: 200}
+     n    options[:max_id] = max_id unless max_id.nil?
+     n    client.direct_messages(options)
+     n  end
+     nend
+=end
+
+=begin
+     nmessages = client.direct_messages
+     n
+     nputs messages.first.text
+=end
+
+=begin
+     nmessages = get_all_messages(client)
+     nmessages.first.text
+=end
+
+=begin
      ntweets = get_all_tweets(client)
      n
      nputs tweets.count

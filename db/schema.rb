@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027060436) do
+ActiveRecord::Schema.define(version: 20161027205145) do
 
   create_table "friends", force: :cascade do |t|
     t.string   "nickname"
@@ -41,13 +41,14 @@ ActiveRecord::Schema.define(version: 20161027060436) do
   create_table "messages", force: :cascade do |t|
     t.text     "text"
     t.integer  "user_id"
-    t.integer  "sender_id"
+    t.float    "sender_id"
     t.string   "sender_name"
     t.string   "sent_date"
     t.integer  "sentiment"
     t.integer  "word_count"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.float    "twitter_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
