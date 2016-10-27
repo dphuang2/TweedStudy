@@ -5,6 +5,13 @@ module SessionsHelper
   @@happyWords = @@happyWords.map{ |word| word.delete "\n"}
   @@sadWords = File.readlines("app/assets/words/sadWords.txt")
   @@sadWords = @@sadWords.map{ |word| word.delete "\n"}
+  @@words = Hash.new
+  @@sadWords.each do |sadWord|
+      @@words[sadWord] = -1
+  end
+  @@happyWords.each do |happyWord|
+      @@words[happyWord] = 1
+  end
 
   # For fake calculating
   @@sentimentArray = []
@@ -103,33 +110,12 @@ module SessionsHelper
       sentiment = 0
 
       tweet_array.each do |word|
-          catch :foundWord do
-              @@happyWords.each do |happyWord|
-                  if happyWord.end_with? "*"
-                      happyWord = happyWord.delete "*"
-                      if word.start_with? happyWord
-                          sentiment += 1
-                          throw :foundWord
-                      end
-                  elsif word == happyWord
-                      sentiment +=1
-                      throw :foundWord
-                  end
-              end
-              @@sadWords.each do |sadWord|
-                  if sadWord.end_with? "*"
-                      sadWord = sadWord.delete "*"
-                      if word.start_with? sadWord
-                          sentiment -= 1
-                          throw :foundWord
-                      end
-                  elsif word == sadWord
-                      sentiment -=1
-                      throw :foundWord
-                  end
-              end
-          end
+          sentiment += @@words[word] if @@words.has_key?(word) 
       end
+
+      @@sentimentArray.push(sentiment)
+
+      #debugger
 
       return sentiment
   end
