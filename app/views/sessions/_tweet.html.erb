@@ -29,7 +29,7 @@
       <br>
       <% unless t.media_url.nil? %>
         <% if t.media_url =~ %r{\Ahttps?://.+\.(?:jpe?g|png)\z}i %>
-          <img src="<%=t.media_url%>" style='max-width:100%;'> <br>
+          <img class="mediaimg" src="<%=t.media_url%>" style='max-width:100%;'> <br>
         <% else %>
           <video width='100%' controls autoplay muted loop>
             <source src=<%=t.media_url%> type='video/mp4'>
@@ -48,8 +48,8 @@
             </svg>
             <%=t.favorite_count%>
           </div>
-        </div> <!-- This div tag ends the row tag above -->
+        </div> 
       </div>
-    </div>
+    </div> <!-- This div tag ends the row tag above -->
     <hr>
   </div>

@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     end
     session[:twitter_id] = auth_hash[:uid]
     save_tweets @user, client
+    save_friends @user, client
     redirect_to '/feed'
   end
 
