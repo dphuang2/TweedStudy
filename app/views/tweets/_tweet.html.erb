@@ -10,18 +10,18 @@
       </div>
     <% end %>
 
-    <div class="row">
+    <div class="row gutter-0">
       <% if tweet.retweet? %>
-        <div class="col-xs-1">
+        <div class="col-xs-2">
           <a target="_blank" href="<%=tweet.retweet_user_url%>"><img class='profileimg' src="<%=tweet.retweet_user_profile_img%>"></a>
         </div>
-        <div class="col-xs-11">
+        <div class="col-xs-10">
           <a target="_blank" href="<%=tweet.retweet_user_url%>"><b><%=tweet.retweet_user_name%></b></a><span style='color: #808080;'>@<%=tweet.retweet_user_screen_name%></span> • <%=time_ago_from_string tweet.tweet_created_at%>
       <% else %>
-        <div class="col-xs-1">
+        <div class="col-xs-2">
           <a target="_blank" href="<%=tweet.user_url%>"><img class='profileimg' src="<%=tweet.user_profile_img%>"></a>
         </div>
-        <div class="col-xs-11">
+        <div class="col-xs-10">
           <a target="_blank" href="<%=tweet.user_url%>"><b><%=tweet.user_name%></b></a> <span style='color: #808080;'>@<%=tweet.user_screen_name%></span> • <%=time_ago_from_string tweet.tweet_created_at%>
       <% end %>
       <br>
