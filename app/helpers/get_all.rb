@@ -22,6 +22,11 @@ module GetAll
     end
   end
 
+  def get_few_tweets(client)
+    options = {count: 20, include_rts: true}
+    client.home_timeline(options)
+  end
+
   def get_all_messages(client)
     collect_with_max_id do |max_id|
       options = {count: 200}

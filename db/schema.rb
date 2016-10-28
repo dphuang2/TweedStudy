@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027205145) do
+ActiveRecord::Schema.define(version: 20161028064656) do
 
   create_table "friends", force: :cascade do |t|
     t.string   "nickname"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20161027205145) do
     t.integer  "user_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.integer  "post_frequency"
-    t.integer  "fake_post_frequency"
+    t.float    "post_frequency"
+    t.float    "fake_post_frequency"
     t.integer  "closeness"
     t.integer  "fake_closeness"
     t.index ["user_id"], name: "index_friends_on_user_id"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 20161027205145) do
     t.string   "complete_json"
     t.integer  "sentiment"
     t.integer  "fake_sentiment"
+    t.float    "poster_frequency"
+    t.float    "fake_poster_frequency"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 

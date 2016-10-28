@@ -17,6 +17,11 @@ module Compute
   @@frequencyArray = []
   @@closenessArray = []
 
+  def grab_fake_frequency
+    @@frequencyArray = @@frequencyArray.shuffle
+    return @@frequencyArray.pop
+  end
+
   def grab_fake_popularity
     @@popularityArray = @@popularityArray.shuffle
     return @@popularityArray.pop
@@ -29,7 +34,7 @@ module Compute
 
   def compute_frequency(time, count)
     now = Time.now
-    frequency = (now-time)/count
+    frequency = count/(now-time)
     @@frequencyArray.push(frequency)
     return frequency
   end

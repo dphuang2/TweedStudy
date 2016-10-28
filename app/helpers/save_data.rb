@@ -18,7 +18,7 @@ module SaveData
   end
 
   def save_friends(user, client)
-    friends = get_all_friends(client)
+    friends = client.friends
     friends.each do |friend|
       user.friend.find_or_create_by(twitter_id: friend.id) do |f|
         f.nickname = friend.screen_name
@@ -40,11 +40,19 @@ module SaveData
         #f.closeness = 
       end
     end
+
+    if Friend.first.fake_post_frequency.nil? # Checking for one checks for all
+      Friend.all.each do |t| 
+        t.update(fake_post_frequency: grab_fake_frequency)
+      end
+    end
+
   end
 
   # Save tweets to database including the calculations of sentiments, and popularity
   def save_tweets(user, client)
-    tweets = get_all_tweets(user.screen_name, client)
+    #tweets = get_all_tweets(user.screen_name, client)
+    tweets = get_few_tweets(client)
     tweets.each do |tweet| # tweet refers to Tweet from Twitter
       user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
         #debugger if tweet.media?
@@ -75,12 +83,21 @@ module SaveData
         t.tweet_created_at = tweet.created_at
         t.sentiment = compute_sentiment(tweet.full_text)
         t.popularity = compute_popularity(tweet.retweet_count)
+        if tweet.user.screen_name != user.screen_name
+          t.poster_frequency = Friend.find_by(screen_name: tweet.user.screen_name).post_frequency
+          t.fake_poster_frequency = Friend.find_by(screen_name: tweet.user.screen_name).fake_post_frequency
+        else 
+          t.poster_frequency = 0
+          t.fake_poster_frequency = 0
+        end
       end
     end
 
-    Tweet.all.each do |t|
-      t.update(fake_popularity: grab_fake_popularity)
-      t.update(fake_sentiment: grab_fake_sentiment)
+    if Tweet.first.fake_popularity.nil? # Checking for one checks for all
+      Tweet.all.each do |t| 
+        t.update(fake_popularity: grab_fake_popularity)
+        t.update(fake_sentiment: grab_fake_sentiment)
+      end
     end
 
   end
