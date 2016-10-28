@@ -77,5 +77,11 @@ module SaveData
         t.popularity = compute_popularity(tweet.retweet_count)
       end
     end
+
+    Tweet.all.each do |t|
+      t.update(fake_popularity: grab_fake_popularity)
+      t.update(fake_sentiment: grab_fake_sentiment)
+    end
+
   end
 end

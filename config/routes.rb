@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # Content
   get '/feed', to: 'sessions#feed'
+  get '/filter/:filter', to: 'sessions#filter'
 
   root 'static_pages#home'
 end

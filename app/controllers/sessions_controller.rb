@@ -22,9 +22,16 @@ class SessionsController < ApplicationController
   def feed
     if logged_in?
       @user = User.find_by(:twitter_id => session[:twitter_id])
+      @tweets = @user.tweet.order(tweet_id: :desc).limit(100)
     else
       redirect_to root_path
     end
+  end
+
+  def filter
+      @user = User.find_by(:twitter_id => session[:twitter_id])
+      @tweets = @user.tweet.order("#{params[:filter]} DESC")
+      @fake_or_not = params[:filter].start_with? ("fake")
   end
 
   protected

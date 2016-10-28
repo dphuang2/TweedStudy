@@ -17,6 +17,16 @@ module Compute
   @@frequencyArray = []
   @@closenessArray = []
 
+  def grab_fake_popularity
+    @@popularityArray = @@popularityArray.shuffle
+    return @@popularityArray.pop
+  end
+
+  def grab_fake_sentiment
+    @@sentimentArray = @@sentimentArray.shuffle
+    return @@sentimentArray.pop
+  end
+
   def compute_frequency(time, count)
     now = Time.now
     frequency = (now-time)/count

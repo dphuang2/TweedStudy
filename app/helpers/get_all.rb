@@ -8,14 +8,15 @@ module GetAll
   # Functions to cursor through hometimeline
   def collect_with_cursor(collection=[], cursor=nil, &block)
     response = yield(cursor)
+    next_cursor = response.next_cursor
     response = response.to_a
     collection += response
-    response.empty? ? collection.flatten : collect_with_cursor(collection, response.next_cursor, &block)
+    response.empty? ? collection.flatten : collect_with_cursor(collection, next_cursor, &block)
   end
 
   def get_all_friends(client)
     collect_with_cursor do |cursor|
-      options = {count: 200}
+      options = {count: 10}
       options[:cursor] = cursor unless cursor.nil?
       client.friends
     end
