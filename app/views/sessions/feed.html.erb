@@ -1,24 +1,25 @@
 <div class="container-fluid">
-    <div class="row gutter-0">
-        <div class="col-xs-5">
+    <div class="row gutter-10">
+        <div class="col-xs-4">
             <div class="feed">
                 <%= render @tweets %>
             </div>
         </div>
-        <div class="col-xs-1">
+        <div class="col-xs-2">
             <div class="cpanel">
                 <p> Control Panel </p>
+                <%= link_to '/filter/tweet_id', '/filter/tweet_id', remote: true %> <br>
                 <%= link_to '/filter/sentiment', '/filter/sentiment', remote: true %> <br>
                 <%= link_to '/filter/popularity', '/filter/popularity', remote: true %> <br>
                 <%= link_to '/filter/poster_frequency', '/filter/poster_frequency', remote: true %>
             </div>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <div class="fake_feed">
                 <%= render @tweets %>
             </div>
         </div>
-        <div class="col-xs-1">
+        <div class="col-xs-2">
             <div class="cpanel">
                 <p> Control Panel </p>
                 <%= link_to '/filter/fake_sentiment', '/filter/fake_sentiment', remote: true %> <br>

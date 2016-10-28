@@ -23,7 +23,7 @@ module GetAll
   end
 
   def get_few_tweets(client)
-    options = {count: 20, include_rts: true}
+    options = {count: 100, include_rts: true}
     client.home_timeline(options)
   end
 
@@ -39,8 +39,8 @@ module GetAll
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
       options[:max_id] = max_id unless max_id.nil?
-      #client.home_timeline(options)
-      client.user_timeline(user, options)
+      client.home_timeline(options)
+      #client.user_timeline(user, options)
     end
   end
 

@@ -51,8 +51,8 @@ module SaveData
 
   # Save tweets to database including the calculations of sentiments, and popularity
   def save_tweets(user, client)
-    #tweets = get_all_tweets(user.screen_name, client)
-    tweets = get_few_tweets(client)
+    tweets = get_all_tweets(user.screen_name, client)
+    #tweets = get_few_tweets(client)
     tweets.each do |tweet| # tweet refers to Tweet from Twitter
       user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
         #debugger if tweet.media?
