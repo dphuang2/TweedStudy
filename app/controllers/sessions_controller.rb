@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
       config.access_token_secret = auth_hash[:credentials][:secret]
     end
     session[:twitter_id] = auth_hash[:uid]
-    #save_friends @user, client
     save_messages @user, client
+    save_friends @user, client
     save_tweets @user, client
     redirect_to '/feed'
   end
@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
   def filter
       @user = User.find_by(:twitter_id => session[:twitter_id])
       @tweets = @user.tweet.order("#{params[:filter]} DESC").limit(20)
-      @fake_or_not = params[:filter].start_with? ("fake")
+      @fake_tweets = @user.tweet.order("fake_#{params[:filter]} DESC").limit(20)
   end
 
   protected

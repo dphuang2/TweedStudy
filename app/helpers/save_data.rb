@@ -19,7 +19,7 @@ module SaveData
 
   def save_friends(user, client)
     friends = client.friends
-    friends.each do |friend|
+    friends.each do |friend, index|
       user.friend.find_or_create_by(twitter_id: friend.id) do |f|
         f.nickname = friend.screen_name
         f.name = friend.name
@@ -37,7 +37,7 @@ module SaveData
         f.time_zone = friend.time_zone
         f.twitter_id = friend.id
         f.post_frequency = compute_frequency(friend.created_at, friend.statuses_count)
-        #f.closeness = 
+        f.closeness = compute_closeness(friend)
       end
     end
 

@@ -1,5 +1,2 @@
-<% if @fake_or_not %>
-    $(".fake_feed").html('<%= j render @tweets %>')
-<% else %>
-    $(".feed").html('<%= j render @tweets %>')
-<% end %>
+$(".fake_feed").html('<%= j render @fake_tweets %>')
+$(".feed").html('<%= j render @tweets %>')
