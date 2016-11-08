@@ -26,7 +26,6 @@ module SaveData
         f.image_url = friend.profile_image_url
         f.twitter_url = friend.url
         f.statuses_count = friend.statuses_count
-        f.verified = friend.verified
         f.followers_count = friend.followers_count
         f.location = friend.location
         f.screen_name = friend.screen_name
@@ -36,6 +35,7 @@ module SaveData
         f.twitter_creation_date = friend.created_at
         f.time_zone = friend.time_zone
         f.twitter_id = friend.id
+        f.verified = compute_verified(friend)
         f.post_frequency = compute_frequency(friend.created_at, friend.statuses_count)
         f.closeness = compute_closeness(friend)
       end
@@ -43,7 +43,9 @@ module SaveData
 
     if Friend.first.fake_post_frequency.nil? # Checking if one tweet does not have a fake_post_frequency checks for all
       shuffle_frequency
+      shuffle_verified
       Friend.all.each do |t| 
+        t.update(fake_verified: grab_fake_verified)
         t.update(fake_post_frequency: grab_fake_frequency)
       end
     end
@@ -52,8 +54,8 @@ module SaveData
 
   # Save tweets to database including the calculations of sentiments, and popularity
   def save_tweets(user, client)
-    tweets = get_all_tweets(user.screen_name, client)
-    #tweets = get_few_tweets(client)
+    #tweets = get_all_tweets(user.screen_name, client)
+    tweets = get_few_tweets(client)
     tweets.each do |tweet| # tweet refers to Tweet from Twitter
       user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
         #debugger if tweet.media?
@@ -70,6 +72,8 @@ module SaveData
         t.user_screen_name = tweet.user.screen_name
         t.user_name = tweet.user.name
         t.user_url = "https://twitter.com/#{tweet.user.screen_name}"
+        t.verified = tweet.user.verified
+        t.fake_verified = Friend.find_by(nickname: t.user_screen_name).fake_verified
 
         # If the tweet is a retewet, the media location is in a different location
         if tweet.retweeted_status.media?
@@ -83,9 +87,9 @@ module SaveData
           if media[0].key? "video_info"
             # If the media is a gif or mp4, the url is different
             if media[0]["video_info"]["variants"].count > 1
-              media = media[0]["video_info"]["variants"][1]["url"]
+              media = media[0]["video_info"]["variants"][1]["url"] # GIF
             else
-              media = media[0]["video_info"]["variants"][0]["url"]
+              media = media[0]["video_info"]["variants"][0]["url"] # MP4
             end
           else
             media = media[0]["media_url"]

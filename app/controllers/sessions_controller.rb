@@ -22,21 +22,25 @@ class SessionsController < ApplicationController
   def feed
     if logged_in?
       @user = User.find_by(:twitter_id => session[:twitter_id])
-      $tweets = @user.tweet.order("RANDOM()").order(tweet_id: :desc).limit(20)
+      $tweets = @user.tweet.order("RANDOM()").order(tweet_id: :desc).limit(40)
     else
       redirect_to root_path
     end
   end
 
   def filter
+      # @TODO:
+      # Tolerance should be normalized
       @user = User.find_by(:twitter_id => session[:twitter_id])
       case params[:filter]
       when "popularity"
-        tolerance = 100
+          tolerance = 100
       when "poster_frequency"
-        tolerance = 0.00001
+          tolerance = 0.00001
+      when "closeness"
+          tolerance = -4
       else
-        tolerance = 0
+          tolerance = 0
       end
 
       if params[:filter] == "closeness"
