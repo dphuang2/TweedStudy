@@ -41,7 +41,8 @@ module SaveData
       end
     end
 
-    if Friend.first.fake_post_frequency.nil? # Checking for one checks for all
+    if Friend.first.fake_post_frequency.nil? # Checking if one tweet does not have a fake_post_frequency checks for all
+      shuffle_frequency
       Friend.all.each do |t| 
         t.update(fake_post_frequency: grab_fake_frequency)
       end
@@ -69,13 +70,29 @@ module SaveData
         t.user_screen_name = tweet.user.screen_name
         t.user_name = tweet.user.name
         t.user_url = "https://twitter.com/#{tweet.user.screen_name}"
+
+        # If the tweet is a retewet, the media location is in a different location
         if tweet.retweeted_status.media?
           media = JSON.parse(tweet.retweeted_status.media.to_json)
-          t.media_url = !media[0]["video_info"].nil? ? media[0]["video_info"]["variants"][0]["url"] : media[0]["media_url"]
         elsif tweet.media?
           media = JSON.parse(tweet.media.to_json)
-          t.media_url = !media[0]["video_info"].nil? ? media[0]["video_info"]["variants"][0]["url"] : media[0]["media_url"]
         end
+        
+        if !media.nil?
+          # If the media is a video, then the location of the media is idfferent
+          if media[0].key? "video_info"
+            # If the media is a gif or mp4, the url is different
+            if media[0]["video_info"]["variants"].count > 1
+              media = media[0]["video_info"]["variants"][1]["url"]
+            else
+              media = media[0]["video_info"]["variants"][0]["url"]
+            end
+          else
+            media = media[0]["media_url"]
+          end
+          t.media_url = media
+        end
+
         #t.hashtags
         t.retweet_count = tweet.retweet_count
         t.favorite_count = tweet.favorite_count
@@ -94,6 +111,8 @@ module SaveData
     end
 
     if Tweet.first.fake_popularity.nil? # Checking for one checks for all
+      shuffle_popularity
+      shuffle_sentiment
       Tweet.all.each do |t| 
         t.update(fake_popularity: grab_fake_popularity)
         t.update(fake_sentiment: grab_fake_sentiment)

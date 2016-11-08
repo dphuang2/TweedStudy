@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
   def feed
     if logged_in?
       @user = User.find_by(:twitter_id => session[:twitter_id])
-      @tweets = @user.tweet.order(tweet_id: :desc).limit(20)
+      $tweets = @user.tweet.order("RANDOM()").order(tweet_id: :desc).limit(20)
     else
       redirect_to root_path
     end
@@ -30,8 +30,26 @@ class SessionsController < ApplicationController
 
   def filter
       @user = User.find_by(:twitter_id => session[:twitter_id])
-      @tweets = @user.tweet.order("#{params[:filter]} DESC").limit(20)
-      @fake_tweets = @user.tweet.order("fake_#{params[:filter]} DESC").limit(20)
+      case params[:filter]
+      when "popularity"
+        tolerance = 100
+      when "poster_frequency"
+        tolerance = 0.00001
+      else
+        tolerance = 0
+      end
+
+      if params[:filter] == "closeness"
+        @real_tweets = $tweets.select{ |tweet|
+          Friend.find_by(nickname: tweet.user_screen_name).closeness > tolerance
+        }
+        @fake_tweets = $tweets.select{ |tweet|
+          Friend.find_by(nickname: tweet.user_screen_name).closeness > tolerance
+        }
+      else
+        @real_tweets = $tweets.select {|tweet| tweet[params[:filter]] > tolerance}
+        @fake_tweets = $tweets.select {|tweet| tweet["fake_#{params[:filter]}"] > tolerance}
+      end
   end
 
   protected

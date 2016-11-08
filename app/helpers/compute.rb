@@ -17,18 +17,27 @@ module Compute
   @@frequencyArray = []
   @@closenessArray = []
 
-  def grab_fake_frequency
+  def shuffle_frequency
     @@frequencyArray = @@frequencyArray.shuffle
+  end
+  def shuffle_popularity
+    @@popularityArray = @@popularityArray.shuffle
+  end
+  def shuffle_closeness
+  end
+  def shuffle_sentiment
+    @@sentimentArray = @@sentimentArray.shuffle
+  end
+
+  def grab_fake_frequency
     return @@frequencyArray.pop
   end
 
   def grab_fake_popularity
-    @@popularityArray = @@popularityArray.shuffle
     return @@popularityArray.pop
   end
 
   def grab_fake_sentiment
-    @@sentimentArray = @@sentimentArray.shuffle
     return @@sentimentArray.pop
   end
 
