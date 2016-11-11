@@ -109,17 +109,17 @@ module Compute
       end
 
       most_recent = messages.first 
-      date_time = most_recent.sent_date
+      datetime = most_recent.sent_date
       time_ago = Time.now - DateTime.strptime(datetime, '%Y-%m-%d %H:%M:%S') # In seconds
-      datetime /= 3600 # In hours
+      time_ago /= 3600 # In hours
       case
-      when datetime < 6 # 6 Hours
+      when time_ago < 6 # 6 Hours
         rank += 10
-      when datetime < 24 # Day
+      when time_ago < 24 # Day
         rank += 5
-      when datetime < 168 # Week
+      when time_ago < 168 # Week
         rank += 2
-      when datetime < 744 # Month datetime
+      when time_ago < 744 # Month datetime
         rank += 1
       end
     end
@@ -127,7 +127,7 @@ module Compute
     rank += friend.verified ? -1 : 1 # Verified means more distant
 
     @@closenessArray.push(rank)
-    
+    return rank
   end
 
   def compute_popularity(retweet_count)

@@ -1,36 +1,55 @@
+<%
+    @sent_min = $tweets.minimum("sentiment");
+    @sent_max = $tweets.maximum("sentiment");
+%>
 <div class="cpanel">
-  <p> Control Panel </p>
-  <% if false %>
-  <%= link_to '/filter/sentiment', '/filter/sentiment', remote: true %> <br>
-  <%= link_to '/filter/popularity', '/filter/popularity', remote: true %> <br>
-  <%= link_to '/filter/poster_frequency', '/filter/poster_frequency', remote: true %> <br>
-  <%= link_to '/filter/closeness', '/filter/closeness', remote: true %> <br>
-  <%= link_to '/filter/verified', '/filter/verified', remote: true %> <br>
-<% end %>
-
-  <div data-role="rangeslider" id="the_slider">
-    <%= form_tag '/filter' do |thing_form| %>
-      <%= hidden_field :tweet, :data1 %>
-      <%= hidden_field :tweet, :data2 %>
+    <h3> Control Panel </h3>
+    <% if false %>
+        <%= link_to '/filter/sentiment', '/filter/sentiment', remote: true %> <br>
+        <%= link_to '/filter/popularity', '/filter/popularity', remote: true %> <br>
+        <%= link_to '/filter/poster_frequency', '/filter/poster_frequency', remote: true %> <br>
+        <%= link_to '/filter/closeness', '/filter/closeness', remote: true %> <br>
+        <%= link_to '/filter/verified', '/filter/verified', remote: true %> <br>
     <% end %>
-  </div>
+
+    <p> Sentiment <span id="sent_min"><%= @sent_min %></span> to <span id="sent_max"><%=@sent_max %></span> </p>
+    <div data-role="rangeslider" id="the_slider">
+        <%= form_tag '/filter' do |thing_form| %>
+            <%= hidden_field :tweet, :data1 %>
+            <%= hidden_field :tweet, :data2 %>
+        <% end %>
+    </div>
 
 </div>
 
 <script>
-$(document).ready(function() {
-  var slider = $("#the_slider").slider({
-    range: true,
-    step: 0.1,
-    min: 0,
-    max: 1,
-    values: [0, 1],
+    $(document).ready(function() {
+        var slider = $("#the_slider").slider({
+            range: true,
+    step: 1,
+    min: <%= @sent_min %>,
+    max: <%= @sent_max %>,
+    values: [<%=@sent_min%>, <%=@sent_max%>],
     slide: function(event, ui) {
-      $("#tweet_data1").val(ui.values[0]);
-      $("#tweet_data2").val(ui.values[1]);
+        $("#tweet_data1").val(ui.values[0]);
+        $("#tweet_data2").val(ui.values[1]);
+        $("#sent_min").html(ui.values[0]);
+        $("#sent_max").html(ui.values[1]);
+
+        $.ajax({
+            url: '/filter/sentiment',
+            type: "GET",
+            data: { low: ui.values[0], high: ui.values[1] },
+            dataType: 'script',
+            success: function(response) {
+                console.log("success");
+            }
+        });
     }
-  });
-  $("#tweet_data1").val(slider.slider("values")[0]);
-  $("#tweet_data2").val(slider.slider("values")[1]);
-});
+
+        });
+
+        $("#tweet_data1").val(slider.slider("values")[0]);
+        $("#tweet_data2").val(slider.slider("values")[1]);
+    });
 </script>

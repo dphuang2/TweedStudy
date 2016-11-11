@@ -21,8 +21,8 @@ class SessionsController < ApplicationController
 
   def feed
     if logged_in?
-      @user = User.find_by(:twitter_id => session[:twitter_id])
-      $tweets = @user.tweet.order(tweet_id: :desc)
+      @user = current_user
+      $tweets = @user.tweet.order(tweet_id: :desc);
     else
       redirect_to root_path
     end
@@ -31,28 +31,22 @@ class SessionsController < ApplicationController
   def filter
       # @TODO:
       # Tolerance should be normalized
-      @user = User.find_by(:twitter_id => session[:twitter_id])
-      case params[:filter]
-      when "popularity"
-          tolerance = 100
-      when "poster_frequency"
-          tolerance = 0.00001
-      when "closeness"
-          tolerance = -4
-      else
-          tolerance = 0
-      end
+      @user = current_user
 
-      if params[:filter] == "closeness"
+      low = params[:low].to_i
+      high = params[:high].to_i
+      filter = params[:filter]
+
+      if filter == "closeness"
         @real_tweets = $tweets.select{ |tweet|
-          Friend.find_by(nickname: tweet.user_screen_name).closeness > tolerance
+          Friend.find_by(nickname: tweet.user_screen_name).closeness > low
         }
         @fake_tweets = $tweets.select{ |tweet|
-          Friend.find_by(nickname: tweet.user_screen_name).closeness > tolerance
+          Friend.find_by(nickname: tweet.user_screen_name).closeness > low
         }
       else
-        @real_tweets = $tweets.select {|tweet| tweet[params[:filter]] > tolerance}
-        @fake_tweets = $tweets.select {|tweet| tweet["fake_#{params[:filter]}"] > tolerance}
+        @real_tweets = $tweets.select {|tweet| tweet[filter] >= low && tweet[filter] <= high}
+        @fake_tweets = $tweets.select {|tweet| tweet["fake_#{filter}"] >= low && tweet["fake_#{filter}"] <= high}
       end
   end
 
