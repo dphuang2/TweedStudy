@@ -1,6 +1,8 @@
 <%
     @sent_min = $tweets.minimum("sentiment");
     @sent_max = $tweets.maximum("sentiment");
+    @close_min = $tweets.minimum("closeness");
+    @close_max = $tweets.maximum("closeness");
 %>
 <div class="cpanel">
     <h3> Control Panel </h3>
@@ -13,43 +15,79 @@
     <% end %>
 
     <p> Sentiment <span id="sent_min"><%= @sent_min %></span> to <span id="sent_max"><%=@sent_max %></span> </p>
-    <div data-role="rangeslider" id="the_slider">
+    <div data-role="rangeslider" id="sent-slider">
         <%= form_tag '/filter' do |thing_form| %>
-            <%= hidden_field :tweet, :data1 %>
-            <%= hidden_field :tweet, :data2 %>
+            <%= hidden_field :tweet, :sent1 %>
+            <%= hidden_field :tweet, :sent2 %>
         <% end %>
+    </div>
+
+    <p> Closeness <span id="close_min"><%= @close_min %></span> to <span id="close_max"><%=@close_max %></span> </p>
+    <div data-role="rangeslider" id="close-slider">
+        <%= form_tag '/filter' do |thing_form| %>
+            <%= hidden_field :tweet, :close1 %>
+            <%= hidden_field :tweet, :close2 %>
+        <% end %>
+    </div>
+
+    <div class="loading">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
     </div>
 
 </div>
 
 <script>
     $(document).ready(function() {
-        var slider = $("#the_slider").slider({
-            range: true,
-    step: 1,
-    min: <%= @sent_min %>,
-    max: <%= @sent_max %>,
-    values: [<%=@sent_min%>, <%=@sent_max%>],
-    slide: function(event, ui) {
-        $("#tweet_data1").val(ui.values[0]);
-        $("#tweet_data2").val(ui.values[1]);
-        $("#sent_min").html(ui.values[0]);
-        $("#sent_max").html(ui.values[1]);
+    $("#sent-slider").slider({
+        range: true,
+        step: 1,
+        min: <%= @sent_min %>,
+        max: <%= @sent_max %>,
+        values: [<%=@sent_min%>, <%=@sent_max%>],
+        slide: function(event, ui) {
+            $("#tweet_sent1").val(ui.values[0]);
+            $("#tweet_sent2").val(ui.values[1]);
+            $("#sent_min").html(ui.values[0]);
+            $("#sent_max").html(ui.values[1]);
 
-        $.ajax({
-            url: '/filter/sentiment',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-                console.log("success");
-            }
-        });
-    }
+            $.ajax({
+                url: '/filter/sentiment',
+                type: "GET",
+                data: { low: ui.values[0], high: ui.values[1] },
+                dataType: 'script',
+                success: function(response) {
+                    console.log("success");
+                }
+            });
+        }
+    });
 
-        });
+    $("#close-slider").slider({
+        range: true,
+        step: 1,
+        min: <%= @close_min %>,
+        max: <%= @close_max %>,
+        values: [<%=@close_min%>, <%=@close_max%>],
+        slide: function(event, ui) {
+            $("#tweet_close1").val(ui.values[0]);
+            $("#tweet_close2").val(ui.values[1]);
+            $("#close_min").html(ui.values[0]);
+            $("#close_max").html(ui.values[1]);
 
-        $("#tweet_data1").val(slider.slider("values")[0]);
-        $("#tweet_data2").val(slider.slider("values")[1]);
+            $.ajax({
+                url: '/filter/closeness',
+                type: "GET",
+                data: { low: ui.values[0], high: ui.values[1] },
+                dataType: 'script',
+                success: function(response) {
+                    console.log("success");
+                }
+            });
+        }
+    });
+    // $("#tweet_sent1").val(slider.slider("values")[0]);
+    // $("#tweet_sent2").val(slider.slider("values")[1]);
     });
 </script>

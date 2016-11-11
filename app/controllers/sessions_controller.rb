@@ -37,17 +37,8 @@ class SessionsController < ApplicationController
       high = params[:high].to_i
       filter = params[:filter]
 
-      if filter == "closeness"
-        @real_tweets = $tweets.select{ |tweet|
-          Friend.find_by(nickname: tweet.user_screen_name).closeness > low
-        }
-        @fake_tweets = $tweets.select{ |tweet|
-          Friend.find_by(nickname: tweet.user_screen_name).closeness > low
-        }
-      else
-        @real_tweets = $tweets.select {|tweet| tweet[filter] >= low && tweet[filter] <= high}
-        @fake_tweets = $tweets.select {|tweet| tweet["fake_#{filter}"] >= low && tweet["fake_#{filter}"] <= high}
-      end
+      @real_tweets = $tweets.select {|tweet| tweet[filter] >= low && tweet[filter] <= high}
+      @fake_tweets = $tweets.select {|tweet| tweet["fake_#{filter}"] >= low && tweet["fake_#{filter}"] <= high}
   end
 
   protected
