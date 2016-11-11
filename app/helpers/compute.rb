@@ -28,14 +28,20 @@ module Compute
     @@popularityArray = @@popularityArray.shuffle
   end
   def shuffle_closeness
+    @@closenessArray = @@closenessArray.shuffle
   end
   def shuffle_sentiment
     @@sentimentArray = @@sentimentArray.shuffle
   end
 
+  def grab_fake_closeness
+    return @@closenessArray.pop
+  end
+
   def grab_fake_verified
     return @@verifiedArray.pop
   end
+
   def grab_fake_frequency
     return @@frequencyArray.pop
   end
@@ -60,16 +66,15 @@ module Compute
     return frequency
   end
 
-  def compute_closeness(friend)
+  def compute_closeness(friend, index, size)
     rank = 0 # Start rank at 0
     id = User.find_by(twitter_id: session[:twitter_id]).id
     messages = Message.where(user_id: id, sender_id: friend.id) # Collect messages
 
     # Missing:
-    # newer friends are more distant
     # recent direct message
 
-    #rank += (index <= (size/2)) ? -1 : 1 # If you are inserted into database more recently, then you are a newer friend so you are more distant
+    rank += (index <= (size/2)) ? -1 : 1 # If you are inserted into database more recently, then you are a newer friend so you are more distant
 
     case # If you have more followers, you are more distant
     when friend.followers_count > 100000
@@ -102,10 +107,27 @@ module Compute
       when avg_sentiment < 0
         rank -= 1
       end
+
+      most_recent = messages.first 
+      date_time = most_recent.sent_date
+      time_ago = Time.now - DateTime.strptime(datetime, '%Y-%m-%d %H:%M:%S') # In seconds
+      datetime /= 3600 # In hours
+      case
+      when datetime < 6 # 6 Hours
+        rank += 10
+      when datetime < 24 # Day
+        rank += 5
+      when datetime < 168 # Week
+        rank += 2
+      when datetime < 744 # Month datetime
+        rank += 1
+      end
     end
 
     rank += friend.verified ? -1 : 1 # Verified means more distant
 
+    @@closenessArray.push(rank)
+    
   end
 
   def compute_popularity(retweet_count)

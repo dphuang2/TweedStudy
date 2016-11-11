@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'jquery-ui-rails'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 gem 'certified'
 gem 'rails_autolink', '~> 1.1', '>= 1.1.6'

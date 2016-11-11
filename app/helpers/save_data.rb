@@ -19,7 +19,8 @@ module SaveData
 
   def save_friends(user, client)
     friends = client.friends
-    friends.each do |friend, index|
+    index = 1
+    friends.each do |friend|
       user.friend.find_or_create_by(twitter_id: friend.id) do |f|
         f.nickname = friend.screen_name
         f.name = friend.name
@@ -37,16 +38,19 @@ module SaveData
         f.twitter_id = friend.id
         f.verified = compute_verified(friend)
         f.post_frequency = compute_frequency(friend.created_at, friend.statuses_count)
-        f.closeness = compute_closeness(friend)
+        f.closeness = compute_closeness(friend, index, friends.count)
       end
+      index += 1
     end
 
     if Friend.first.fake_post_frequency.nil? # Checking if one tweet does not have a fake_post_frequency checks for all
       shuffle_frequency
       shuffle_verified
+      shuffle_closeness
       Friend.all.each do |t| 
         t.update(fake_verified: grab_fake_verified)
         t.update(fake_post_frequency: grab_fake_frequency)
+        t.update(fake_closeness: grab_fake_closeness)
       end
     end
 
@@ -73,9 +77,9 @@ module SaveData
         t.user_name = tweet.user.name
         t.user_url = "https://twitter.com/#{tweet.user.screen_name}"
         t.verified = tweet.user.verified
-        t.fake_verified = Friend.find_by(nickname: t.user_screen_name).fake_verified
+        t.fake_verified = Friend.find_by(nickname: tweet.user_screen_name).fake_verified
 
-        # If the tweet is a retewet, the media location is in a different location
+        # If the tweet is a retweet, the media location is in a different location
         if tweet.retweeted_status.media?
           media = JSON.parse(tweet.retweeted_status.media.to_json)
         elsif tweet.media?
