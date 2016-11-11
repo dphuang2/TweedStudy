@@ -59,9 +59,10 @@ module Compute
     return friend.verified
   end
 
-  def compute_frequency(time, count)
+  def compute_frequency(created, count)
     now = Time.now
-    frequency = count/(now-time)
+    diff_in_months = (now - created) / 2678400 # 2678400 seconds in a month
+    frequency = count/diff_in_months # Statuses per month
     @@frequencyArray.push(frequency)
     return frequency
   end
