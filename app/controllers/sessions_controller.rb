@@ -22,15 +22,13 @@ class SessionsController < ApplicationController
   def feed
     if logged_in?
       @user = current_user
-      $tweets = @user.tweet.order(tweet_id: :desc).limit(100);
+      $tweets = @user.tweet.order(tweet_id: :desc).limit(100)
     else
       redirect_to root_path
     end
   end
 
   def filter
-      # @TODO:
-      # Tolerance should be normalized
       @user = current_user
 
       low = params[:low].to_i

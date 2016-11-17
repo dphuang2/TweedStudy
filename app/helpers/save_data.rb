@@ -43,15 +43,13 @@ module SaveData
             index += 1
         end
 
-        if Friend.first.fake_post_frequency.nil? # Checking if one tweet does not have a fake_post_frequency checks for all
-            shuffle_frequency
-            shuffle_verified
-            shuffle_closeness
-            Friend.all.each do |t| 
-                t.update(fake_verified: grab_fake_verified)
-                t.update(fake_post_frequency: grab_fake_frequency)
-                t.update(fake_closeness: grab_fake_closeness)
-            end
+        shuffle_frequency
+        shuffle_verified
+        shuffle_closeness
+        Friend.all.each do |t| 
+          t.update(fake_verified: grab_fake_verified) if t.fake_verified == nil
+          t.update(fake_post_frequency: grab_fake_frequency) if t.fake_post_frequency == nil
+          t.update(fake_closeness: grab_fake_closeness) if t.fake_closeness == nil
         end
 
     end
@@ -112,17 +110,17 @@ module SaveData
                     t.fake_poster_frequency = Friend.find_by(screen_name: tweet.user.screen_name).fake_post_frequency
                     t.closeness = Friend.find_by(screen_name: tweet.user.screen_name).closeness
                     t.fake_closeness = Friend.find_by(screen_name: tweet.user.screen_name).fake_closeness
+                    t.verified = Friend.find_by(screen_name: tweet.user.screen_name).verified
+                    t.fake_verified = Friend.find_by(screen_name: tweet.user.screen_name).fake_verified
                 end
             end
         end
 
-        if Tweet.first.fake_popularity.nil? # Checking for one checks for all
-            shuffle_popularity
-            shuffle_sentiment
-            Tweet.all.each do |t| 
-                t.update(fake_popularity: grab_fake_popularity)
-                t.update(fake_sentiment: grab_fake_sentiment)
-            end
+        shuffle_popularity
+        shuffle_sentiment
+        Tweet.all.each do |t| 
+          t.update(fake_popularity: grab_fake_popularity) if t.fake_popularity == nil
+          t.update(fake_sentiment: grab_fake_sentiment) if t.fake_sentiment == nil
         end
 
     end
