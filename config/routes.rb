@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   # Content
+  get '/pick', to: 'sessions#pick'
   get '/feed', to: 'sessions#feed'
   get '/filter/:filter', to: 'sessions#filter'
 

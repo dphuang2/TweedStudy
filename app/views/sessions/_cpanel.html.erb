@@ -1,13 +1,3 @@
-<%
-    @sent_min = $tweets.minimum("sentiment");
-    @sent_max = $tweets.maximum("sentiment");
-    @close_min = $tweets.minimum("closeness");
-    @close_max = $tweets.maximum("closeness");
-    @post_min = $tweets.minimum("poster_frequency");
-    @post_max = $tweets.maximum("poster_frequency");
-    @pop_min = $tweets.minimum("popularity");
-    @pop_max = $tweets.maximum("popularity");
-%>
 <div class="cpanel">
     <h3> Control Panel </h3>
     <% if false %>
