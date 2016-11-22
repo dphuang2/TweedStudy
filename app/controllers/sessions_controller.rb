@@ -41,16 +41,18 @@ class SessionsController < ApplicationController
   def feed
     if logged_in?
       @user = current_user
+      $all_tweets = @user.tweet.all
+      $all_friends = @user.friend.all
       $tweets = @user.tweet.order(tweet_id: :desc).limit(100)
 
-      @sent_min = $tweets.minimum("sentiment");
-      @sent_max = $tweets.maximum("sentiment");
-      @close_min = $tweets.minimum("closeness");
-      @close_max = $tweets.maximum("closeness");
-      @post_min = $tweets.minimum("poster_frequency");
-      @post_max = $tweets.maximum("poster_frequency");
-      @pop_min = $tweets.minimum("popularity");
-      @pop_max = $tweets.maximum("popularity");
+      @sent_min = $all_tweets.minimum("sentiment");
+      @sent_max = $all_tweets.maximum("sentiment");
+      @close_min = $all_friends.minimum("closeness");
+      @close_max = $all_friends.maximum("closeness");
+      @post_min = $all_friends.minimum("post_frequency");
+      @post_max = $all_friends.maximum("post_frequency");
+      @pop_min = $all_tweets.minimum("popularity");
+      @pop_max = $all_tweets.maximum("popularity");
     else
       redirect_to root_path
     end
@@ -71,30 +73,30 @@ class SessionsController < ApplicationController
     $filters[filter][0] = low
     $filters[filter][1] = high
 
-    # Fixes exclusive query to be inclusive
-    if ($filters["verified"][0] + $filters["verified"][1]) == 0
-      ver = 0
-    elsif ($filters["verified"][0] + $filters["verified"][1]) == 2
-      ver = 1
-    else
-      ver = [0,1]
-    end
+    ## Fixes exclusive query to be inclusive
+    #if ($filters["verified"][0] + $filters["verified"][1]) == 0
+      #ver = 0
+    #elsif ($filters["verified"][0] + $filters["verified"][1]) == 2
+      #ver = 1
+    #else
+      #ver = [0,1]
+    #end
 
 
     @real_tweets = $tweets.where(
-      popularity: ($filters["popularity"][0]...$filters["popularity"][1]),
-      poster_frequency: ($filters["poster_frequency"][0]...$filters["poster_frequency"][1]),
-      sentiment: ($filters["sentiment"][0]...$filters["sentiment"][1]),
-      closeness: ($filters["closeness"][0]...$filters["closeness"][1]),
-      verified: ver,
+      popularity: ($filters["popularity"][0]..$filters["popularity"][1]),
+      poster_frequency: ($filters["poster_frequency"][0]..$filters["poster_frequency"][1]),
+      sentiment: ($filters["sentiment"][0]..$filters["sentiment"][1]),
+      closeness: ($filters["closeness"][0]..$filters["closeness"][1]),
+      verified: ($filters["verified"][0]..$filters["verified"][1]),
     )
 
     @fake_tweets = $tweets.where(
-      fake_popularity: ($filters["popularity"][0]...$filters["popularity"][1]),
-      fake_poster_frequency: ($filters["poster_frequency"][0]...$filters["poster_frequency"][1]),
-      fake_sentiment: ($filters["sentiment"][0]...$filters["sentiment"][1]),
-      fake_closeness: ($filters["closeness"][0]...$filters["closeness"][1]),
-      fake_verified: ver,
+      fake_popularity: ($filters["popularity"][0]..$filters["popularity"][1]),
+      fake_poster_frequency: ($filters["poster_frequency"][0]..$filters["poster_frequency"][1]),
+      fake_sentiment: ($filters["sentiment"][0]..$filters["sentiment"][1]),
+      fake_closeness: ($filters["closeness"][0]..$filters["closeness"][1]),
+      fake_verified: ($filters["verified"][0]..$filters["verified"][1]),
     )
 
   end
