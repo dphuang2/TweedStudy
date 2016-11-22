@@ -14,6 +14,8 @@ class SessionsController < ApplicationController
     puts "Before client creation"
     puts "Token: "+auth_hash[:credentials][:token]
     puts "Secret: "+auth_hash[:credentials][:secret]
+    puts "ENV["twitter_api_key"]: "+ENV["twitter_api_key"] 
+    puts "ENV["twitter_api_secret"]: "+ENV["twitter_api_secret"] 
     puts "consumer_key: "+Rails.application.secrets.twitter_api_key
     puts "consumer_secret: "+Rails.application.secrets.twitter_api_secret
     client = Twitter::REST::Client.new do |config|
