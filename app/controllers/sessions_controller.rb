@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_or_create_from_auth_hash(auth_hash)
     client = Twitter::REST::Client.new do |config|
-      config.consumer_key = Rails.application.secrets.twitter_api_key
-      config.consumer_secret = Rails.application.secrets.twitter_api_secret
+      config.consumer_key = ENV["twtter_api_key"]
+      config.consumer_secret = ENV["twitter_api_secret"]
       config.access_token = auth_hash[:credentials][:token]
       config.access_token_secret = auth_hash[:credentials][:secret]
     end
