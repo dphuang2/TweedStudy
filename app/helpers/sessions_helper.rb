@@ -1,5 +1,7 @@
 module SessionsHelper
   require 'rails_autolink'
+  require 'twitter'
+  require 'omniauth-twitter'
   require 'certified' # This verified your SSL certificate (it seems to be a problem on Windows)
   include SaveData
 
