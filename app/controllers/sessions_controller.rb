@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     save_messages @user, client
     save_friends @user, client
     save_tweets @user, client
-    redirect_to '/feed'
+    redirect_to '/pick'
   end
 
   def destroy
