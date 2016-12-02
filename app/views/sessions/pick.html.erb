@@ -1,28 +1,23 @@
 <div class="container-fluid">
     <div class="col-xs-12">
-
-      <div class="feed">
-        <% $tweets.each do |tweet| %>
-
-          <div class="col-xs-10">
-            <%= render partial: 'tweets/tweet', locals: { tweet: tweet } %>
-          </div>
-
-          <div class="col-xs-2">
+        <div class="feed">
             <form action="">
-              <input type="radio" name="pick-yes" value="y"> Yes
-              <input type="radio" name="pick-no" value="n"> No
-              <input type="radio" name="pick-notsure" value="notsure"> Not Sure
-            </form>
-          </div>
+                <% $tweets.each do |tweet| %>
 
-        <% end %>
-      </div>
+                    <div class="col-xs-10">
+                        <%= render partial: 'tweets/tweet', locals: { tweet: tweet } %>
+                    </div>
 
+                    <div class="col-xs-2">
+                        <input type="radio" name="pick-yes" value="y"> Yes
+                        <input type="radio" name="pick-no" value="n"> No
+                        <input type="radio" name="pick-notsure" value="notsure"> Not Sure
+                    </div>
 
-    </div>
-    <button class="btn btn-default">
-      <%= link_to "Next", feed_path %>
-    </button>
-  </div>
+                <% end %>
+            </div>
+        </div>
+        <%= link_to raw(" <button class='btn btn-default'> Next </button> "), feed_path %>
+    </form>
+</div>
 
