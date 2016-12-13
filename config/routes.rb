@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Content
   get '/pick', to: 'sessions#pick'
   get '/feed', to: 'sessions#feed'
+  get '/reset', to: 'sessions#reset'
   get '/filter/:filter', to: 'sessions#filter'
 
   root 'static_pages#home'

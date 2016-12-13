@@ -6,6 +6,16 @@
     width: inherit;
     padding-right: 20px;
 }
+
+.btn-block{
+    margin-top: 20px;
+}
+
+.control-panel-description{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
 .left-feed{
   border-right: solid 1px grey;
 }
@@ -36,4 +46,10 @@
     0% {height: 15px;}
     50% {height: 35px;}
     100% {height: 15px;}
+}
+
+#feed-next-button{
+    position: relative;
+    float: right;
+    margin-top: 15px;
 }

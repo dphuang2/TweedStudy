@@ -1,52 +1,48 @@
 <div class="cpanel">
-    <h3> Control Panel </h3>
-    <% if false %>
-        <%= link_to '/filter/sentiment', '/filter/sentiment', remote: true %> <br>
-        <%= link_to '/filter/popularity', '/filter/popularity', remote: true %> <br>
-        <%= link_to '/filter/poster_frequency', '/filter/poster_frequency', remote: true %> <br>
-        <%= link_to '/filter/closeness', '/filter/closeness', remote: true %> <br>
-        <%= link_to '/filter/verified', '/filter/verified', remote: true %> <br>
-    <% end %>
+    <%#move the bars farther away from each other%>
+    <%#Change granularity to inner quartile range%>
 
-    <p> Sentiment </p>
-    <div data-role="rangeslider" id="sent-slider">
+    <p class="control-panel-description"> Sentiment </p>
+    <div class="slider" data-role="rangeslider" id="sent-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :sent1 %>
             <%= hidden_field :tweet, :sent2 %>
         <% end %>
     </div>
 
-    <p> Closeness </p>
-    <div data-role="rangeslider" id="close-slider">
+    <p class="control-panel-description"> Closeness </p>
+    <div class="slider" data-role="rangeslider" id="close-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :close1 %>
             <%= hidden_field :tweet, :close2 %>
         <% end %>
     </div>
 
-    <p> Poster Frequency </p>
-    <div data-role="rangeslider" id="post-slider">
+    <p class="control-panel-description"> Poster Frequency </p>
+    <div class="slider" data-role="rangeslider" id="post-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :post1 %>
             <%= hidden_field :tweet, :post2 %>
         <% end %>
     </div>
 
-    <p> Popularity </p>
-    <div data-role="rangeslider" id="pop-slider">
+    <p class="control-panel-description"> Popularity </p>
+    <div class="slider" data-role="rangeslider" id="pop-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :pop1 %>
             <%= hidden_field :tweet, :pop2 %>
         <% end %>
     </div>
 
-    <p> Verified </p>
-    <div data-role="rangeslider" id="ver-slider">
+    <p class="control-panel-description"> Celebrity </p>
+    <div class="slider" data-role="rangeslider" id="ver-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :ver1 %>
             <%= hidden_field :tweet, :ver2 %>
         <% end %>
     </div>
+
+    <button id="reset-button" class="btn btn-primary btn-block"> Reset </button>
 
     <div class="loading">
         <div class="line"></div>
@@ -54,120 +50,148 @@
         <div class="line"></div>
     </div>
 
+    <%= link_to raw(" <button id='feed-next-button' class='btn btn-default'> Next Feed </button> "), feed_path %>
+
 </div>
 
 <script>
     $(document).ready(function() {
-      $("#sent-slider").slider({
-        range: true,
-        step: <%=(@sent_max - @sent_min) / 5.0%>,
-        min: <%= @sent_min %>,
-        max: <%= @sent_max %>,
-        values: [<%=@sent_min%>, <%=@sent_max%>],
-        change: function(event, ui) {
-          $("#tweet_sent1").val(ui.values[0]);
-          $("#tweet_sent2").val(ui.values[1]);
-
-          $.ajax({
-            url: '/filter/sentiment',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-              console.log("success");
+        $("#sent-slider").slider({
+            range: true,
+            step: <%=(@sent_max - @sent_min) / 5.0%>,
+            min: <%= @sent_min %>,
+            max: <%= @sent_max %>,
+            values: [<%=@sent_min%>, <%=@sent_max%>],
+            stop: function(event, ui){
+                $.ajax({
+                    url: '/filter/sentiment',
+                    type: "GET",
+                    data: { low: ui.values[0], high: ui.values[1] },
+                    dataType: 'script',
+                    success: function(response) {
+                        <%#console.log("success");%>
+                    }
+                });
+            },
+            change: function(event, ui) {
+                $("#tweet_sent1").val(ui.values[0]);
+                $("#tweet_sent2").val(ui.values[1]);
             }
-          });
-        }
-      });
+        });
 
-      $("#close-slider").slider({
-        range: true,
-        step: <%=(@close_max - @close_min) / 5.0%>,
-        min: <%= @close_min %>,
-        max: <%= @close_max %>,
-        values: [<%=@close_min%>, <%=@close_max%>],
-        change: function(event, ui) {
-          $("#tweet_close1").val(ui.values[0]);
-          $("#tweet_close2").val(ui.values[1]);
-
-          $.ajax({
-            url: '/filter/closeness',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-              console.log("success");
+        $("#close-slider").slider({
+            range: true,
+            step: <%=(@close_max - @close_min) / 5.0%>,
+            min: <%= @close_min %>,
+            max: <%= @close_max %>,
+            values: [<%=@close_min%>, <%=@close_max%>],
+            stop: function(event, ui){
+                $.ajax({
+                    url: '/filter/closeness',
+                    type: "GET",
+                    data: { low: ui.values[0], high: ui.values[1] },
+                    dataType: 'script',
+                    success: function(response) {
+                        <%#console.log("success");%>
+                    }
+                });
+            },
+            change: function(event, ui) {
+                $("#tweet_close1").val(ui.values[0]);
+                $("#tweet_close2").val(ui.values[1]);
             }
-          });
-        }
-      });
+        });
 
-      $("#post-slider").slider({
-        range: true,
-        step: <%=(@post_max - @post_min) / 5.0%>,
-        min: <%= @post_min %>,
-        max: <%= @post_max %>,
-        values: [<%= @post_min %>, <%= @post_max %>],
-        change: function(event, ui) {
-          $("#tweet_post1").val(ui.values[0]);
-          $("#tweet_post2").val(ui.values[1]);
-
-          $.ajax({
-            url: '/filter/poster_frequency',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-              console.log("success");
+        $("#post-slider").slider({
+            range: true,
+            step: <%=(@post_max - @post_min) / 5.0%>,
+            min: <%= @post_min %>,
+            max: <%= @post_max %>,
+            values: [<%= @post_min %>, <%= @post_max %>],
+            stop: function(event, ui){
+                $.ajax({
+                    url: '/filter/poster_frequency',
+                    type: "GET",
+                    data: { low: ui.values[0], high: ui.values[1] },
+                    dataType: 'script',
+                    success: function(response) {
+                        <%#console.log("success");%>
+                    }
+                });
+            },
+            change: function(event, ui) {
+                $("#tweet_post1").val(ui.values[0]);
+                $("#tweet_post2").val(ui.values[1]);
             }
-          });
-        }
-      });
+        });
 
-      $("#pop-slider").slider({
-        range: true,
-        step: <%=(@pop_max - @pop_min) / 5.0%>,
-        min: <%= @pop_min %>,
-        max: <%= @pop_max %>,
-        values: [<%=@pop_min%>, <%=@pop_max%>],
-        change: function(event, ui) {
-          $("#tweet_pop1").val(ui.values[0]);
-          $("#tweet_pop2").val(ui.values[1]);
-
-          $.ajax({
-            url: '/filter/popularity',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-              console.log("success");
+        $("#pop-slider").slider({
+            range: true,
+            step: <%=(@pop_max - @pop_min) / 5.0%>,
+            min: <%= @pop_min %>,
+            max: <%= @pop_max %>,
+            values: [<%=@pop_min%>, <%=@pop_max%>],
+            stop: function(event, ui){
+                $.ajax({
+                    url: '/filter/popularity',
+                    type: "GET",
+                    data: { low: ui.values[0], high: ui.values[1] },
+                    dataType: 'script',
+                    success: function(response) {
+                        <%#console.log("success");%>
+                    }
+                });
+            },
+            change: function(event, ui) {
+                $("#tweet_pop1").val(ui.values[0]);
+                $("#tweet_pop2").val(ui.values[1]);
             }
-          });
-        }
-      });
+        });
 
-      $("#ver-slider").slider({
-        range: true,
-        step: 1,
-        min: 0,
-        max: 1,
-        values: [0, 1],
-        change: function(event, ui) {
-          $("#tweet_ver1").val(ui.values[0]);
-          $("#tweet_ver2").val(ui.values[1]);
-
-          $.ajax({
-            url: '/filter/verified',
-            type: "GET",
-            data: { low: ui.values[0], high: ui.values[1] },
-            dataType: 'script',
-            success: function(response) {
-              console.log("success");
+        $("#ver-slider").slider({
+            range: true,
+            step: 1,
+            min: 0,
+            max: 1,
+            values: [0, 1],
+            stop: function(event, ui){
+                $.ajax({
+                    url: '/filter/verified',
+                    type: "GET",
+                    data: { low: ui.values[0], high: ui.values[1] },
+                    dataType: 'script',
+                    success: function(response) {
+                        <%#console.log("success");%>
+                    }
+                });
+            },
+            change: function(event, ui) {
+                $("#tweet_ver1").val(ui.values[0]);
+                $("#tweet_ver2").val(ui.values[1]);
             }
-          });
+        });
+
+
+        function resetSliders(){
+
+            $('*[id*=slider]:visible').each(function() {
+                var options = $(this).slider( 'option' );
+                $(this).slider( 'values', [ options.min, options.max ] );
+            });
+
+            $.ajax({
+                url: '/reset',
+                type: "GET",
+                dataType: 'script',
+                success: function(response) {
+                    console.log("success");
+                }
+            });
         }
-      });
-      // $("#tweet_sent1").val(slider.slider("values")[0]);
-      // $("#tweet_sent2").val(slider.slider("values")[1]);
+
+        $("#reset-button").click(function(){
+            resetSliders();
+        })
+
     });
 </script>
