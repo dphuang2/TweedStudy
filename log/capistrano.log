@@ -1544,3 +1544,328 @@ faaa37742c2188cea66638ed0472efc3117d2dca	refs/heads/master
   INFO [7780488a] Running /usr/bin/env echo "Branch master (at faaa37742c2188cea66638ed0472efc3117d2dca) deployed as release 20161203001217 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log as deploy@138.197.27.67
  DEBUG [7780488a] Command: cd /home/deploy/TweedStudy/releases && /usr/bin/env echo "Branch master (at faaa37742c2188cea66638ed0472efc3117d2dca) deployed as release 20161203001217 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log
   INFO [7780488a] Finished in 0.050 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-13 14:51:02 -0600 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [4e0ab5d9] Running /usr/bin/env which passenger as deploy@138.197.27.67
+ DEBUG [4e0ab5d9] Command: /usr/bin/env which passenger
+ DEBUG [4e0ab5d9] 	/usr/bin/passenger
+ DEBUG [4e0ab5d9] Finished in 6.830 seconds with exit status 0 (successful).
+ DEBUG [1bab26f4] Running [ -d ~/.rvm ] as deploy@138.197.27.67
+ DEBUG [1bab26f4] Command: [ -d ~/.rvm ]
+ DEBUG [1bab26f4] Finished in 3.054 seconds with exit status 0 (successful).
+ DEBUG [7bdf3a41] Running ~/.rvm/bin/rvm version as deploy@138.197.27.67
+ DEBUG [7bdf3a41] Command: ~/.rvm/bin/rvm version
+ DEBUG [7bdf3a41] 	rvm 1.27.0 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
+ DEBUG [7bdf3a41] Finished in 0.561 seconds with exit status 0 (successful).
+ DEBUG [24deaa87] Running ~/.rvm/bin/rvm current as deploy@138.197.27.67
+ DEBUG [24deaa87] Command: ~/.rvm/bin/rvm current
+ DEBUG [24deaa87] 	ruby-2.3.1
+ DEBUG [24deaa87] Finished in 0.510 seconds with exit status 0 (successful).
+ DEBUG [53f82d44] Running ~/.rvm/bin/rvm default do ruby --version as deploy@138.197.27.67
+ DEBUG [53f82d44] Command: ~/.rvm/bin/rvm default do ruby --version
+ DEBUG [53f82d44] 	ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-linux]
+ DEBUG [53f82d44] Finished in 0.512 seconds with exit status 0 (successful).
+  INFO [7ddf4e1d] Running /usr/bin/env mkdir -p /tmp as deploy@138.197.27.67
+ DEBUG [7ddf4e1d] Command: /usr/bin/env mkdir -p /tmp
+  INFO [7ddf4e1d] Finished in 0.051 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-TweedStudy-production-dylanhuang.sh 0.0%
+  INFO Uploading /tmp/git-ssh-TweedStudy-production-dylanhuang.sh 100.0%
+  INFO [d7f5fce5] Running /usr/bin/env chmod 700 /tmp/git-ssh-TweedStudy-production-dylanhuang.sh as deploy@138.197.27.67
+ DEBUG [d7f5fce5] Command: /usr/bin/env chmod 700 /tmp/git-ssh-TweedStudy-production-dylanhuang.sh
+  INFO [d7f5fce5] Finished in 0.053 seconds with exit status 0 (successful).
+  INFO [fd42c5db] Running /usr/bin/env git ls-remote --heads https://github.com/dphuang2/TweedStudy.git as deploy@138.197.27.67
+ DEBUG [fd42c5db] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-TweedStudy-production-dylanhuang.sh" ; /usr/bin/env git ls-remote --heads https://github.com/dphuang2/TweedStudy.git )
+ DEBUG [fd42c5db] 	3b54b195602426a75bb8883f10979b445313adbf	refs/heads/SaveOldVersion
+4f145dd79ecb94da8486e9eb204953567ec077b2	refs/heads/backup
+dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba	refs/heads/master
+4f145dd79ecb94da8486e9eb204953567ec077b2	refs/heads/refactor
+  INFO [fd42c5db] Finished in 0.327 seconds with exit status 0 (successful).
+  INFO [5dd319f3] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared /home/deploy/TweedStudy/releases as deploy@138.197.27.67
+ DEBUG [5dd319f3] Command: /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared /home/deploy/TweedStudy/releases
+  INFO [5dd319f3] Finished in 0.055 seconds with exit status 0 (successful).
+  INFO [b7719809] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared/log /home/deploy/TweedStudy/shared/tmp/pids /home/deploy/TweedStudy/shared/tmp/cache /home/deploy/TweedStudy/shared/tmp/sockets /home/deploy/TweedStudy/shared/vendor/bundle /home/deploy/TweedStudy/shared/public/system /home/deploy/TweedStudy/shared/public/assets as deploy@138.197.27.67
+ DEBUG [b7719809] Command: /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared/log /home/deploy/TweedStudy/shared/tmp/pids /home/deploy/TweedStudy/shared/tmp/cache /home/deploy/TweedStudy/shared/tmp/sockets /home/deploy/TweedStudy/shared/vendor/bundle /home/deploy/TweedStudy/shared/public/system /home/deploy/TweedStudy/shared/public/assets
+  INFO [b7719809] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO [7728362f] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared/config as deploy@138.197.27.67
+ DEBUG [7728362f] Command: /usr/bin/env mkdir -p /home/deploy/TweedStudy/shared/config
+  INFO [7728362f] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [d2b9e629] Running [ -f /home/deploy/TweedStudy/shared/config/database.yml ] as deploy@138.197.27.67
+ DEBUG [d2b9e629] Command: [ -f /home/deploy/TweedStudy/shared/config/database.yml ]
+ DEBUG [d2b9e629] Finished in 0.052 seconds with exit status 0 (successful).
+ DEBUG [94113a82] Running [ -f /home/deploy/TweedStudy/shared/config/secrets.yml ] as deploy@138.197.27.67
+ DEBUG [94113a82] Command: [ -f /home/deploy/TweedStudy/shared/config/secrets.yml ]
+ DEBUG [94113a82] Finished in 0.051 seconds with exit status 0 (successful).
+ DEBUG [37cece53] Running [ -f /home/deploy/TweedStudy/current/REVISION ] as deploy@138.197.27.67
+ DEBUG [37cece53] Command: [ -f /home/deploy/TweedStudy/current/REVISION ]
+ DEBUG [37cece53] Finished in 0.053 seconds with exit status 0 (successful).
+ DEBUG [2fe52e10] Running /usr/bin/env cat /home/deploy/TweedStudy/current/REVISION 2>/dev/null as deploy@138.197.27.67
+ DEBUG [2fe52e10] Command: /usr/bin/env cat /home/deploy/TweedStudy/current/REVISION 2>/dev/null
+ DEBUG [2fe52e10] 	faaa37742c2188cea66638ed0472efc3117d2dca
+ DEBUG [2fe52e10] Finished in 0.056 seconds with exit status 0 (successful).
+ DEBUG [41a42daa] Running [ -f /home/deploy/TweedStudy/repo/HEAD ] as deploy@138.197.27.67
+ DEBUG [41a42daa] Command: [ -f /home/deploy/TweedStudy/repo/HEAD ]
+ DEBUG [41a42daa] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/TweedStudy/repo
+ DEBUG [b3b7594a] Running if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [b3b7594a] Command: if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi
+ DEBUG [b3b7594a] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [fef31dfb] Running /usr/bin/env git remote update --prune as deploy@138.197.27.67
+ DEBUG [fef31dfb] Command: cd /home/deploy/TweedStudy/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-TweedStudy-production-dylanhuang.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [fef31dfb] 	Fetching origin
+ DEBUG [fef31dfb] 	From https://github.com/dphuang2/TweedStudy
+   faaa377..dfaabc2  master     -> master
+  INFO [fef31dfb] Finished in 1.156 seconds with exit status 0 (successful).
+ DEBUG [550710e6] Running if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [550710e6] Command: if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi
+ DEBUG [550710e6] Finished in 0.050 seconds with exit status 0 (successful).
+  INFO [4f04827a] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114 as deploy@138.197.27.67
+ DEBUG [4f04827a] Command: cd /home/deploy/TweedStudy/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-TweedStudy-production-dylanhuang.sh" ; /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114 )
+  INFO [4f04827a] Finished in 0.054 seconds with exit status 0 (successful).
+  INFO [6a3d4393] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/TweedStudy/releases/20161213205114 as deploy@138.197.27.67
+ DEBUG [6a3d4393] Command: cd /home/deploy/TweedStudy/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-TweedStudy-production-dylanhuang.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /home/deploy/TweedStudy/releases/20161213205114 )
+  INFO [6a3d4393] Finished in 0.699 seconds with exit status 0 (successful).
+ DEBUG [2f2f5cd4] Running if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [2f2f5cd4] Command: if test ! -d /home/deploy/TweedStudy/repo; then echo "Directory does not exist '/home/deploy/TweedStudy/repo'" 1>&2; false; fi
+ DEBUG [2f2f5cd4] Finished in 0.052 seconds with exit status 0 (successful).
+ DEBUG [f9f33598] Running /usr/bin/env git rev-list --max-count=1 master as deploy@138.197.27.67
+ DEBUG [f9f33598] Command: cd /home/deploy/TweedStudy/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-TweedStudy-production-dylanhuang.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [f9f33598] 	dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba
+ DEBUG [f9f33598] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [58eb4757] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [58eb4757] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [58eb4757] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [61128044] Running /usr/bin/env echo "dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba" >> REVISION as deploy@138.197.27.67
+ DEBUG [61128044] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env echo "dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba" >> REVISION
+  INFO [61128044] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO [3af0c3bc] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/config as deploy@138.197.27.67
+ DEBUG [3af0c3bc] Command: /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/config
+  INFO [3af0c3bc] Finished in 0.053 seconds with exit status 0 (successful).
+ DEBUG [d702cbdf] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/config/database.yml ] as deploy@138.197.27.67
+ DEBUG [d702cbdf] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/config/database.yml ]
+ DEBUG [d702cbdf] Finished in 0.053 seconds with exit status 1 (failed).
+ DEBUG [25f3b498] Running [ -f /home/deploy/TweedStudy/releases/20161213205114/config/database.yml ] as deploy@138.197.27.67
+ DEBUG [25f3b498] Command: [ -f /home/deploy/TweedStudy/releases/20161213205114/config/database.yml ]
+ DEBUG [25f3b498] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [a3b72453] Running /usr/bin/env rm /home/deploy/TweedStudy/releases/20161213205114/config/database.yml as deploy@138.197.27.67
+ DEBUG [a3b72453] Command: /usr/bin/env rm /home/deploy/TweedStudy/releases/20161213205114/config/database.yml
+  INFO [a3b72453] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [42d0f662] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/config/database.yml /home/deploy/TweedStudy/releases/20161213205114/config/database.yml as deploy@138.197.27.67
+ DEBUG [42d0f662] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/config/database.yml /home/deploy/TweedStudy/releases/20161213205114/config/database.yml
+  INFO [42d0f662] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG [659f18b8] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml ] as deploy@138.197.27.67
+ DEBUG [659f18b8] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml ]
+ DEBUG [659f18b8] Finished in 0.052 seconds with exit status 1 (failed).
+ DEBUG [a9383107] Running [ -f /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml ] as deploy@138.197.27.67
+ DEBUG [a9383107] Command: [ -f /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml ]
+ DEBUG [a9383107] Finished in 0.050 seconds with exit status 0 (successful).
+  INFO [1b2d2323] Running /usr/bin/env rm /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml as deploy@138.197.27.67
+ DEBUG [1b2d2323] Command: /usr/bin/env rm /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml
+  INFO [1b2d2323] Finished in 0.052 seconds with exit status 0 (successful).
+  INFO [a2a7341f] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/config/secrets.yml /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml as deploy@138.197.27.67
+ DEBUG [a2a7341f] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/config/secrets.yml /home/deploy/TweedStudy/releases/20161213205114/config/secrets.yml
+  INFO [a2a7341f] Finished in 0.053 seconds with exit status 0 (successful).
+  INFO [3eff4826] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114 /home/deploy/TweedStudy/releases/20161213205114/tmp /home/deploy/TweedStudy/releases/20161213205114/vendor /home/deploy/TweedStudy/releases/20161213205114/public as deploy@138.197.27.67
+ DEBUG [3eff4826] Command: /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114 /home/deploy/TweedStudy/releases/20161213205114/tmp /home/deploy/TweedStudy/releases/20161213205114/vendor /home/deploy/TweedStudy/releases/20161213205114/public
+  INFO [3eff4826] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [0fadd16f] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/log ] as deploy@138.197.27.67
+ DEBUG [0fadd16f] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/log ]
+ DEBUG [0fadd16f] Finished in 0.052 seconds with exit status 1 (failed).
+ DEBUG [319f75de] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/log ] as deploy@138.197.27.67
+ DEBUG [319f75de] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/log ]
+ DEBUG [319f75de] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [972cf1d3] Running /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/log as deploy@138.197.27.67
+ DEBUG [972cf1d3] Command: /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/log
+  INFO [972cf1d3] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [f3e407fd] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/log /home/deploy/TweedStudy/releases/20161213205114/log as deploy@138.197.27.67
+ DEBUG [f3e407fd] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/log /home/deploy/TweedStudy/releases/20161213205114/log
+  INFO [f3e407fd] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [07cd1a1c] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/pids ] as deploy@138.197.27.67
+ DEBUG [07cd1a1c] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/pids ]
+ DEBUG [07cd1a1c] Finished in 0.052 seconds with exit status 1 (failed).
+ DEBUG [5d8eb6b2] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/pids ] as deploy@138.197.27.67
+ DEBUG [5d8eb6b2] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/pids ]
+ DEBUG [5d8eb6b2] Finished in 0.053 seconds with exit status 0 (successful).
+  INFO [4097ef7e] Running /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/tmp/pids as deploy@138.197.27.67
+ DEBUG [4097ef7e] Command: /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/tmp/pids
+  INFO [4097ef7e] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [8279622d] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/pids /home/deploy/TweedStudy/releases/20161213205114/tmp/pids as deploy@138.197.27.67
+ DEBUG [8279622d] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/pids /home/deploy/TweedStudy/releases/20161213205114/tmp/pids
+  INFO [8279622d] Finished in 0.056 seconds with exit status 0 (successful).
+ DEBUG [7968a514] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/cache ] as deploy@138.197.27.67
+ DEBUG [7968a514] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/cache ]
+ DEBUG [7968a514] Finished in 0.052 seconds with exit status 1 (failed).
+ DEBUG [6a879a52] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/cache ] as deploy@138.197.27.67
+ DEBUG [6a879a52] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/cache ]
+ DEBUG [6a879a52] Finished in 0.052 seconds with exit status 0 (successful).
+  INFO [e21b5e2e] Running /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/tmp/cache as deploy@138.197.27.67
+ DEBUG [e21b5e2e] Command: /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161213205114/tmp/cache
+  INFO [e21b5e2e] Finished in 0.318 seconds with exit status 0 (successful).
+  INFO [49d22933] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/cache /home/deploy/TweedStudy/releases/20161213205114/tmp/cache as deploy@138.197.27.67
+ DEBUG [49d22933] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/cache /home/deploy/TweedStudy/releases/20161213205114/tmp/cache
+  INFO [49d22933] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [fdfca93c] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets ] as deploy@138.197.27.67
+ DEBUG [fdfca93c] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets ]
+ DEBUG [fdfca93c] Finished in 0.051 seconds with exit status 1 (failed).
+ DEBUG [be102ccc] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets ] as deploy@138.197.27.67
+ DEBUG [be102ccc] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets ]
+ DEBUG [be102ccc] Finished in 0.060 seconds with exit status 1 (failed).
+  INFO [4136fc0b] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/sockets /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets as deploy@138.197.27.67
+ DEBUG [4136fc0b] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/tmp/sockets /home/deploy/TweedStudy/releases/20161213205114/tmp/sockets
+  INFO [4136fc0b] Finished in 0.055 seconds with exit status 0 (successful).
+ DEBUG [7f1d8374] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle ] as deploy@138.197.27.67
+ DEBUG [7f1d8374] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle ]
+ DEBUG [7f1d8374] Finished in 0.054 seconds with exit status 1 (failed).
+ DEBUG [4bb8f6c5] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle ] as deploy@138.197.27.67
+ DEBUG [4bb8f6c5] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle ]
+ DEBUG [4bb8f6c5] Finished in 0.058 seconds with exit status 1 (failed).
+  INFO [8d703f01] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/vendor/bundle /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle as deploy@138.197.27.67
+ DEBUG [8d703f01] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/vendor/bundle /home/deploy/TweedStudy/releases/20161213205114/vendor/bundle
+  INFO [8d703f01] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [02869bdb] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/public/system ] as deploy@138.197.27.67
+ DEBUG [02869bdb] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/public/system ]
+ DEBUG [02869bdb] Finished in 0.056 seconds with exit status 1 (failed).
+ DEBUG [c28c125d] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/public/system ] as deploy@138.197.27.67
+ DEBUG [c28c125d] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/public/system ]
+ DEBUG [c28c125d] Finished in 0.059 seconds with exit status 1 (failed).
+  INFO [82d2f326] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/public/system /home/deploy/TweedStudy/releases/20161213205114/public/system as deploy@138.197.27.67
+ DEBUG [82d2f326] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/public/system /home/deploy/TweedStudy/releases/20161213205114/public/system
+  INFO [82d2f326] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [de72fcc2] Running [ -L /home/deploy/TweedStudy/releases/20161213205114/public/assets ] as deploy@138.197.27.67
+ DEBUG [de72fcc2] Command: [ -L /home/deploy/TweedStudy/releases/20161213205114/public/assets ]
+ DEBUG [de72fcc2] Finished in 0.052 seconds with exit status 1 (failed).
+ DEBUG [1516b07e] Running [ -d /home/deploy/TweedStudy/releases/20161213205114/public/assets ] as deploy@138.197.27.67
+ DEBUG [1516b07e] Command: [ -d /home/deploy/TweedStudy/releases/20161213205114/public/assets ]
+ DEBUG [1516b07e] Finished in 0.054 seconds with exit status 1 (failed).
+  INFO [3bf53c36] Running /usr/bin/env ln -s /home/deploy/TweedStudy/shared/public/assets /home/deploy/TweedStudy/releases/20161213205114/public/assets as deploy@138.197.27.67
+ DEBUG [3bf53c36] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/shared/public/assets /home/deploy/TweedStudy/releases/20161213205114/public/assets
+  INFO [3bf53c36] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [473817a7] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [473817a7] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [473817a7] Finished in 0.053 seconds with exit status 0 (successful).
+ DEBUG [d8fb22ad] Running ~/.rvm/bin/rvm default do bundle check --path /home/deploy/TweedStudy/shared/bundle as deploy@138.197.27.67
+ DEBUG [d8fb22ad] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && ~/.rvm/bin/rvm default do bundle check --path /home/deploy/TweedStudy/shared/bundle
+ DEBUG [d8fb22ad] 	The following gems are missing
+ DEBUG [d8fb22ad] 	 * rake (12.0.0)
+ DEBUG [d8fb22ad] 	 * minitest (5.10.1)
+ DEBUG [d8fb22ad] 	 * nokogiri (1.6.8.1)
+ DEBUG [d8fb22ad] 	 * arel (7.1.4)
+ DEBUG [d8fb22ad] 	 * public_suffix (2.0.4)
+ DEBUG [d8fb22ad] 	 * addressable (2.5.0)
+ DEBUG [d8fb22ad] 	 * net-ssh (3.2.0)
+ DEBUG [d8fb22ad] 	 * net-scp (1.2.1)
+ DEBUG [d8fb22ad] 	 * sshkit (1.11.4)
+ DEBUG [d8fb22ad] 	 * airbrussh (1.1.1)
+ DEBUG [d8fb22ad] 	 * autoprefixer-rails (6.5.4)
+ DEBUG [d8fb22ad] 	 * byebug (9.0.6)
+ DEBUG [d8fb22ad] 	 * capistrano-harrow (0.5.3)
+ DEBUG [d8fb22ad] 	 * capistrano (3.7.0)
+ DEBUG [d8fb22ad] 	 * capistrano-bundler (1.2.0)
+ DEBUG [d8fb22ad] 	 * capistrano-passenger (0.2.0)
+ DEBUG [d8fb22ad] 	 * capistrano-rails (1.2.0)
+ DEBUG [d8fb22ad] 	 * capistrano-rails-collection (0.1.0)
+ DEBUG [d8fb22ad] 	 * capistrano-rvm (0.1.2)
+ DEBUG [d8fb22ad] 	 * coffee-script-source (1.11.1)
+ DEBUG [d8fb22ad] 	 * thor (0.19.4)
+ DEBUG [d8fb22ad] 	 * debug_inspector (0.0.2)
+ DEBUG [d8fb22ad] 	 * domain_name (0.5.20161129)
+ DEBUG [d8fb22ad] 	 * ffi (1.9.14)
+ DEBUG [d8fb22ad] 	 * hashie (3.4.6)
+ DEBUG [d8fb22ad] 	 * http-cookie (1.0.3)
+ DEBUG [d8fb22ad] 	 * jbuilder (2.6.1)
+ DEBUG [d8fb22ad] 	 * jquery-ui-rails (6.0.1)
+ DEBUG [d8fb22ad] 	 * rb-fsevent (0.9.8)
+ DEBUG [d8fb22ad] 	 * rb-inotify (0.9.7)
+ DEBUG [d8fb22ad] 	 * listen (3.0.8)
+ DEBUG [d8fb22ad] 	 * pg (0.19.0)
+ DEBUG [d8fb22ad] 	 * puma (3.6.2)
+ DEBUG [d8fb22ad] 	 * spring (2.0.0)
+ DEBUG [d8fb22ad] 	 * spring-watcher-listen (2.0.1)
+ DEBUG [d8fb22ad] 	 * sqlite3 (1.3.12)
+ DEBUG [d8fb22ad] 	 * twitter (5.17.0)
+ DEBUG [d8fb22ad] 	 * uglifier (3.0.4)
+ DEBUG [d8fb22ad] 	 * web-console (3.4.0)
+ DEBUG [d8fb22ad] 	Install missing gems with `bundle install`
+ DEBUG [d8fb22ad] Finished in 1.687 seconds with exit status 1 (failed).
+  INFO [bc0439af] Running ~/.rvm/bin/rvm default do bundle install --path /home/deploy/TweedStudy/shared/bundle --without development test --deployment --quiet as deploy@138.197.27.67
+ DEBUG [bc0439af] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && ~/.rvm/bin/rvm default do bundle install --path /home/deploy/TweedStudy/shared/bundle --without development test --deployment --quiet
+  INFO [bc0439af] Finished in 117.235 seconds with exit status 0 (successful).
+ DEBUG [bc4d1bdc] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [bc4d1bdc] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [bc4d1bdc] Finished in 0.054 seconds with exit status 0 (successful).
+  INFO [6f7d3cad] Running ~/.rvm/bin/rvm default do bundle exec rake assets:precompile as deploy@138.197.27.67
+ DEBUG [6f7d3cad] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && ( export RAILS_ENV="production" ; ~/.rvm/bin/rvm default do bundle exec rake assets:precompile )
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:39.253270 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/application-6118cc137be086635d9090d4b77fa9a7940d749f8bd110059e3ee78682642399.js
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:39.254660 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/application-6118cc137be086635d9090d4b77fa9a7940d749f8bd110059e3ee78682642399.js.gz
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.472319 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/application-e8521695a3b9fde6c6267847dced50d23c78ffb076cfdb8a8efa9c81eb580f11.css
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.473420 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/application-e8521695a3b9fde6c6267847dced50d23c78ffb076cfdb8a8efa9c81eb580f11.css.gz
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.474129 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_444444_256x240-31d988765b4e6f56553c29588c500381dc3e6f0aa2980c8212202e5644aefd5d.png
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.480494 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_555555_256x240-32175261daee76c82bb0edf0eea16a56421866fbc31e94f3c1d570aa114502f5.png
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.481447 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_ffffff_256x240-350df1b7131037de20e83c5c0f3a41a770d2ac48b5762ea772b3f4a8a7b9d47a.png
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.482372 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_777620_256x240-0b020fc6e696d88d296e7bb1f61f1eb2ad827848e2c7382a4c3e0999e702dd9b.png
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.487130 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_cc0000_256x240-40985a64b4d5dd213fba27fcd862a1bd1b337a97674f6ff0b9ec20abcee4bc69.png
+ DEBUG [6f7d3cad] 	I, [2016-12-13T20:53:46.488144 #30304]  INFO -- : Writing /home/deploy/TweedStudy/releases/20161213205114/public/assets/jquery-ui/ui-icons_777777_256x240-faf32007ae120c302213557626e660dd10e711c5dd4f1113d35f26dc05b78d2f.png
+  INFO [6f7d3cad] Finished in 28.449 seconds with exit status 0 (successful).
+ DEBUG [a6e32416] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [a6e32416] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [a6e32416] Finished in 0.050 seconds with exit status 0 (successful).
+  INFO [5b1274a3] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/assets_manifest_backup as deploy@138.197.27.67
+ DEBUG [5b1274a3] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/assets_manifest_backup
+  INFO [5b1274a3] Finished in 0.054 seconds with exit status 0 (successful).
+ DEBUG [9343386c] Running /usr/bin/env ls /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest* as deploy@138.197.27.67
+ DEBUG [9343386c] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env ls /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest*
+ DEBUG [9343386c] 	/home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest-1c320cecddf79b4f47a0777cc5b9f5d3.json
+ DEBUG [9343386c] Finished in 0.052 seconds with exit status 0 (successful).
+ DEBUG [d5868886] Running /usr/bin/env ls /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest* as deploy@138.197.27.67
+ DEBUG [d5868886] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env ls /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest*
+ DEBUG [d5868886] 	/home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest-1c320cecddf79b4f47a0777cc5b9f5d3.json
+ DEBUG [d5868886] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [7d2aafeb] Running /usr/bin/env cp /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest-1c320cecddf79b4f47a0777cc5b9f5d3.json /home/deploy/TweedStudy/releases/20161213205114/assets_manifest_backup as deploy@138.197.27.67
+ DEBUG [7d2aafeb] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env cp /home/deploy/TweedStudy/releases/20161213205114/public/assets/.sprockets-manifest-1c320cecddf79b4f47a0777cc5b9f5d3.json /home/deploy/TweedStudy/releases/20161213205114/assets_manifest_backup
+  INFO [7d2aafeb] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO [deploy:migrate] Run `rake db:migrate`
+ DEBUG [0e36d059] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [0e36d059] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [0e36d059] Finished in 0.055 seconds with exit status 0 (successful).
+  INFO [b6bbb4e2] Running ~/.rvm/bin/rvm default do bundle exec rake db:migrate as deploy@138.197.27.67
+ DEBUG [b6bbb4e2] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && ( export RAILS_ENV="production" ; ~/.rvm/bin/rvm default do bundle exec rake db:migrate )
+ DEBUG [b6bbb4e2] 	== 20161212175635 AddPickToTweets: migrating ==================================
+ DEBUG [b6bbb4e2] 	
+ DEBUG [b6bbb4e2] 	-- add_column(:tweets, :pick, :string)
+ DEBUG [b6bbb4e2] 	
+ DEBUG [b6bbb4e2] 	   -> 0.0077s
+ DEBUG [b6bbb4e2] 	
+ DEBUG [b6bbb4e2] 	== 20161212175635 AddPickToTweets: migrated (0.0084s) =========================
+ DEBUG [b6bbb4e2] 	
+ DEBUG [b6bbb4e2] 	
+  INFO [b6bbb4e2] Finished in 5.089 seconds with exit status 0 (successful).
+  INFO [be284524] Running /usr/bin/env ln -s /home/deploy/TweedStudy/releases/20161213205114 /home/deploy/TweedStudy/releases/current as deploy@138.197.27.67
+ DEBUG [be284524] Command: /usr/bin/env ln -s /home/deploy/TweedStudy/releases/20161213205114 /home/deploy/TweedStudy/releases/current
+  INFO [be284524] Finished in 0.055 seconds with exit status 0 (successful).
+  INFO [fe55e2c9] Running /usr/bin/env mv /home/deploy/TweedStudy/releases/current /home/deploy/TweedStudy as deploy@138.197.27.67
+ DEBUG [fe55e2c9] Command: /usr/bin/env mv /home/deploy/TweedStudy/releases/current /home/deploy/TweedStudy
+  INFO [fe55e2c9] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [d32f942d] Running if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [d32f942d] Command: if test ! -d /home/deploy/TweedStudy/releases/20161213205114; then echo "Directory does not exist '/home/deploy/TweedStudy/releases/20161213205114'" 1>&2; false; fi
+ DEBUG [d32f942d] Finished in 0.049 seconds with exit status 0 (successful).
+  INFO [fcdcfc26] Running /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/tmp as deploy@138.197.27.67
+ DEBUG [fcdcfc26] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env mkdir -p /home/deploy/TweedStudy/releases/20161213205114/tmp
+  INFO [fcdcfc26] Finished in 0.048 seconds with exit status 0 (successful).
+  INFO [b3114a46] Running /usr/bin/env touch /home/deploy/TweedStudy/releases/20161213205114/tmp/restart.txt as deploy@138.197.27.67
+ DEBUG [b3114a46] Command: cd /home/deploy/TweedStudy/releases/20161213205114 && /usr/bin/env touch /home/deploy/TweedStudy/releases/20161213205114/tmp/restart.txt
+  INFO [b3114a46] Finished in 0.055 seconds with exit status 0 (successful).
+ DEBUG [2e1a292e] Running /usr/bin/env ls -x /home/deploy/TweedStudy/releases as deploy@138.197.27.67
+ DEBUG [2e1a292e] Command: /usr/bin/env ls -x /home/deploy/TweedStudy/releases
+ DEBUG [2e1a292e] 	20161202235621	20161203000251	20161203000600	20161203000955	20161203001217
+20161213205114
+ DEBUG [2e1a292e] Finished in 0.683 seconds with exit status 0 (successful).
+  INFO Keeping 5 of 6 deployed releases on 138.197.27.67
+  INFO [87605139] Running /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161202235621 as deploy@138.197.27.67
+ DEBUG [87605139] Command: /usr/bin/env rm -rf /home/deploy/TweedStudy/releases/20161202235621
+  INFO [87605139] Finished in 0.089 seconds with exit status 0 (successful).
+ DEBUG [ca99be05] Running if test ! -d /home/deploy/TweedStudy/releases; then echo "Directory does not exist '/home/deploy/TweedStudy/releases'" 1>&2; false; fi as deploy@138.197.27.67
+ DEBUG [ca99be05] Command: if test ! -d /home/deploy/TweedStudy/releases; then echo "Directory does not exist '/home/deploy/TweedStudy/releases'" 1>&2; false; fi
+ DEBUG [ca99be05] Finished in 0.049 seconds with exit status 0 (successful).
+  INFO [93485174] Running /usr/bin/env echo "Branch master (at dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba) deployed as release 20161213205114 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log as deploy@138.197.27.67
+ DEBUG [93485174] Command: cd /home/deploy/TweedStudy/releases && /usr/bin/env echo "Branch master (at dfaabc2261603d9b6d24aa811b96bbce9e9cd6ba) deployed as release 20161213205114 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log
+  INFO [93485174] Finished in 0.053 seconds with exit status 0 (successful).
