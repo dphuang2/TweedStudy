@@ -2,7 +2,8 @@
     <%#move the bars farther away from each other%>
     <%#Change granularity to inner quartile range%>
 
-    <p class="control-panel-description"> Sentiment </p>
+    <p class="control-panel-description"> Sentiment </p> 
+    <span>Negative</span> <span class="plus-sign">Positive</span>
     <div class="slider" data-role="rangeslider" id="sent-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :sent1 %>
@@ -11,6 +12,7 @@
     </div>
 
     <p class="control-panel-description"> Closeness </p>
+    <span>Distant</span> <span class="plus-sign">Close</span>
     <div class="slider" data-role="rangeslider" id="close-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :close1 %>
@@ -19,6 +21,7 @@
     </div>
 
     <p class="control-panel-description"> Poster Frequency </p>
+    <span>Infrequent</span> <span class="plus-sign">Frequent</span>
     <div class="slider" data-role="rangeslider" id="post-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :post1 %>
@@ -27,6 +30,7 @@
     </div>
 
     <p class="control-panel-description"> Popularity </p>
+    <span>Less Popular</span> <span class="plus-sign">More Popular</span>
     <div class="slider" data-role="rangeslider" id="pop-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :pop1 %>
@@ -35,6 +39,7 @@
     </div>
 
     <p class="control-panel-description"> Celebrity </p>
+    <span>Unknown</span> <span class="plus-sign">Well Known</span>
     <div class="slider" data-role="rangeslider" id="ver-slider">
         <%= form_tag '/filter' do |thing_form| %>
             <%= hidden_field :tweet, :ver1 %>

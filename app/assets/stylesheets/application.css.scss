@@ -16,6 +16,7 @@
  */
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import "font-awesome";
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -99,10 +100,6 @@ ul .header-name {
 	background-color:#eeeeea;
 }
 hr { margin: 0px; }
-.profileimg{
-  position: relative;
-  left: 11px;
-}
 // 20px gutter
 .gutter-20.row {
   margin-right: -10px;

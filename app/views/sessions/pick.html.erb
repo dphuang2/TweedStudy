@@ -5,15 +5,17 @@
                 <% $tweets.each do |tweet| %>
                     <div class="row vertical-align">
 
-                            <div class="col-xs-10">
+                            <div class="col-xs-8">
                                 <%= render partial: 'tweets/tweet', locals: { tweet: tweet } %>
                             </div>
 
-                            <div class="col-xs-2">
+                            <div class="col-xs-4">
                                 <fieldset id="<%= tweet.id %>">
-                                    <input class="input-pick" type="radio" id="yes" name="<%=tweet.id%>" value="y"> Yes </input>
-                                    <input type="radio" id="no" name="<%=tweet.id%>" value="n"> No </input>
-                                    <input type="radio" id="not_sure" name="<%=tweet.id%>" value="notsure"> Not Sure </input>
+                                    <div class="gutter-0 row">
+                                        <div class="col-md-4"><input class="input-pick" type="radio" id="yes" name="<%=tweet.id%>" value="y"> Yes </input></div>
+                                        <div class="col-md-4"><input type="radio" id="no" name="<%=tweet.id%>" value="n"> No </input></div>
+                                        <div class="col-md-4"><input type="radio" id="not_sure" name="<%=tweet.id%>" value="notsure"> Not Sure </input></div>
+                                    </div>
                                 </fieldset>
                             </div>
                         </div>

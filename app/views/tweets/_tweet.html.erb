@@ -3,9 +3,16 @@
 
     <!-- retweeted by -->
     <% if tweet.retweet? %> <!-- This is checking for retweet or not -->
-      <div class="row">
-        <div class="col-xs-12">
-          <a target="_blank" href="<%=tweet.user_url%>"><%=tweet.user_screen_name%></a> Retweeted
+      <div class="row retweet-line gutter-0">
+          <div class="col-xs-2">
+              <span>
+                  <i class="retweet-icon fa fa-retweet" aria-hidden="true"></i>
+              </span>
+          </div>
+          <div class="col-xs-10">
+            <span class="retweet-label">
+                <a target="_blank" href="<%=tweet.user_url%>"><%=tweet.user_screen_name%></a> Retweeted
+            </span>
         </div>
       </div>
     <% end %>

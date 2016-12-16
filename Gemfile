@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 gem 'jquery-ui-rails'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 gem 'certified'

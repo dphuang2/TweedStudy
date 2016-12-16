@@ -1,0 +1,7 @@
+- Split slider ticks into quartiles
+- Save every button click (filter change)
+- Remove Next Button on the next feed
+- Add no tweets screen
+- Make margins of the two feeds equal
+- Add demographic survey page
+- 

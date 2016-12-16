@@ -12,12 +12,16 @@
 }
 
 .control-panel-description{
+    font-weight: bold;
     margin-top: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 .left-feed{
   border-right: solid 1px grey;
+}
+.retweet-label{
+    position: relative;
 }
 .tweet{
     .mediaimg{
@@ -52,4 +56,31 @@
     position: relative;
     float: right;
     margin-top: 15px;
+}
+.plus-sign{
+    float: right;
+}
+
+fieldset{
+    width: 100%;
+    max-width: 260px;
+}
+.fa-retweet{
+    float: right;
+    margin-right: 2px;
+}
+.retweet-line{
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+.profileimg{
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+.retweet-icon{
+  position: relative;
+  float: right;
+  margin-right: 10px;
 }
