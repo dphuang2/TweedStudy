@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  twitter_id: MyString
+  screen_name: MyString
+  sentiment: 1
+  closeness: 1
+  poster_ster_requency: 1
+  celebrity: 1
+  popularity: 1
+
+two:
+  twitter_id: MyString
+  screen_name: MyString
+  sentiment: 1
+  closeness: 1
+  poster_ster_requency: 1
+  celebrity: 1
+  popularity: 1

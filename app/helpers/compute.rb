@@ -1,4 +1,6 @@
 module Compute
+  
+  # Put all the words into a hashmap for faster calculations 
   @@happyWords = File.readlines("app/assets/words/happyWords.txt")
   @@happyWords = @@happyWords.map{ |word| word.delete "\n"}
   @@sadWords = File.readlines("app/assets/words/sadWords.txt")
@@ -16,47 +18,55 @@ module Compute
   @@popularityArray = []
   @@frequencyArray = []
   @@closenessArray = []
-  @@verifiedArray = []
+  @@celebrityArray = []
 
-  def shuffle_frequency
-    @@frequencyArray = @@frequencyArray.shuffle
-  end
-  def shuffle_verified
-    @@verifiedArray = @@verifiedArray.shuffle
-  end
-  def shuffle_popularity
-    @@popularityArray = @@popularityArray.shuffle
-  end
-  def shuffle_closeness
-    @@closenessArray = @@closenessArray.shuffle
-  end
-  def shuffle_sentiment
-    @@sentimentArray = @@sentimentArray.shuffle
-  end
+  def shuffle(array)
+    case array
+    when "frequency"
+      @@frequencyArray = @@frequencyArray.shuffle
+    when "celebrity"
+      @@celebrityArray = @@celebrityArray.shuffle
+    when "popularity"
+      @@popularityArray = @@popularityArray.shuffle
+    when "closeness"
+      @@closenessArray = @@closenessArray.shuffle
+    when "sentiment"
+      @@sentimentArray = @@sentimentArray.shuffle
+    end
+  end 
 
-  def grab_fake_closeness
-    return @@closenessArray.pop
-  end
-
-  def grab_fake_verified
-    return @@verifiedArray.pop
-  end
-
-  def grab_fake_frequency
-    return @@frequencyArray.pop
-  end
-
-  def grab_fake_popularity
-    return @@popularityArray.pop
+  def grab_value(array)
+    case array
+    when "frequency"
+      return @@closenessArray.pop
+    when "celebrity"
+      return @@celebrityArray.pop
+    when "popularity"
+      return @@frequencyArray.pop
+    when "closeness"
+      return @@popularityArray.pop
+    when "sentiment"
+      return @@sentimentArray.pop
+    end
   end
 
-  def grab_fake_sentiment
-    return @@sentimentArray.pop
-  end
+  def compute_celebrity(friend)
+    celeb = 0
 
-  def compute_verified(friend)
-    @@verifiedArray.push(friend.verified)
-    return friend.verified
+    celeb += friend.verified ? 1 : 1 # Verified means more distant
+
+    case # If you have more followers, you are more distant
+    when friend.followers_count > 100000
+      celeb += 3
+    when friend.followers_count > 10000
+      celeb += 2
+    when friend.followers_count > 1000
+      celeb += 1
+    else celeb -= 1
+    end
+
+    @@celebrityArray.push(celeb)
+    return celeb
   end
 
   def compute_frequency(created, count)

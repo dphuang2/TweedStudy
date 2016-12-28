@@ -1,3 +1,11 @@
-$(".feed").html('<%= j render @real_tweets %>')
-$(".fake_feed").html('<%= j render @fake_tweets %>')
-<%#console.log("test");%>
+<% if @real_tweets.empty? %>
+  $(".real_feed").html('There are no tweets for this set of filters')
+<% else %>
+  $(".real_feed").html('<%= j render @real_tweets %>')
+<% end %>
+
+<% if @fake_tweets.empty? %>
+  $(".fake_feed").html('There are no tweets for this set of filters')
+<% else %>
+  $(".fake_feed").html('<%= j render @fake_tweets %>')
+<% end %>

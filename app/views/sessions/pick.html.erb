@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="col-xs-12">
         <div class="feed">
-            <form action="">
+            <form action="/feed1" method="get">
                 <% $tweets.each do |tweet| %>
                     <div class="row vertical-align">
 
@@ -22,7 +22,7 @@
                 <% end %>
             </div>
         </div>
-        <%= link_to raw(" <button class='next-button btn btn-default'> Next </button> "), feed_path %>
+        <%= submit_tag "Next", class: "next-button btn btn-default" %>
     </form>
 </div>
 

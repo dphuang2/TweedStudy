@@ -1,7 +1,34 @@
-- Split slider ticks into quartiles
-- Save every button click (filter change)
-- Remove Next Button on the next feed
-- Add no tweets screen
-- Make margins of the two feeds equal
-- Add demographic survey page
-- 
+DONE - Split slider ticks into quartiles
+    - If range lies on the same step, show a small range around that percentage
+    DONE Procedure:
+    DONE put into array
+    DONE break into 10ths
+    DONE if the same tick (show one tick less and one tick more)
+
+  # Holds all active filters -> [low, high]
+  # Low numbers should always be 0 for index 0
+  # High number should be the size of tweets for that user (ALL the same at the very beginning)
+  # Have an array for each filter and then AND union all the sets 
+  #
+  # Sentiment = [-4, -4, -3, -3, -3, -3, -3 , -2, 0, 0, 0, 1, 1, 1....]
+  # Closeness = [-4, -4, -3, -3, -3, -3, -3 , -2, 0, 0, 0, 1, 1, 1....]
+  # Poster Frequency = [-4, -4, -3, -3, -3, -3, -3 , -2, 0, 0, 0, 1, 1, 1....]
+  # Celebrity = [-4, -4, -3, -3, -3, -3, -3 , -2, 0, 0, 0, 1, 1, 1....]
+
+DONE - Change celebrity calculations
+DONE - Save every button click (filter change) 
+DONE - Remove Next Button on the next feed
+DONE - Add no tweets screen
+DONE - Make margins of the two feeds equal
+DONE - Make real and fake randomly left or right feed
+    DONE - important to save which one was fake or not
+    DONE - Important for the first one
+    DONE - Second one should be fixed
+
+DONE - Save which tweets were picked on the pick page
+
+NOT DONE - Save the final LHS & final RHS
+    - For the second feed
+    - Fake or real
+
+NOT DONE - Add demographic survey page

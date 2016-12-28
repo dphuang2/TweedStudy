@@ -36,20 +36,22 @@ module SaveData
                 f.twitter_creation_date = friend.created_at
                 f.time_zone = friend.time_zone
                 f.twitter_id = friend.id
-                f.verified = compute_verified(friend)
+                f.celebrity = compute_celebrity(friend)
+                f.verified = friend.verified
                 f.post_frequency = compute_frequency(friend.created_at, friend.statuses_count)
                 f.closeness = compute_closeness(friend, index, friends.count)
             end
             index += 1
         end
 
-        shuffle_frequency
-        shuffle_verified
-        shuffle_closeness
+        # Updating fake values
+        shuffle("frequency")
+        shuffle("closeness")
+        shuffle("celebrity")
         Friend.all.each do |t| 
-          t.update(fake_verified: grab_fake_verified) if t.fake_verified == nil
-          t.update(fake_post_frequency: grab_fake_frequency) if t.fake_post_frequency == nil
-          t.update(fake_closeness: grab_fake_closeness) if t.fake_closeness == nil
+          t.update(fake_celebrity: grab_value("celebrity")) if t.fake_verified == nil
+          t.update(fake_post_frequency: grab_value("frequency")) if t.fake_post_frequency == nil
+          t.update(fake_closeness: grab_value("closeness")) if t.fake_closeness == nil
         end
 
     end
@@ -112,15 +114,17 @@ module SaveData
                     t.fake_closeness = Friend.find_by(screen_name: tweet.user.screen_name).fake_closeness
                     t.verified = Friend.find_by(screen_name: tweet.user.screen_name).verified
                     t.fake_verified = Friend.find_by(screen_name: tweet.user.screen_name).fake_verified
+                    t.celebrity = Friend.find_by(screen_name: tweet.user.screen_name).celebrity
+                    t.fake_celebrity = Friend.find_by(screen_name: tweet.user.screen_name).fake_celebrity
                 end
             end
         end
 
-        shuffle_popularity
-        shuffle_sentiment
+        shuffle("popularity")
+        shuffle("sentiment")
         Tweet.all.each do |t| 
-          t.update(fake_popularity: grab_fake_popularity) if t.fake_popularity == nil
-          t.update(fake_sentiment: grab_fake_sentiment) if t.fake_sentiment == nil
+          t.update(fake_popularity: grab_value("popularity")) if t.fake_popularity == nil
+          t.update(fake_sentiment: grab_value("sentiment")) if t.fake_sentiment == nil
         end
 
     end

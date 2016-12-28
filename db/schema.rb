@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212175635) do
+ActiveRecord::Schema.define(version: 20161228044530) do
 
   create_table "friends", force: :cascade do |t|
     t.string   "nickname"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20161212175635) do
     t.integer  "closeness"
     t.integer  "fake_closeness"
     t.integer  "fake_verified"
+    t.integer  "celebrity"
+    t.integer  "fake_celebrity"
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
@@ -51,6 +53,27 @@ ActiveRecord::Schema.define(version: 20161212175635) do
     t.datetime "updated_at",  null: false
     t.float    "twitter_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string   "twitter_id"
+    t.string   "screen_name"
+    t.integer  "sentiment_low"
+    t.integer  "closeness_low"
+    t.integer  "poster_frequency_low"
+    t.integer  "celebrity_low"
+    t.integer  "popularity_low"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "verified_low"
+    t.integer  "sentiment_high"
+    t.integer  "closeness_high"
+    t.integer  "poster_frequency_high"
+    t.integer  "celebrity_high"
+    t.integer  "popularity_high"
+    t.integer  "verified_high"
+    t.string   "real_feed_position"
+    t.string   "fake_feed_position"
   end
 
   create_table "tweets", force: :cascade do |t|
@@ -84,6 +107,8 @@ ActiveRecord::Schema.define(version: 20161212175635) do
     t.integer  "closeness"
     t.integer  "fake_closeness"
     t.string   "pick"
+    t.integer  "celebrity"
+    t.integer  "fake_celebrity"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 

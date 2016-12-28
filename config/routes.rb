@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   # Content
   get '/pick', to: 'sessions#pick'
-  get '/feed', to: 'sessions#feed'
+  get '/feed1', to: 'sessions#feed1'
+  get '/feed2', to: 'sessions#feed2'
   get '/reset', to: 'sessions#reset'
   get '/filter/:filter', to: 'sessions#filter'
 

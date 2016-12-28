@@ -1,0 +1,54 @@
+<div class="container-fluid">
+
+  <% random = rand(2) %>
+
+  <% if random == 0 %>
+    <div class="col-xs-5 left-feed">
+      <div class="real_feed">
+        <%= render $tweets %>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="fake_feed">
+        <%= render $tweets %>
+      </div>
+    </div>
+
+    <% 
+        Track.create do |t|
+          t.twitter_id = session[:twitter_id]
+          t.screen_name = $user.screen_name
+          t.real_feed_position = "left"
+          t.fake_feed_position = "right"
+        end
+     %>
+
+  <% else %>
+    <div class="col-xs-5 left-feed">
+      <div class="fake_feed">
+        <%= render $tweets %>
+      </div>
+    </div>
+    <div class="col-xs-5">
+      <div class="real_feed">
+        <%= render $tweets %>
+      </div>
+    </div>
+
+    <% 
+        Track.create do |t|
+          t.twitter_id = session[:twitter_id]
+          t.screen_name = $user.screen_name
+          t.real_feed_position = "right"
+          t.fake_feed_position = "left"
+        end
+     %>
+
+  <% end %>
+
+  <div class="col-xs-2">
+    <%= render "sessions/cpanel1" %>
+  </div>
+
+</div>
+
