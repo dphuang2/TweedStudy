@@ -3154,3 +3154,25 @@ You can enable  auto-update  with:    echo rvm_autoupdate_flag=2 >> ~/.rvmrc
   INFO [1d2f787d] Running /usr/bin/env echo "Branch master (at 35600e68a2ff6f7ebab9bcb2d7f198a13fb50a60) deployed as release 20170331194736 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log as deploy@138.197.27.67
  DEBUG [1d2f787d] Command: cd /home/deploy/TweedStudy/releases && /usr/bin/env echo "Branch master (at 35600e68a2ff6f7ebab9bcb2d7f198a13fb50a60) deployed as release 20170331194736 by dylanhuang" >> /home/deploy/TweedStudy/revisions.log
   INFO [1d2f787d] Finished in 0.073 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2017-04-05 09:27:54 -0500 cap production deploy:reset
+  INFO ---------------------------------------------------------------------------
+ DEBUG [2fb37686] Running /usr/bin/env which passenger as deploy@138.197.27.67
+ DEBUG [2fb37686] Command: /usr/bin/env which passenger
+ DEBUG [2fb37686] 	/usr/bin/passenger
+ DEBUG [2fb37686] Finished in 3.304 seconds with exit status 0 (successful).
+ DEBUG [97d879ed] Running [ -d ~/.rvm ] as deploy@138.197.27.67
+ DEBUG [97d879ed] Command: [ -d ~/.rvm ]
+ DEBUG [97d879ed] Finished in 5.013 seconds with exit status 0 (successful).
+ DEBUG [566aceca] Running ~/.rvm/bin/rvm version as deploy@138.197.27.67
+ DEBUG [566aceca] Command: ~/.rvm/bin/rvm version
+ DEBUG [566aceca] 	rvm 1.27.0 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
+ DEBUG [566aceca] Finished in 0.412 seconds with exit status 0 (successful).
+ DEBUG [663665cb] Running ~/.rvm/bin/rvm current as deploy@138.197.27.67
+ DEBUG [663665cb] Command: ~/.rvm/bin/rvm current
+ DEBUG [663665cb] 	ruby-2.3.1
+ DEBUG [663665cb] Finished in 0.377 seconds with exit status 0 (successful).
+ DEBUG [d82069d4] Running ~/.rvm/bin/rvm default do ruby --version as deploy@138.197.27.67
+ DEBUG [d82069d4] Command: ~/.rvm/bin/rvm default do ruby --version
+ DEBUG [d82069d4] 	ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-linux]
+ DEBUG [d82069d4] Finished in 0.390 seconds with exit status 0 (successful).

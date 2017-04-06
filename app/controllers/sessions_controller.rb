@@ -56,10 +56,13 @@ class SessionsController < ApplicationController
       dTweet.update(pick: params[tweet])
     end
 
+    $current_feed = 1
+
     feed_handler
   end
 
   def feed2
+    $current_feed = 2
     feed_handler
   end
 
@@ -125,6 +128,7 @@ class SessionsController < ApplicationController
       t.sentiment_high = $filters["sentiment"][1]
       t.popularity_low = $filters["popularity"][0]
       t.popularity_high = $filters["popularity"][1]
+      t.feed = $current_feed
     end
 
   end
@@ -143,7 +147,7 @@ class SessionsController < ApplicationController
       $all_friends = $user.friend.all
 
       # Get the first 100 tweets
-      $tweets = $all_tweets.order(tweet_id: :desc).limit(100)
+      $tweets = $all_tweets.order(tweet_id: :desc).limit(200)
 
       $tweets_sent = $all_tweets.order(sentiment: :asc)
       $tweets_close = $all_tweets.order(closeness: :asc)

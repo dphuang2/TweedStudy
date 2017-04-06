@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228044530) do
+ActiveRecord::Schema.define(version: 20170406200415) do
 
   create_table "friends", force: :cascade do |t|
     t.string   "nickname"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20161228044530) do
     t.integer  "verified_high"
     t.string   "real_feed_position"
     t.string   "fake_feed_position"
+    t.integer  "feed"
   end
 
   create_table "tweets", force: :cascade do |t|
