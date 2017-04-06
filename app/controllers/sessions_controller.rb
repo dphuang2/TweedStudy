@@ -76,7 +76,7 @@ class SessionsController < ApplicationController
       "popularity"=> [0,999999999]
     }
 
-    tweets = $all_tweets.order(tweet_id: :desc).limit(100)
+    tweets = $all_tweets.order(tweet_id: :desc).limit(200)
     @real_tweets = tweets
     @fake_tweets = tweets
   end
@@ -110,9 +110,9 @@ class SessionsController < ApplicationController
     @fake_tweets = $fake_out_tweets_sent & $fake_out_tweets_close & $fake_out_tweets_post & $fake_out_tweets_pop & $fake_out_tweets_celeb
 
     @real_tweets = @real_tweets.sort_by{|tweet| tweet.id}
-    @real_tweets = @real_tweets[0..99]
+    @real_tweets = @real_tweets[0..199]
     @fake_tweets = @fake_tweets.sort_by{|tweet| tweet.id}
-    @fake_tweets = @fake_tweets[0..99]
+    @fake_tweets = @fake_tweets[0..199]
 
     # For tracking every filter change
     Track.create do |t|
@@ -146,7 +146,7 @@ class SessionsController < ApplicationController
       $num_of_tweets = $all_tweets.count
       $all_friends = $user.friend.all
 
-      # Get the first 100 tweets
+      # Get the first 200 tweets
       $tweets = $all_tweets.order(tweet_id: :desc).limit(200)
 
       $tweets_sent = $all_tweets.order(sentiment: :asc)
