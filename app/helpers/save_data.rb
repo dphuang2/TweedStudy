@@ -65,7 +65,7 @@ module SaveData
                 user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
                     #debugger if tweet.media?
                     #debugger if tweet.retweeted_status.media?
-                    t.complete_json = tweet.to_json
+                    #t.complete_json = tweet.to_json
                     t.text = tweet.full_text
                     if JSON.parse(tweet.to_json).has_key? "retweeted_status" 
                         t.retweet_user_screen_name = tweet.retweeted_status.user.screen_name
