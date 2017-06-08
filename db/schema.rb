@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406200415) do
+ActiveRecord::Schema.define(version: 20170607234723) do
 
   create_table "friends", force: :cascade do |t|
     t.string   "nickname"
@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 20170406200415) do
     t.string   "retweet_user_name"
     t.string   "user_name"
     t.string   "user_url"
-    t.string   "complete_json"
     t.integer  "sentiment"
     t.integer  "fake_sentiment"
     t.float    "poster_frequency"
@@ -131,6 +130,8 @@ ActiveRecord::Schema.define(version: 20170406200415) do
     t.string   "twitter_creation_date"
     t.string   "time_zone"
     t.float    "twitter_id"
+    t.string   "real_feed_position"
+    t.string   "fake_feed_position"
   end
 
 end

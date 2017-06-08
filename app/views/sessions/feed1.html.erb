@@ -1,6 +1,22 @@
 <div class="container-fluid">
 
-  <% random = rand(2) %>
+  <%
+      curr_user = current_user
+      if !curr_user.real_feed_position?
+        random = rand(2)
+        if random == 0
+          curr_user.update(real_feed_position: "left", fake_feed_position: "right")
+        else
+          curr_user.update(real_feed_position: "right", fake_feed_position: "left")
+        end
+      else
+        if curr_user.real_feed_position == "left"
+          random = 0
+        else
+          random = 1
+        end
+      end
+    %>
 
   <% if random == 0 %>
     <div class="col-xs-5 left-feed">
