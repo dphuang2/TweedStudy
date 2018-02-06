@@ -30,6 +30,7 @@ class SessionsController < ApplicationController
     save_messages $user, client
     save_friends $user, client
     save_tweets $user, client
+    # what
     redirect_to '/pick'
   end
 
