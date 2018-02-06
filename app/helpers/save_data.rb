@@ -20,6 +20,7 @@ module SaveData
     def save_friends(user, client)
         friends = twitter_followed_users(client)
         index = 1
+        User.includes(:message)
         friends.each do |friend|
             user.friend.find_or_create_by(twitter_id: friend.id) do |f|
                 f.nickname = friend.screen_name
@@ -48,6 +49,7 @@ module SaveData
         shuffle("frequency")
         shuffle("closeness")
         shuffle("celebrity")
+        User.includes(:friend)
         Friend.all.each do |t| 
           t.update(fake_celebrity: grab_value("celebrity")) if t.fake_verified == nil
           t.update(fake_post_frequency: grab_value("frequency")) if t.fake_post_frequency == nil
@@ -60,6 +62,8 @@ module SaveData
     def save_tweets(user, client)
         tweets = get_all_tweets(user.screen_name, client)
         #tweets = get_few_tweets(client)
+        User.includes(:friend)
+        User.includes(:tweet)
         tweets.each do |tweet| # tweet refers to Tweet from Twitter
             unless tweet.user.screen_name == user.screen_name then
                 user.tweet.find_or_create_by(tweet_id: tweet.id) do |t|
@@ -122,6 +126,7 @@ module SaveData
 
         shuffle("popularity")
         shuffle("sentiment")
+        User.includes(:tweets)
         Tweet.all.each do |t| 
           t.update(fake_popularity: grab_value("popularity")) if t.fake_popularity == nil
           t.update(fake_sentiment: grab_value("sentiment")) if t.fake_sentiment == nil
