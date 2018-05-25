@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.7.0'
+lock '3.10.1'
 
 set :application, 'TweedStudy'
 set :repo_url, 'https://github.com/dphuang2/TweedStudy.git'
